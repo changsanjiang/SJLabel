@@ -87,8 +87,8 @@
     if ( 0 == _attributedText.length ) return;
     
     CGPoint point = [tap locationInView:self];
-    NSUInteger index = [_drawData touchIndexWithPoint:point];
-    if ( index != - 1) {
+    signed long index = [_drawData touchIndexWithPoint:point];
+    if ( index != kCFNotFound ) {
         [_attributedText enumerateAttribute:SJActionAttributeName inRange:NSMakeRange(0, _attributedText.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
             if ( index > range.location && index < range.location + range.length ) {
                 *stop = YES;
