@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SJLabel.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@class SJLabelHelper;
 
 @interface SJTableViewCell : UITableViewCell
 
-@property (nonatomic, strong, readonly) SJLabel *label;
++ (CGFloat)heightWithContentH:(CGFloat)contentH;
+
+@property (nonatomic, strong, nullable) SJLabelHelper *helper;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -13,20 +13,16 @@
 #import "SJCTFrameParserConfig.h"
 #import "SJCTData.h"
 #import "SJCTFrameParser.h"
+#import "SJLabelHelper.h"
+
+
+static NSString *const __TestString =  @"👌👌👌我被班主任杨老师叫到办公室，当时上课铃刚响，杨老师过来找我，我挺奇怪的，什么事啊，可以连课都不上？当时办公室里就我们两个人。杨老师拿出手机，让我看她拍的一张照片，是我们班最近一次班级活动时照的。我们仨坐在一张椅子上，我坐在中间，皱着个眉头，😁小喵托着腮帮子，小桐则靠着椅背坐着。";
 
 static NSString *SJTableViewCellID = @"SJTableViewCell";
 
 @interface SJLabelViewController ()
 
-@property (nonatomic, strong) NSString *content;
-
-@property (nonatomic, strong) SJLabel *label;
-
-@property (nonatomic, strong) UILabel *tLabel;
-
-@property (nonatomic, strong) SJCTData *drawData;
-
-@property (nonatomic, strong) NSAttributedString *attrStr;
+@property (nonatomic, strong, readonly) NSArray<SJLabelHelper *> *helpers;
 
 @end
 
@@ -36,57 +32,49 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
     [super viewDidLoad];
     
     [self.tableView registerClass:NSClassFromString(SJTableViewCellID) forCellReuseIdentifier:SJTableViewCellID];
-    self.tableView.estimatedRowHeight = 150;
+    self.tableView.estimatedRowHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
+    self.tableView.estimatedSectionHeaderHeight = 0;
     
-    _content = @"👌👌👌我被班主任杨老师叫到办公室，当时上课铃刚响，杨老师过来找我，我挺奇怪的，什么事啊，可以连课都不上？当时办公室里就我们两个人。杨老师拿出手机，让我看她拍的一张照片，是我们班最近一次班级活动时照的。我们仨坐在一张椅子上，我坐在中间，皱着个眉头，😁小喵托着腮帮子，小桐则靠着椅背坐着。";
-    
-    NSLog(@"%zd", _content.length);
-
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        __weak typeof(self) _self = self;
-
-        _attrStr = [SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull worker) {
-            worker.insertText(_content, 0);
-            worker.font([UIFont boldSystemFontOfSize:22]);
-            worker.lineSpacing(8);
-            worker
-            .insertImage([UIImage imageNamed:@"sample2"], 10, CGPointZero, CGSizeMake(20, 20))
-            .insertImage([UIImage imageNamed:@"sample2"], 15, CGPointZero, CGSizeMake(20, 20))
-            .insertImage([UIImage imageNamed:@"sample2"], 20, CGPointZero, CGSizeMake(20, 20))
-            .insertImage([UIImage imageNamed:@"sample2"], 25, CGPointZero, CGSizeMake(20, 20));
-
+        NSMutableArray<SJLabelHelper *> *helpersM = [NSMutableArray array];
+        for ( int i = 0 ; i < 200 ; i ++ ) {
             
-            worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
-                regexp.nextFontColor([UIColor yellowColor]);
-                regexp.nextUnderline(NSUnderlineStyleSingle, [UIColor yellowColor]);
+            __weak typeof(self) _self = self;
 
-                // action 1
-                regexp.nextAction(^(NSRange range, NSAttributedString * _Nonnull matched) {
-                    NSLog(@"`%@` 被点击了", matched.string);
-                });
-            });
-            
-            worker.regexp(@"杨老师", ^(SJAttributeWorker * _Nonnull regexp) {
-                regexp.nextFontColor([UIColor redColor]);
+            // create helper
+            SJLabelHelper *helper = [SJLabelHelper helperWithAttributedStr:[SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull worker) {
                 
-                // action 2
-                regexp.next(SJActionAttributeName, ^(NSRange range, NSAttributedString *str) {
-                    NSLog(@"`%@` 被点击了", str.string);
-                    __strong typeof(_self) self = _self;
-                    if ( !self ) return;
-                    UIViewController *vc = [UIViewController new];
-                    vc.title = str.string;
-                    vc.view.backgroundColor = [UIColor greenColor];
-                    [self.navigationController pushViewController:vc animated:YES];
+                // insert Text String
+                worker.insertText([__TestString substringToIndex:arc4random() % __TestString.length + 1], 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(8);
+                
+                // 匹配所有 `我们`
+                worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
+                    regexp.nextFontColor([UIColor yellowColor]);
+                    regexp.nextUnderline(NSUnderlineStyleSingle, [UIColor yellowColor]);
+                    
+                    // add action
+                    regexp.nextAction(^(NSRange range, NSAttributedString * _Nonnull matched) {
+                        NSLog(@"`%@` 被点击了", matched.string);
+                        __strong typeof(_self) self = _self;
+                        if ( !self ) return ;
+                        UIViewController *vc = [UIViewController new];
+                        vc.title = matched.string;
+                        vc.view.backgroundColor = [UIColor whiteColor];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    });
                 });
-            });
-        }];
-
-        SJCTFrameParserConfig *config = [SJCTFrameParserConfig defaultConfig];
-        config.numberOfLines = 0;
+            }] maxWidth:[UIScreen mainScreen].bounds.size.width numberOfLines:0];
+            
+            // add to container
+            [helpersM addObject:helper];
+        }
         
-        _drawData = [SJCTFrameParser parserAttributedStr:_attrStr config:config];
+        // set helpers
+        _helpers = helpersM;
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            // update UI
             [self.tableView reloadData];
         });
 
@@ -96,16 +84,17 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    if ( _attrStr ) return 99;
-    if ( _drawData ) return 99;
-    else return 0;
+    return _helpers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SJTableViewCell *cell = (SJTableViewCell *)[tableView dequeueReusableCellWithIdentifier:SJTableViewCellID forIndexPath:indexPath];
-//    cell.label.attributedText = _attrStr;
-    cell.label.drawData = _drawData;
+    cell.helper = _helpers[indexPath.row];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [SJTableViewCell heightWithContentH:_helpers[indexPath.row].drawData.height_t];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
