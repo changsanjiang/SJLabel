@@ -16,9 +16,9 @@
 
 @interface SJLabel ()
 
-@property (nonatomic, strong, readonly) SJCTFrameParserConfig *config;
-
 @property (nonatomic, strong) SJCTData *drawData;
+
+@property (nonatomic, strong, readonly) SJCTFrameParserConfig *config;
 
 @end
 
@@ -39,7 +39,7 @@
     
     self = [super initWithFrame:CGRectZero];
     if ( !self ) return nil;
-    _config = [self __defaultConfig];
+    _config = [SJCTFrameParserConfig defaultConfig];
     self.backgroundColor = [UIColor clearColor];
     self.text = text;
     self.font = font;
@@ -50,19 +50,17 @@
     return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+- (void)layoutSublayersOfLayer:(CALayer *)layer {
     if ( 0 == _preferredMaxLayoutWidth &&
-         0 != self.bounds.size.width ) {
-        _config.maxWidth = floor(self.bounds.size.width);
+         0 != layer.bounds.size.width ) {
+        _config.maxWidth = floor(layer.bounds.size.width);
     }
+    [self _considerUpdating];
     [self invalidateIntrinsicContentSize];
+    [super layoutSublayersOfLayer:layer];
 }
 
 - (CGSize)intrinsicContentSize {
-    if ( 0 == _text.length && 0 == _attributedText.length ) return CGSizeZero;
-    [self _considerUpdating];
-    if ( nil == _drawData ) return CGSizeZero;
     return CGSizeMake(_drawData.width, _drawData.height_t);
 }
 
@@ -79,7 +77,7 @@
 
 - (void)sizeToFit {
     [self _considerUpdating];
-    self.bounds = (CGRect){CGPointZero, CGSizeMake(_drawData.width, _drawData.height_t)};
+    self.bounds = (CGRect){CGPointZero, [self sizeThatFits:CGSizeZero]};
 }
 
 - (void)_setupGestures {
@@ -108,15 +106,12 @@
 #pragma mark - Private
 
 - (void)_considerUpdating {
-    if ( 0 == _text.length && 0 == _attributedText.length ) {
-        _drawData = nil;
+    if ( _text ) {
+        self.drawData = [SJCTFrameParser parserContent:_text config:_config];
     }
-    else {
-        if ( _text ) _drawData = [SJCTFrameParser parserContent:_text config:_config];
-        if ( _attributedText ) _drawData = [SJCTFrameParser parserAttributedStr:_attributedText config:_config];
-        [_drawData needsDrawing];
+    else if ( _attributedText ) {
+        self.drawData = [SJCTFrameParser parserAttributedStr:_attributedText config:_config];
     }
-    [self.layer setNeedsDisplay];
 }
 
 #pragma mark - Property
@@ -192,16 +187,20 @@
     return ceil(_drawData.height_t);
 }
 
-- (SJCTFrameParserConfig *)__defaultConfig {
-    SJCTFrameParserConfig *defaultConfig = [SJCTFrameParserConfig new];
-    defaultConfig.maxWidth = [UIScreen mainScreen].bounds.size.width;
-    defaultConfig.font = [UIFont systemFontOfSize:14];
-    defaultConfig.textColor = [UIColor blackColor];
-    defaultConfig.lineSpacing = 0;
-    defaultConfig.textAlignment = NSTextAlignmentLeft;
-    defaultConfig.numberOfLines = 1;
-    defaultConfig.lineBreakMode = NSLineBreakByTruncatingTail;
-    return defaultConfig;
++ (SJCTData *)parserContent:(NSString *)content config:(SJCTFrameParserConfig *)config {
+    return [SJCTFrameParser parserContent:content config:config];
+}
+
++ (SJCTData *)parserAttributedStr:(NSAttributedString *)content config:(SJCTFrameParserConfig *)config {
+    return [SJCTFrameParser parserAttributedStr:content config:config];
+}
+
+- (void)setDrawData:(SJCTData *)drawData {
+    if ( drawData == _drawData ) return;
+    _drawData = drawData;
+    [_drawData needsDrawing];
+    [self.layer setNeedsDisplay];
+    NSLog(@"%zd - %s", __LINE__, __func__);
 }
 
 @end

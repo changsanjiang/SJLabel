@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SJCTData, SJCTFrameParserConfig;
+
 @interface SJLabel : UIView
 
 /*!
@@ -59,6 +61,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CGFloat lineSpacing;
 
 @property (nonatomic, readonly) CGFloat height;
+
+
+#pragma mark -
++ (SJCTData *)parserContent:(NSString *)content config:(SJCTFrameParserConfig *)config;
+
++ (SJCTData *)parserAttributedStr:(NSAttributedString *)content config:(SJCTFrameParserConfig *)config;
+
+- (void)setDrawData:(SJCTData * _Nullable)drawData;
 
 @end
 

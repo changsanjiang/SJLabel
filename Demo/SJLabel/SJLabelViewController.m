@@ -10,6 +10,9 @@
 #import "SJTableViewCell.h"
 #import <Masonry.h>
 #import "SJAttributesFactoryHeader.h"
+#import "SJCTFrameParserConfig.h"
+#import "SJCTData.h"
+#import "SJCTFrameParser.h"
 
 static NSString *SJTableViewCellID = @"SJTableViewCell";
 
@@ -20,6 +23,8 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 @property (nonatomic, strong) SJLabel *label;
 
 @property (nonatomic, strong) UILabel *tLabel;
+
+@property (nonatomic, strong) SJCTData *drawData;
 
 @property (nonatomic, strong) NSAttributedString *attrStr;
 
@@ -39,7 +44,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         __weak typeof(self) _self = self;
-        
+
         _attrStr = [SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull worker) {
             worker.insertText(_content, 0);
             worker.font([UIFont boldSystemFontOfSize:22]);
@@ -77,38 +82,33 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
             });
         }];
 
+        SJCTFrameParserConfig *config = [SJCTFrameParserConfig defaultConfig];
+        config.numberOfLines = 0;
+        
+        _drawData = [SJCTFrameParser parserAttributedStr:_attrStr config:config];
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%zd", _attrStr.length);
             [self.tableView reloadData];
         });
 
     });
     
-    
     // Do any additional setup after loading the view.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ( _attrStr ) return 1;
+//    if ( _attrStr ) return 99;
+    if ( _drawData ) return 99;
     else return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SJTableViewCell *cell = (SJTableViewCell *)[tableView dequeueReusableCellWithIdentifier:SJTableViewCellID forIndexPath:indexPath];
-    cell.label.attributedText = _attrStr;
+//    cell.label.attributedText = _attrStr;
+    cell.label.drawData = _drawData;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    SJTableViewCell *cell = (SJTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-//    cell.label.numberOfLines = 0;
-//    cell.label.textAlignment = NSTextAlignmentRight;
-//    _label.numberOfLines = 3;
-//    _label.text = _content;
-
-//    [UIView animateWithDuration:0.25 animations:^{
-//       [self.view layoutIfNeeded];
-//    }];
 }
 
 @end
