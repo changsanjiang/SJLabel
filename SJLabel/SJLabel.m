@@ -86,16 +86,16 @@
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tap {
-    if ( 0 == _attributedText.length ) return;
+    if ( !_drawData ) return;
     
     CGPoint point = [tap locationInView:self];
     signed long index = [_drawData touchIndexWithPoint:point];
     if ( index != kCFNotFound ) {
-        [_attributedText enumerateAttribute:SJActionAttributeName inRange:NSMakeRange(0, _attributedText.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        [_drawData.attrStr enumerateAttribute:SJActionAttributeName inRange:NSMakeRange(0, _drawData.attrStr.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
             if ( index > range.location && index < range.location + range.length ) {
                 *stop = YES;
                 void(^block)(NSRange range, NSAttributedString *str) = value;
-                if ( block ) block(range, [_attributedText attributedSubstringFromRange:range]);
+                if ( block ) block(range, [_drawData.attrStr attributedSubstringFromRange:range]);
             }
         }];
     }

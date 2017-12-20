@@ -96,15 +96,15 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ( _attrStr ) return 99;
-//    if ( _drawData ) return 99;
+//    if ( _attrStr ) return 99;
+    if ( _drawData ) return 99;
     else return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SJTableViewCell *cell = (SJTableViewCell *)[tableView dequeueReusableCellWithIdentifier:SJTableViewCellID forIndexPath:indexPath];
-    cell.label.attributedText = _attrStr;
-//    cell.label.drawData = _drawData;
+//    cell.label.attributedText = _attrStr;
+    cell.label.drawData = _drawData;
     return cell;
 }
 
