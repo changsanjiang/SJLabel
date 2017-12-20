@@ -31,6 +31,11 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSString *st = @"1";
+    NSLog(@"%zd", st.length);
+    
+    st = @"👌";
+    NSLog(@"%zd", st.length);
     [self.tableView registerClass:NSClassFromString(SJTableViewCellID) forCellReuseIdentifier:SJTableViewCellID];
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
@@ -46,7 +51,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
             SJLabelHelper *helper = [SJLabelHelper helperWithAttributedStr:[SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull worker) {
                 
                 // insert Text String
-                worker.insertText([__TestString substringToIndex:arc4random() % __TestString.length + 1], 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(8);
+                worker.insertText([__TestString substringToIndex:arc4random() % (__TestString.length - 6/*单个emoji占两个字节(普通字符占1个字节), 由于测试字符串开头三个`👌`, `-6`防止分开`emoji`乱码.*/) + 7], 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(8);
                 
                 // 匹配所有 `我们`
                 worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
