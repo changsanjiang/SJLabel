@@ -76,8 +76,7 @@
 }
 
 - (void)sizeToFit {
-    [self _considerUpdating];
-    self.bounds = (CGRect){CGPointZero, [self sizeThatFits:CGSizeZero]};
+    self.bounds = (CGRect){CGPointZero, CGSizeMake(_drawData.width, _drawData.height)};
 }
 
 - (void)_setupGestures {
@@ -196,11 +195,11 @@
 }
 
 - (void)setDrawData:(SJCTData *)drawData {
-    if ( drawData == _drawData ) return;
-    _drawData = drawData;
-    [_drawData needsDrawing];
-    [self.layer setNeedsDisplay];
-    NSLog(@"%zd - %s", __LINE__, __func__);
+    if ( drawData != _drawData ) {
+        _drawData = drawData;
+        [_drawData needsDrawing];
+        [self.layer setNeedsDisplay];
+    }
 }
 
 @end
