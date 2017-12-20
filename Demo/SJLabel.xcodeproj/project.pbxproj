@@ -1,0 +1,485 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0FF32A442635B47A4A0F07BB /* libPods-SJLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2977A97CD715957BD340BE1D /* libPods-SJLabel.a */; };
+		77CD17831FEA192F00B2B54F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17821FEA192F00B2B54F /* AppDelegate.m */; };
+		77CD17861FEA192F00B2B54F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17851FEA192F00B2B54F /* ViewController.m */; };
+		77CD17891FEA192F00B2B54F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17871FEA192F00B2B54F /* Main.storyboard */; };
+		77CD178B1FEA192F00B2B54F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77CD178A1FEA192F00B2B54F /* Assets.xcassets */; };
+		77CD178E1FEA192F00B2B54F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77CD178C1FEA192F00B2B54F /* LaunchScreen.storyboard */; };
+		77CD17911FEA192F00B2B54F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17901FEA192F00B2B54F /* main.m */; };
+		77CD17A51FEA1AD000B2B54F /* SJTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17A11FEA1ACF00B2B54F /* SJTableViewCell.m */; };
+		77CD17A61FEA1AD000B2B54F /* SJLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17A41FEA1ACF00B2B54F /* SJLabelViewController.m */; };
+		77CD17B21FEA1AFB00B2B54F /* SJCTData.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17A91FEA1AFB00B2B54F /* SJCTData.m */; };
+		77CD17B31FEA1AFB00B2B54F /* SJCTFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */; };
+		77CD17B41FEA1AFB00B2B54F /* SJCTFrameParserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */; };
+		77CD17B51FEA1AFB00B2B54F /* SJCTImageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17AF1FEA1AFB00B2B54F /* SJCTImageData.m */; };
+		77CD17B61FEA1AFB00B2B54F /* SJLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17B11FEA1AFB00B2B54F /* SJLabel.m */; };
+		77CD17B91FEA1B4100B2B54F /* sample2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17B81FEA1B4100B2B54F /* sample2.png */; };
+		77CD17BC1FEA1FA600B2B54F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BA1FEA1FA500B2B54F /* README.md */; };
+		77CD17BD1FEA1FA600B2B54F /* SJLabel.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2977A97CD715957BD340BE1D /* libPods-SJLabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJLabel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		51C4DD5B8539AF397EEAD35D /* Pods-SJLabel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJLabel.release.xcconfig"; path = "Pods/Target Support Files/Pods-SJLabel/Pods-SJLabel.release.xcconfig"; sourceTree = "<group>"; };
+		542072D89E3C0DEF3AC3F871 /* Pods-SJLabel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJLabel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SJLabel/Pods-SJLabel.debug.xcconfig"; sourceTree = "<group>"; };
+		77CD177E1FEA192F00B2B54F /* SJLabel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJLabel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		77CD17811FEA192F00B2B54F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		77CD17821FEA192F00B2B54F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		77CD17841FEA192F00B2B54F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		77CD17851FEA192F00B2B54F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		77CD17881FEA192F00B2B54F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		77CD178A1FEA192F00B2B54F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		77CD178D1FEA192F00B2B54F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		77CD178F1FEA192F00B2B54F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77CD17901FEA192F00B2B54F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		77CD17A11FEA1ACF00B2B54F /* SJTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJTableViewCell.m; sourceTree = "<group>"; };
+		77CD17A21FEA1ACF00B2B54F /* SJTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJTableViewCell.h; sourceTree = "<group>"; };
+		77CD17A31FEA1ACF00B2B54F /* SJLabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLabelViewController.h; sourceTree = "<group>"; };
+		77CD17A41FEA1ACF00B2B54F /* SJLabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLabelViewController.m; sourceTree = "<group>"; };
+		77CD17A81FEA1AFB00B2B54F /* SJCTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCTData.h; sourceTree = "<group>"; };
+		77CD17A91FEA1AFB00B2B54F /* SJCTData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCTData.m; sourceTree = "<group>"; };
+		77CD17AA1FEA1AFB00B2B54F /* SJCTFrameParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCTFrameParser.h; sourceTree = "<group>"; };
+		77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCTFrameParser.m; sourceTree = "<group>"; };
+		77CD17AC1FEA1AFB00B2B54F /* SJCTFrameParserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCTFrameParserConfig.h; sourceTree = "<group>"; };
+		77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCTFrameParserConfig.m; sourceTree = "<group>"; };
+		77CD17AE1FEA1AFB00B2B54F /* SJCTImageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCTImageData.h; sourceTree = "<group>"; };
+		77CD17AF1FEA1AFB00B2B54F /* SJCTImageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCTImageData.m; sourceTree = "<group>"; };
+		77CD17B01FEA1AFB00B2B54F /* SJLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJLabel.h; sourceTree = "<group>"; };
+		77CD17B11FEA1AFB00B2B54F /* SJLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLabel.m; sourceTree = "<group>"; };
+		77CD17B81FEA1B4100B2B54F /* sample2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample2.png; sourceTree = "<group>"; };
+		77CD17BA1FEA1FA500B2B54F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJLabel.podspec; path = ../SJLabel.podspec; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		77CD177B1FEA192F00B2B54F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FF32A442635B47A4A0F07BB /* libPods-SJLabel.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7513CF6C9B3CB8CB2C139225 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				542072D89E3C0DEF3AC3F871 /* Pods-SJLabel.debug.xcconfig */,
+				51C4DD5B8539AF397EEAD35D /* Pods-SJLabel.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		77CD17751FEA192F00B2B54F = {
+			isa = PBXGroup;
+			children = (
+				77CD17BA1FEA1FA500B2B54F /* README.md */,
+				77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */,
+				77CD17801FEA192F00B2B54F /* SJLabel */,
+				77CD177F1FEA192F00B2B54F /* Products */,
+				7513CF6C9B3CB8CB2C139225 /* Pods */,
+				8434A572F158C100E5B5A24B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		77CD177F1FEA192F00B2B54F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77CD177E1FEA192F00B2B54F /* SJLabel.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		77CD17801FEA192F00B2B54F /* SJLabel */ = {
+			isa = PBXGroup;
+			children = (
+				77CD17811FEA192F00B2B54F /* AppDelegate.h */,
+				77CD17821FEA192F00B2B54F /* AppDelegate.m */,
+				77CD17841FEA192F00B2B54F /* ViewController.h */,
+				77CD17851FEA192F00B2B54F /* ViewController.m */,
+				77CD17A31FEA1ACF00B2B54F /* SJLabelViewController.h */,
+				77CD17A41FEA1ACF00B2B54F /* SJLabelViewController.m */,
+				77CD17A21FEA1ACF00B2B54F /* SJTableViewCell.h */,
+				77CD17A11FEA1ACF00B2B54F /* SJTableViewCell.m */,
+				77CD17A71FEA1AFB00B2B54F /* SJLabel */,
+				77CD17B71FEA1B0700B2B54F /* Asset */,
+			);
+			path = SJLabel;
+			sourceTree = "<group>";
+		};
+		77CD17A71FEA1AFB00B2B54F /* SJLabel */ = {
+			isa = PBXGroup;
+			children = (
+				77CD17A81FEA1AFB00B2B54F /* SJCTData.h */,
+				77CD17A91FEA1AFB00B2B54F /* SJCTData.m */,
+				77CD17AA1FEA1AFB00B2B54F /* SJCTFrameParser.h */,
+				77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */,
+				77CD17AC1FEA1AFB00B2B54F /* SJCTFrameParserConfig.h */,
+				77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */,
+				77CD17AE1FEA1AFB00B2B54F /* SJCTImageData.h */,
+				77CD17AF1FEA1AFB00B2B54F /* SJCTImageData.m */,
+				77CD17B01FEA1AFB00B2B54F /* SJLabel.h */,
+				77CD17B11FEA1AFB00B2B54F /* SJLabel.m */,
+			);
+			name = SJLabel;
+			path = ../../SJLabel;
+			sourceTree = "<group>";
+		};
+		77CD17B71FEA1B0700B2B54F /* Asset */ = {
+			isa = PBXGroup;
+			children = (
+				77CD17B81FEA1B4100B2B54F /* sample2.png */,
+				77CD17871FEA192F00B2B54F /* Main.storyboard */,
+				77CD178A1FEA192F00B2B54F /* Assets.xcassets */,
+				77CD178C1FEA192F00B2B54F /* LaunchScreen.storyboard */,
+				77CD178F1FEA192F00B2B54F /* Info.plist */,
+				77CD17901FEA192F00B2B54F /* main.m */,
+			);
+			name = Asset;
+			sourceTree = "<group>";
+		};
+		8434A572F158C100E5B5A24B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2977A97CD715957BD340BE1D /* libPods-SJLabel.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		77CD177D1FEA192F00B2B54F /* SJLabel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77CD17941FEA192F00B2B54F /* Build configuration list for PBXNativeTarget "SJLabel" */;
+			buildPhases = (
+				C5F9A7ECD872D374BF9D8C6A /* [CP] Check Pods Manifest.lock */,
+				77CD177A1FEA192F00B2B54F /* Sources */,
+				77CD177B1FEA192F00B2B54F /* Frameworks */,
+				77CD177C1FEA192F00B2B54F /* Resources */,
+				F6CD9CE7A088E29182728795 /* [CP] Embed Pods Frameworks */,
+				42EB08D8EF50EBCCF75163E2 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SJLabel;
+			productName = SJLabel;
+			productReference = 77CD177E1FEA192F00B2B54F /* SJLabel.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		77CD17761FEA192F00B2B54F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = SanJiang;
+				TargetAttributes = {
+					77CD177D1FEA192F00B2B54F = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 77CD17791FEA192F00B2B54F /* Build configuration list for PBXProject "SJLabel" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 77CD17751FEA192F00B2B54F;
+			productRefGroup = 77CD177F1FEA192F00B2B54F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				77CD177D1FEA192F00B2B54F /* SJLabel */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		77CD177C1FEA192F00B2B54F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77CD178E1FEA192F00B2B54F /* LaunchScreen.storyboard in Resources */,
+				77CD178B1FEA192F00B2B54F /* Assets.xcassets in Resources */,
+				77CD17BC1FEA1FA600B2B54F /* README.md in Resources */,
+				77CD17B91FEA1B4100B2B54F /* sample2.png in Resources */,
+				77CD17BD1FEA1FA600B2B54F /* SJLabel.podspec in Resources */,
+				77CD17891FEA192F00B2B54F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		42EB08D8EF50EBCCF75163E2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SJLabel/Pods-SJLabel-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5F9A7ECD872D374BF9D8C6A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SJLabel-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6CD9CE7A088E29182728795 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SJLabel/Pods-SJLabel-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		77CD177A1FEA192F00B2B54F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77CD17A51FEA1AD000B2B54F /* SJTableViewCell.m in Sources */,
+				77CD17B21FEA1AFB00B2B54F /* SJCTData.m in Sources */,
+				77CD17B31FEA1AFB00B2B54F /* SJCTFrameParser.m in Sources */,
+				77CD17B51FEA1AFB00B2B54F /* SJCTImageData.m in Sources */,
+				77CD17861FEA192F00B2B54F /* ViewController.m in Sources */,
+				77CD17B41FEA1AFB00B2B54F /* SJCTFrameParserConfig.m in Sources */,
+				77CD17911FEA192F00B2B54F /* main.m in Sources */,
+				77CD17B61FEA1AFB00B2B54F /* SJLabel.m in Sources */,
+				77CD17831FEA192F00B2B54F /* AppDelegate.m in Sources */,
+				77CD17A61FEA1AD000B2B54F /* SJLabelViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		77CD17871FEA192F00B2B54F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77CD17881FEA192F00B2B54F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		77CD178C1FEA192F00B2B54F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77CD178D1FEA192F00B2B54F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		77CD17921FEA192F00B2B54F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		77CD17931FEA192F00B2B54F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		77CD17951FEA192F00B2B54F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 542072D89E3C0DEF3AC3F871 /* Pods-SJLabel.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				INFOPLIST_FILE = SJLabel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJLabel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
+				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		77CD17961FEA192F00B2B54F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51C4DD5B8539AF397EEAD35D /* Pods-SJLabel.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SJLabel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJLabel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		77CD17791FEA192F00B2B54F /* Build configuration list for PBXProject "SJLabel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77CD17921FEA192F00B2B54F /* Debug */,
+				77CD17931FEA192F00B2B54F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		77CD17941FEA192F00B2B54F /* Build configuration list for PBXNativeTarget "SJLabel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77CD17951FEA192F00B2B54F /* Debug */,
+				77CD17961FEA192F00B2B54F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 77CD17761FEA192F00B2B54F /* Project object */;
+}

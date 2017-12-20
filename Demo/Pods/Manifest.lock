@@ -1,0 +1,15 @@
+PODS:
+  - Masonry (1.1.0)
+  - SJAttributesFactory (1.1.14)
+
+DEPENDENCIES:
+  - Masonry
+  - SJAttributesFactory
+
+SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SJAttributesFactory: 10af803585a072a7d6273b87cb12f729f15b89a6
+
+PODFILE CHECKSUM: 272d6fdb8d19b4e1ab73f940ac44d37cbe6b6992
+
+COCOAPODS: 1.4.0.rc.1
