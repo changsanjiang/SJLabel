@@ -40,6 +40,7 @@
 
 @interface SJCTData ()
 @property (nonatomic, strong, readonly) NSMutableArray<SJLineModel *> *drawingLinesM;
+@property (nonatomic, assign, readwrite) BOOL inited;
 @end
 
 @implementation SJCTData
@@ -76,7 +77,8 @@
 }
 
 - (void)needsDrawing {
-    [_drawingLinesM removeAllObjects];
+    if ( _inited ) return;
+    _inited = YES;
     NSUInteger numberOfLines = _config.numberOfLines;
     CTFrameRef frameRef = _frameRef;
     CFArrayRef linesArr = CTFrameGetLines(frameRef);

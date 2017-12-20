@@ -80,6 +80,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		778D47491FEAA1910066873F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				77CD17A81FEA1AFB00B2B54F /* SJCTData.h */,
+				77CD17A91FEA1AFB00B2B54F /* SJCTData.m */,
+				77CD17AA1FEA1AFB00B2B54F /* SJCTFrameParser.h */,
+				77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */,
+				77CD17AC1FEA1AFB00B2B54F /* SJCTFrameParserConfig.h */,
+				77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */,
+				77CD17AE1FEA1AFB00B2B54F /* SJCTImageData.h */,
+				77CD17AF1FEA1AFB00B2B54F /* SJCTImageData.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		77CD17751FEA192F00B2B54F = {
 			isa = PBXGroup;
 			children = (
@@ -120,14 +135,7 @@
 		77CD17A71FEA1AFB00B2B54F /* SJLabel */ = {
 			isa = PBXGroup;
 			children = (
-				77CD17A81FEA1AFB00B2B54F /* SJCTData.h */,
-				77CD17A91FEA1AFB00B2B54F /* SJCTData.m */,
-				77CD17AA1FEA1AFB00B2B54F /* SJCTFrameParser.h */,
-				77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */,
-				77CD17AC1FEA1AFB00B2B54F /* SJCTFrameParserConfig.h */,
-				77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */,
-				77CD17AE1FEA1AFB00B2B54F /* SJCTImageData.h */,
-				77CD17AF1FEA1AFB00B2B54F /* SJCTImageData.m */,
+				778D47491FEAA1910066873F /* Services */,
 				77CD17B01FEA1AFB00B2B54F /* SJLabel.h */,
 				77CD17B11FEA1AFB00B2B54F /* SJLabel.m */,
 			);

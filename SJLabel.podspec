@@ -91,6 +91,10 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "SJLabel/*.{h,m}"
+  s.subspec 'Services' do |ss|
+    ss.source_files = 'SJLabel/Services/*.{h,m}'
+  end
+
   #s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
