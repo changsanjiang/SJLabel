@@ -63,7 +63,7 @@
     if ( 0 == _text.length && 0 == _attributedText.length ) return CGSizeZero;
     [self _considerUpdating];
     if ( nil == _drawData ) return CGSizeZero;
-    return CGSizeMake(_config.maxWidth, _drawData.height_t);
+    return CGSizeMake(_drawData.width, _drawData.height_t);
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -75,6 +75,11 @@
         CGContextScaleCTM(context, 1.0, -1.0);
         [_drawData drawingWithContext:context];
     }
+}
+
+- (void)sizeToFit {
+    [self _considerUpdating];
+    self.bounds = (CGRect){CGPointZero, CGSizeMake(_drawData.width, _drawData.height_t)};
 }
 
 - (void)_setupGestures {

@@ -63,15 +63,16 @@ typedef NSString * NSAttributedStringKey NS_EXTENSIBLE_STRING_ENUM;
     CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attrStrM);
     
     CGFloat width = config.maxWidth;
-    CGFloat height = [self _contentHeightWithFramesetter:framesetterRef width:width];
+    CGSize size = [self _contentSizeWithFramesetter:framesetterRef width:width];
     
-    CTFrameRef frameRef = [self _createFrameRefWithFramesetter:framesetterRef constraints:CGSizeMake(width, height)];
+    CTFrameRef frameRef = [self _createFrameRefWithFramesetter:framesetterRef constraints:size];
     
     [self _findingImagesPositionWithFrameRef:frameRef imagesDataArrary:imageDataArray];
     
     SJCTData *ctdata = [SJCTData new];
+    ctdata.width = size.width;
     ctdata.frameRef = frameRef;
-    ctdata.height = height;
+    ctdata.height = size.height;
     ctdata.imageDataArray = imageDataArray;
     ctdata.attrStr = attrStr;
     ctdata.config = config;
@@ -217,10 +218,10 @@ static CGFloat widthCallback(void* ref){
     return space;
 }
 
-+ (CGFloat)_contentHeightWithFramesetter:(CTFramesetterRef)framesetter width:(CGFloat)maxWidth {
++ (CGSize)_contentSizeWithFramesetter:(CTFramesetterRef)framesetter width:(CGFloat)maxWidth {
     CGSize constraints = CGSizeMake(maxWidth, CGFLOAT_MAX);
     CGSize contentSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, constraints, NULL);
-    return ceil(contentSize.height);
+    return CGSizeMake(ceil(contentSize.width), ceil(contentSize.height));
 }
 
 @end
