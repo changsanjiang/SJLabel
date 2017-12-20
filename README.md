@@ -3,7 +3,7 @@
 ### 可匹配点击的Label:
 <img src="https://github.com/changsanjiang/SJAttributesFactory/blob/master/Demo/SJAttributesFactory/action.gif" />
 
-<img src="https://github.com/changsanjiang/SJAttributesFactory/blob/master/Demo/SJAttributesFactory/ex1.png" />
+<img src="https://github.com/changsanjiang/SJLabel/blob/master/Demo/SJLabel/ex1.png" />
 
 ### Use
 
