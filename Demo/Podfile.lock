@@ -1,15 +1,22 @@
 PODS:
   - Masonry (1.1.0)
   - SJAttributesFactory (1.1.14)
+  - SJUIFactory (0.0.8):
+    - SJAttributesFactory
+    - SJUIFactory/Category (= 0.0.8)
+  - SJUIFactory/Category (0.0.8):
+    - SJAttributesFactory
 
 DEPENDENCIES:
   - Masonry
   - SJAttributesFactory
+  - SJUIFactory
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SJAttributesFactory: 10af803585a072a7d6273b87cb12f729f15b89a6
+  SJUIFactory: d91d57830cfbf0b1385ad75f26d3a54147671a9f
 
-PODFILE CHECKSUM: 272d6fdb8d19b4e1ab73f940ac44d37cbe6b6992
+PODFILE CHECKSUM: 17ce33ff16e6ad5782afe9cae00565b62a5170c0
 
 COCOAPODS: 1.4.0.rc.1

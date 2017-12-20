@@ -10,20 +10,31 @@
 #import <Masonry.h>
 #import "SJLabel.h"
 #import "SJLabelHelper.h"
-
-
+#import "SJDemoModel.h"
+#import <SJUIFactory.h>
 
 @interface SJTableViewCell ()
 
-@property (nonatomic, strong, readonly) SJLabel *label;
+@property (nonatomic, strong, readonly) UIImageView *avatarImageView;
+@property (nonatomic, strong, readonly) SJLabel *nameLabel;
+@property (nonatomic, strong, readonly) SJLabel *timeLabel;
+@property (nonatomic, strong, readonly) SJLabel *contentLabel;
 
 @end
 
 @implementation SJTableViewCell
-@synthesize label = _label;
+
+@synthesize avatarImageView = _avatarImageView;
+@synthesize nameLabel = _nameLabel;
+@synthesize timeLabel = _timeLabel;
+@synthesize contentLabel = _contentLabel;
 
 + (CGFloat)heightWithContentH:(CGFloat)contentH {
-    return 8 + contentH;
+    return 8 + 50 + 8 + contentH + 8;
+}
+
++ (CGFloat)ContentMaxWidth {
+    return [UIScreen mainScreen].bounds.size.width - 14 * 2;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -35,23 +46,71 @@
 
 - (void)setHelper:(SJLabelHelper *)helper {
     _helper = helper;
-    [_label setDrawData:helper.drawData];
+    [_contentLabel setDrawData:helper.drawData];
+}
+
+- (void)setModel:(SJDemoModel *)model {
+    _model = model;
+    _nameLabel.text = model.name;
+    _avatarImageView.image = [UIImage imageNamed:model.avatar];
 }
 
 - (void)_cellSetupView {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    [self.contentView addSubview:self.label];
     
-    _label.backgroundColor = [UIColor colorWithRed:arc4random() % 256 / 255.0 green:arc4random() % 256 / 255.0 blue:arc4random() % 256 / 255.0 alpha:1];
-    [_label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_offset(UIEdgeInsetsMake(4, 0, 4, 0));
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [self.contentView addSubview:self.avatarImageView];
+    [self.contentView addSubview:self.nameLabel];
+    [self.contentView addSubview:self.timeLabel];
+    [self.contentView addSubview:self.contentLabel];
+    
+    [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.offset(8);
+        make.leading.offset(14);
+        make.size.offset(50);
+    }];
+    
+    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(_avatarImageView.mas_centerY);
+        make.leading.equalTo(_avatarImageView.mas_trailing).offset(10);
+    }];
+    
+    [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_nameLabel.mas_bottom);
+        make.leading.equalTo(_nameLabel);
+    }];
+    
+    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_avatarImageView.mas_bottom).offset(8);
+        make.leading.offset(14);
+        make.trailing.offset(-14);
     }];
 }
 
-- (SJLabel *)label {
-    if ( _label ) return _label;
-    _label = [[SJLabel alloc] initWithText:nil font:[UIFont systemFontOfSize:14] textColor:[UIColor whiteColor] lineSpacing:0 userInteractionEnabled:YES];
-    _label.numberOfLines = 0;
-    return _label;
+- (UIImageView *)avatarImageView {
+    if ( _avatarImageView ) return _avatarImageView;
+    _avatarImageView = [SJShapeImageViewFactory imageViewWithCornerRadius:25 imageName:@"avatar"];
+    _avatarImageView.layer.borderColor = [[UIColor redColor] colorWithAlphaComponent:0.6].CGColor;
+    _avatarImageView.layer.borderWidth = 0.6;
+    return _avatarImageView;
+}
+
+- (SJLabel *)nameLabel {
+    if ( _nameLabel ) return _nameLabel;
+    _nameLabel = [[SJLabel alloc] initWithText:@"今朝醉" font:[UIFont boldSystemFontOfSize:14] textColor:[UIColor colorWithWhite:0.2 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
+    return _nameLabel;
+}
+
+- (SJLabel *)timeLabel {
+    if ( _timeLabel ) return _timeLabel;
+    _timeLabel = [[SJLabel alloc] initWithText:@"2017/12/21" font:[UIFont systemFontOfSize:12] textColor:[UIColor colorWithWhite:0.6 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
+    return _timeLabel;
+}
+
+- (SJLabel *)contentLabel {
+    if ( _contentLabel ) return _contentLabel;
+    _contentLabel = [[SJLabel alloc] initWithText:nil font:[UIFont systemFontOfSize:14] textColor:[UIColor whiteColor] lineSpacing:0 userInteractionEnabled:YES];
+    _contentLabel.numberOfLines = 0;
+    return _contentLabel;
 }
 @end

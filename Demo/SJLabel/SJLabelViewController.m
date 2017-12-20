@@ -50,8 +50,8 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
                 
                 // 匹配所有 `我们`
                 worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
-                    regexp.nextFontColor([UIColor yellowColor]);
-                    regexp.nextUnderline(NSUnderlineStyleSingle, [UIColor yellowColor]);
+                    regexp.nextFontColor([UIColor orangeColor]);
+                    regexp.nextUnderline(NSUnderlineStyleSingle, [UIColor orangeColor]);
                     
                     // add action
                     regexp.nextAction(^(NSRange range, NSAttributedString * _Nonnull matched) {
@@ -64,7 +64,25 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
                         [self.navigationController pushViewController:vc animated:YES];
                     });
                 });
-            }] maxWidth:[UIScreen mainScreen].bounds.size.width numberOfLines:0];
+                
+                // insert
+                worker.insert(@"查看详情", -1);
+                worker.lastInserted(^(SJAttributeWorker * _Nonnull worker) {
+                    worker.nextFont([UIFont boldSystemFontOfSize:12])
+                    .nextFontColor([UIColor colorWithWhite:0.6 alpha:1])
+                    .nextUnderline(NSUnderlineStyleSingle, [UIColor colorWithWhite:0.6 alpha:1]);
+                    worker.nextAction(^(NSRange range, NSAttributedString * _Nonnull matched) {
+                        NSLog(@"`%@` 被点击了", matched.string);
+                        __strong typeof(_self) self = _self;
+                        if ( !self ) return ;
+                        UIViewController *vc = [UIViewController new];
+                        vc.title = matched.string;
+                        vc.view.backgroundColor = [UIColor whiteColor];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    });
+                });
+                
+            }] maxWidth:[SJTableViewCell ContentMaxWidth] numberOfLines:0];
             
             // add to container
             [helpersM addObject:helper];

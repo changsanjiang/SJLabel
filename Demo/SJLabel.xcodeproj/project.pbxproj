@@ -25,6 +25,8 @@
 		77CD17B91FEA1B4100B2B54F /* sample2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17B81FEA1B4100B2B54F /* sample2.png */; };
 		77CD17BC1FEA1FA600B2B54F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BA1FEA1FA500B2B54F /* README.md */; };
 		77CD17BD1FEA1FA600B2B54F /* SJLabel.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */; };
+		A6A19A0F1FEAC4A000494E66 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = A6A19A0E1FEAC4A000494E66 /* avatar.png */; };
+		A6A19A121FEAC71D00494E66 /* SJDemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A19A111FEAC71D00494E66 /* SJDemoModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,9 @@
 		77CD17B81FEA1B4100B2B54F /* sample2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample2.png; sourceTree = "<group>"; };
 		77CD17BA1FEA1FA500B2B54F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJLabel.podspec; path = ../SJLabel.podspec; sourceTree = "<group>"; };
+		A6A19A0E1FEAC4A000494E66 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
+		A6A19A101FEAC71D00494E66 /* SJDemoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJDemoModel.h; sourceTree = "<group>"; };
+		A6A19A111FEAC71D00494E66 /* SJDemoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJDemoModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +132,8 @@
 				77CD17851FEA192F00B2B54F /* ViewController.m */,
 				77CD17A31FEA1ACF00B2B54F /* SJLabelViewController.h */,
 				77CD17A41FEA1ACF00B2B54F /* SJLabelViewController.m */,
+				A6A19A101FEAC71D00494E66 /* SJDemoModel.h */,
+				A6A19A111FEAC71D00494E66 /* SJDemoModel.m */,
 				77CD17A21FEA1ACF00B2B54F /* SJTableViewCell.h */,
 				77CD17A11FEA1ACF00B2B54F /* SJTableViewCell.m */,
 				778D47541FEAB03B0066873F /* SJLabelHelper.h */,
@@ -152,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				77CD17B81FEA1B4100B2B54F /* sample2.png */,
+				A6A19A0E1FEAC4A000494E66 /* avatar.png */,
 				77CD17871FEA192F00B2B54F /* Main.storyboard */,
 				77CD178A1FEA192F00B2B54F /* Assets.xcassets */,
 				77CD178C1FEA192F00B2B54F /* LaunchScreen.storyboard */,
@@ -231,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77CD178E1FEA192F00B2B54F /* LaunchScreen.storyboard in Resources */,
+				A6A19A0F1FEAC4A000494E66 /* avatar.png in Resources */,
 				77CD178B1FEA192F00B2B54F /* Assets.xcassets in Resources */,
 				77CD17BC1FEA1FA600B2B54F /* README.md in Resources */,
 				77CD17B91FEA1B4100B2B54F /* sample2.png in Resources */,
@@ -304,6 +313,7 @@
 				77CD17861FEA192F00B2B54F /* ViewController.m in Sources */,
 				77CD17B41FEA1AFB00B2B54F /* SJCTFrameParserConfig.m in Sources */,
 				77CD17911FEA192F00B2B54F /* main.m in Sources */,
+				A6A19A121FEAC71D00494E66 /* SJDemoModel.m in Sources */,
 				778D47561FEAB03B0066873F /* SJLabelHelper.m in Sources */,
 				77CD17B61FEA1AFB00B2B54F /* SJLabel.m in Sources */,
 				77CD17831FEA192F00B2B54F /* AppDelegate.m in Sources */,
@@ -449,8 +459,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJLabel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
-				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				PROVISIONING_PROFILE = "a317fe74-1a78-4494-b955-994f23dd28be";
+				PROVISIONING_PROFILE_SPECIFIER = sanjiang17macDev;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;

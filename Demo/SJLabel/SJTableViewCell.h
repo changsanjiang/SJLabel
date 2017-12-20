@@ -10,13 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SJLabelHelper;
+@class SJLabelHelper, SJDemoModel;
 
 @interface SJTableViewCell : UITableViewCell
+
++ (CGFloat)ContentMaxWidth;
 
 + (CGFloat)heightWithContentH:(CGFloat)contentH;
 
 @property (nonatomic, strong, nullable) SJLabelHelper *helper;
+
+@property (nonatomic, strong, nullable) SJDemoModel *model;
 
 @end
 
