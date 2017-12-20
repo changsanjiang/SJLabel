@@ -11,12 +11,13 @@ pod 'SJLabel'
 
 ### Sample
 ```Objective-C
+
 _attrStr = [SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull worker) {
             worker.insertText(@"我被班主任杨老师叫到办公室，当时上课铃刚响，杨老师过来找我，我挺奇怪的，什么事啊，可以连课都不上？", 0);
             worker.font([UIFont boldSystemFontOfSize:22]);
             worker.lineSpacing(8);
             
-            worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
+            worker.regexp(@"我", ^(SJAttributeWorker * _Nonnull regexp) {
                 regexp.nextFontColor([UIColor yellowColor]);
                 regexp.nextUnderline(NSUnderlineStyleSingle, [UIColor yellowColor]);
 
@@ -26,6 +27,7 @@ _attrStr = [SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull
                 });
             });
             
+            __weak typeof(self) _self = self;
             worker.regexp(@"杨老师", ^(SJAttributeWorker * _Nonnull regexp) {
                 regexp.nextFontColor([UIColor redColor]);
                 
