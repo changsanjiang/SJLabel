@@ -9,4 +9,5 @@ target 'SJLabel' do
   pod 'Masonry'
   pod 'SJAttributesFactory'
   pod 'SJUIFactory'
+  pod 'SJVideoPlayer'
 end

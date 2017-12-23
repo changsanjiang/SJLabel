@@ -31,22 +31,18 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *st = @"1";
-    NSLog(@"%zd", st.length);
     
-    st = @"👌";
-    NSLog(@"%zd", st.length);
     [self.tableView registerClass:NSClassFromString(SJTableViewCellID) forCellReuseIdentifier:SJTableViewCellID];
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
         NSMutableArray<SJLabelHelper *> *helpersM = [NSMutableArray array];
-        for ( int i = 0 ; i < 200 ; i ++ ) {
-            
+        for ( int i = 0 ; i < 300 ; i ++ ) {
             __weak typeof(self) _self = self;
-
             // create helper
             SJLabelHelper *helper = [SJLabelHelper helperWithAttributedStr:[SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull worker) {
                 
@@ -93,10 +89,10 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
             [helpersM addObject:helper];
         }
         
-        // set helpers
-        _helpers = helpersM;
-        
         dispatch_async(dispatch_get_main_queue(), ^{
+            // set helpers
+            _helpers = helpersM;
+
             // update UI
             [self.tableView reloadData];
         });

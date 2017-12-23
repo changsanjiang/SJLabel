@@ -64,9 +64,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark -
-+ (SJCTData *)parserContent:(NSString *)content config:(SJCTFrameParserConfig *)config;
++ (SJCTData *)parserContent:(NSString *)content
+                     config:(SJCTFrameParserConfig *)config;
 
-+ (SJCTData *)parserAttributedStr:(NSAttributedString *)content config:(SJCTFrameParserConfig *)config;
++ (SJCTData *)parserAttributedStr:(NSAttributedString *)content
+                         maxWidth:(CGFloat)maxWidth
+                    numberOfLines:(NSUInteger)numberOfLines
+                      lineSpacing:(CGFloat)lineSpacing;
 
 - (void)setDrawData:(SJCTData * _Nullable)drawData;
 

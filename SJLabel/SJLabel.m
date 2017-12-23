@@ -190,7 +190,11 @@
     return [SJCTFrameParser parserContent:content config:config];
 }
 
-+ (SJCTData *)parserAttributedStr:(NSAttributedString *)content config:(SJCTFrameParserConfig *)config {
++ (SJCTData *)parserAttributedStr:(NSAttributedString *)content maxWidth:(CGFloat)maxWidth numberOfLines:(NSUInteger)numberOfLines lineSpacing:(CGFloat)lineSpacing {
+    SJCTFrameParserConfig *config = [SJCTFrameParserConfig defaultConfig];
+    config.maxWidth = maxWidth;
+    config.numberOfLines = numberOfLines;
+    config.lineSpacing = lineSpacing;
     return [SJCTFrameParser parserAttributedStr:content config:config];
 }
 
