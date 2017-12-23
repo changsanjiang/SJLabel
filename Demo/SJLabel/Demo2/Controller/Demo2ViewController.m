@@ -38,11 +38,19 @@ static NSString *const Demo2TableViewCellID = @"Demo2TableViewCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.player.disableRotation = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.player pause];
+    self.player.disableRotation = YES;
+}
+
+- (void)dealloc {
+    self.player.disableRotation = NO;
+    [self.player stop];
 }
 
 - (void)_setupViews {
