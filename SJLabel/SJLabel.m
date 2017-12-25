@@ -14,11 +14,13 @@
 #import "SJCTImageData.h"
 #import <SJAttributesFactory/SJAttributesFactoryHeader.h>
 
-@interface SJLabel ()
+@interface SJLabel ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) SJCTData *drawData;
 
 @property (nonatomic, strong, readonly) SJCTFrameParserConfig *config;
+
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
 
 @end
 
@@ -52,7 +54,7 @@
 
 - (void)layoutSublayersOfLayer:(CALayer *)layer {
     if ( 0 == _preferredMaxLayoutWidth &&
-         0 != layer.bounds.size.width ) {
+        0 != layer.bounds.size.width ) {
         _config.maxWidth = floor(layer.bounds.size.width);
     }
     [self _considerUpdating];
@@ -80,26 +82,33 @@
 }
 
 - (void)_setupGestures {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     self.userInteractionEnabled = YES;
-    [self addGestureRecognizer:tap];
+    _tap.delegate = self;
+    [self addGestureRecognizer:_tap];
 }
 
-- (void)handleTapGesture:(UITapGestureRecognizer *)tap {
-    if ( !_drawData ) return;
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ( gestureRecognizer != _tap ) return YES;
+    if ( !_drawData ) return NO;
     
-    CGPoint point = [tap locationInView:self];
+    CGPoint point = [gestureRecognizer locationInView:self];
     signed long index = [_drawData touchIndexWithPoint:point];
+    __block BOOL action = NO;
     if ( index != kCFNotFound ) {
         [_drawData.attrStr enumerateAttribute:SJActionAttributeName inRange:NSMakeRange(0, _drawData.attrStr.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
             if ( index > range.location && index < range.location + range.length ) {
                 *stop = YES;
+                action = YES;
                 void(^block)(NSRange range, NSAttributedString *str) = value;
                 if ( block ) block(range, [_drawData.attrStr attributedSubstringFromRange:range]);
             }
         }];
     }
+    return action;
 }
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tap {}
 
 
 #pragma mark - Private
@@ -208,3 +217,4 @@
 }
 
 @end
+
