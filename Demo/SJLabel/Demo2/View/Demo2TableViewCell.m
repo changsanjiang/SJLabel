@@ -7,18 +7,18 @@
 //
 
 #import "Demo2TableViewCell.h"
+#import "SJLabel.h"
+
+@interface Demo2TableViewCell ()
+
+@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) SJLabel *nameLabel;
+@property (nonatomic, strong) SJLabel *timeLabel;
+@property (nonatomic, strong) SJLabel *contentLabel;
+@property (nonatomic, strong) UIView *line;
+
+@end
 
 @implementation Demo2TableViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

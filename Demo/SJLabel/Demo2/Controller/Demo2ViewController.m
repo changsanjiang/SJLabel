@@ -53,6 +53,27 @@ static NSString *const Demo2TableViewCellID = @"Demo2TableViewCell";
     [self.player stop];
 }
 
+- (void)_settingPlayer {
+    [self.player setPlaceholder:[UIImage imageNamed:@"_placeholder"]];
+    self.player.asset = [[SJVideoPlayerAssetCarrier alloc] initWithAssetURL:[NSURL URLWithString:@"http://vod.lanwuzhe.com/d09d3a5f9ba4491fa771cd63294ad349%2F0831eae12c51428fa7aed3825c511370-5287d2089db37e62345123a1be272f8b.mp4"] beginTime:15];
+    
+    __weak typeof(self) _self = self;
+    self.player.clickedBackEvent = ^(SJVideoPlayer * _Nonnull player) {
+        __strong typeof(_self) self = _self;
+        if ( !self ) return ;
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+    
+    self.player.rotatedScreen = ^(SJVideoPlayer * _Nonnull player, BOOL isFullScreen) {
+        if ( isFullScreen ) {
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        }
+        else {
+            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+        }
+    };
+}
+
 - (void)_setupViews {
     [self.view addSubview:self.player.view];
     [self.view addSubview:self.tableView];
@@ -79,10 +100,6 @@ static NSString *const Demo2TableViewCellID = @"Demo2TableViewCell";
     cell.textLabel.text = @"禁止";
     cell.textLabel.textColor = [UIColor blackColor];
     return cell;
-}
-- (void)_settingPlayer {
-    [self.player setPlaceholder:[UIImage imageNamed:@"_placeholder"]];
-    self.player.asset = [[SJVideoPlayerAssetCarrier alloc] initWithAssetURL:[NSURL URLWithString:@"http://vod.lanwuzhe.com/d09d3a5f9ba4491fa771cd63294ad349%2F0831eae12c51428fa7aed3825c511370-5287d2089db37e62345123a1be272f8b.mp4"] beginTime:15];
 }
 - (SJVideoPlayer *)player {
     return [SJVideoPlayer sharedPlayer];
