@@ -49,6 +49,10 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
                 // insert Text String
                 worker.insertText([__TestString substringToIndex:arc4random() % (__TestString.length - 6/*单个emoji占两个字节(普通字符占1个字节), 由于测试字符串开头三个`👌`, `-6`防止分开`emoji`乱码.*/) + 7], 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(8);
                 
+                worker.insertImage([UIImage imageNamed:@"sample2"], 10, CGPointZero, CGSizeMake(30, 30));
+                worker.insertImage([UIImage imageNamed:@"sample2"], 30, CGPointZero, CGSizeMake(10, 10));
+                worker.insertImage([UIImage imageNamed:@"sample2"], 60, CGPointZero, CGSizeMake(60, 60));
+                
                 // 匹配所有 `我们`
                 worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
                     regexp.nextFontColor([UIColor orangeColor]);
@@ -117,6 +121,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%zd - %s", __LINE__, __func__);
 }
 
 @end

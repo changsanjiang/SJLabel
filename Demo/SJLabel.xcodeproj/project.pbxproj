@@ -28,6 +28,7 @@
 		77CD17B91FEA1B4100B2B54F /* sample2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17B81FEA1B4100B2B54F /* sample2.png */; };
 		77CD17BC1FEA1FA600B2B54F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BA1FEA1FA500B2B54F /* README.md */; };
 		77CD17BD1FEA1FA600B2B54F /* SJLabel.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */; };
+		77F8FB811FF10002008D1288 /* SJStringParserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F8FB801FF10002008D1288 /* SJStringParserConfig.m */; };
 		A60140F71FEACC92001ED4ED /* ex1.png in Resources */ = {isa = PBXBuildFile; fileRef = A60140F61FEACC92001ED4ED /* ex1.png */; };
 		A60140F91FEAD3CB001ED4ED /* ex2.gif in Resources */ = {isa = PBXBuildFile; fileRef = A60140F81FEAD3CB001ED4ED /* ex2.gif */; };
 		A6A19A0F1FEAC4A000494E66 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = A6A19A0E1FEAC4A000494E66 /* avatar.png */; };
@@ -72,6 +73,8 @@
 		77CD17B81FEA1B4100B2B54F /* sample2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample2.png; sourceTree = "<group>"; };
 		77CD17BA1FEA1FA500B2B54F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJLabel.podspec; path = ../SJLabel.podspec; sourceTree = "<group>"; };
+		77F8FB7F1FF10002008D1288 /* SJStringParserConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJStringParserConfig.h; sourceTree = "<group>"; };
+		77F8FB801FF10002008D1288 /* SJStringParserConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJStringParserConfig.m; sourceTree = "<group>"; };
 		A60140F61FEACC92001ED4ED /* ex1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex1.png; sourceTree = "<group>"; };
 		A60140F81FEAD3CB001ED4ED /* ex2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex2.gif; sourceTree = "<group>"; };
 		A6A19A0E1FEAC4A000494E66 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
@@ -109,6 +112,8 @@
 				77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */,
 				77CD17AC1FEA1AFB00B2B54F /* SJCTFrameParserConfig.h */,
 				77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */,
+				77F8FB7F1FF10002008D1288 /* SJStringParserConfig.h */,
+				77F8FB801FF10002008D1288 /* SJStringParserConfig.m */,
 				77CD17AE1FEA1AFB00B2B54F /* SJCTImageData.h */,
 				77CD17AF1FEA1AFB00B2B54F /* SJCTImageData.m */,
 			);
@@ -406,6 +411,7 @@
 				A6A19A121FEAC71D00494E66 /* SJDemoModel.m in Sources */,
 				778D47561FEAB03B0066873F /* SJLabelHelper.m in Sources */,
 				77CD17B61FEA1AFB00B2B54F /* SJLabel.m in Sources */,
+				77F8FB811FF10002008D1288 /* SJStringParserConfig.m in Sources */,
 				77A671A21FEE7BD600FC6EBC /* Demo2TableViewCell.m in Sources */,
 				77CD17831FEA192F00B2B54F /* AppDelegate.m in Sources */,
 				77CD17A61FEA1AD000B2B54F /* SJLabelViewController.m in Sources */,

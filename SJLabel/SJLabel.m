@@ -10,7 +10,7 @@
 #import <CoreText/CoreText.h>
 #import "SJCTData.h"
 #import "SJCTFrameParser.h"
-#import "SJCTFrameParserConfig.h"
+#import "SJStringParserConfig.h"
 #import "SJCTImageData.h"
 #import <SJAttributesFactory/SJAttributesFactoryHeader.h>
 
@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) SJCTData *drawData;
 
-@property (nonatomic, strong, readonly) SJCTFrameParserConfig *config;
+@property (nonatomic, strong, readonly) SJStringParserConfig *config;
 
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 
@@ -41,7 +41,7 @@
     
     self = [super initWithFrame:CGRectZero];
     if ( !self ) return nil;
-    _config = [SJCTFrameParserConfig defaultConfig];
+    _config = [SJStringParserConfig defaultConfig];
     self.backgroundColor = [UIColor clearColor];
     self.text = text;
     self.font = font;
@@ -96,14 +96,14 @@
     signed long index = [_drawData touchIndexWithPoint:point];
     __block BOOL action = NO;
     if ( index != kCFNotFound ) {
-        [_drawData.attrStr enumerateAttribute:SJActionAttributeName inRange:NSMakeRange(0, _drawData.attrStr.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
-            if ( index > range.location && index < range.location + range.length ) {
-                *stop = YES;
-                action = YES;
-                void(^block)(NSRange range, NSAttributedString *str) = value;
-                if ( block ) block(range, [_drawData.attrStr attributedSubstringFromRange:range]);
-            }
-        }];
+        NSRange range = NSMakeRange(0, 0);
+        NSDictionary<NSAttributedStringKey, id> *attributes = [_drawData.attrStr attributesAtIndex:index effectiveRange:&range];
+        id value = attributes[SJActionAttributeName];
+        if ( value ) {
+            void(^block)(NSRange range, NSAttributedString *str) = value;
+            action = YES;
+            block(range, [_drawData.attrStr attributedSubstringFromRange:range]);
+        }
     }
     return action;
 }
@@ -195,7 +195,7 @@
     return ceil(_drawData.height_t);
 }
 
-+ (SJCTData *)parserContent:(NSString *)content config:(SJCTFrameParserConfig *)config {
++ (SJCTData *)parserContent:(NSString *)content config:(SJStringParserConfig *)config {
     return [SJCTFrameParser parserContent:content config:config];
 }
 
@@ -204,6 +204,10 @@
     config.maxWidth = maxWidth;
     config.numberOfLines = numberOfLines;
     config.lineSpacing = lineSpacing;
+    return [SJCTFrameParser parserAttributedStr:content config:config];
+}
+
++ (SJCTData *)parserAttributedStr:(NSAttributedString *)content config:(SJCTFrameParserConfig *)config {
     return [SJCTFrameParser parserAttributedStr:content config:config];
 }
 

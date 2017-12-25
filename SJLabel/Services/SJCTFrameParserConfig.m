@@ -10,13 +10,10 @@
 
 @implementation SJCTFrameParserConfig
 
-+ (SJCTFrameParserConfig *)defaultConfig {
++ (instancetype)defaultConfig {
     SJCTFrameParserConfig *defaultConfig = [SJCTFrameParserConfig new];
     defaultConfig.maxWidth = [UIScreen mainScreen].bounds.size.width;
-    defaultConfig.font = [UIFont systemFontOfSize:14];
-    defaultConfig.textColor = [UIColor blackColor];
     defaultConfig.lineSpacing = 0;
-    defaultConfig.textAlignment = NSTextAlignmentLeft;
     defaultConfig.numberOfLines = 1;
 //    defaultConfig.lineBreakMode = NSLineBreakByTruncatingTail;
     return defaultConfig;

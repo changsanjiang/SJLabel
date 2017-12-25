@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SJCTData, SJCTFrameParserConfig;
+@class SJCTData, SJStringParserConfig, SJCTFrameParserConfig;
 
 @interface SJLabel : UIView
 
@@ -65,12 +65,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
 + (SJCTData *)parserContent:(NSString *)content
-                     config:(SJCTFrameParserConfig *)config;
+                     config:(SJStringParserConfig *)config;
 
 + (SJCTData *)parserAttributedStr:(NSAttributedString *)content
                          maxWidth:(CGFloat)maxWidth
                     numberOfLines:(NSUInteger)numberOfLines
                       lineSpacing:(CGFloat)lineSpacing;
+
++ (SJCTData *)parserAttributedStr:(NSAttributedString *)content
+                           config:(SJCTFrameParserConfig *)config;
 
 - (void)setDrawData:(SJCTData * _Nullable)drawData;
 
