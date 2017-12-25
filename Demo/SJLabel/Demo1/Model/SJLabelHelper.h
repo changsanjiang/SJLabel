@@ -13,7 +13,8 @@
 
 + (instancetype)helperWithAttributedStr:(NSAttributedString *)attributedStr
                                maxWidth:(float)maxWidth
-                          numberOfLines:(NSUInteger)numberOfLines;
+                          numberOfLines:(NSUInteger)numberOfLines
+                            lineSpacing:(CGFloat)lineSpacing;
 
 @property (nonatomic, strong, readonly) SJCTData *drawData;
 

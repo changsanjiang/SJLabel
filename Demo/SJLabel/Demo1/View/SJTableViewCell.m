@@ -109,8 +109,8 @@
 
 - (SJLabel *)contentLabel {
     if ( _contentLabel ) return _contentLabel;
-    _contentLabel = [[SJLabel alloc] initWithText:nil font:[UIFont systemFontOfSize:14] textColor:[UIColor whiteColor] lineSpacing:0 userInteractionEnabled:YES];
-    _contentLabel.numberOfLines = 0;
+    _contentLabel = [SJLabel new];
+    _contentLabel.userInteractionEnabled = YES;
     return _contentLabel;
 }
 @end

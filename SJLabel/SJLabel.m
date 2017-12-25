@@ -95,7 +95,7 @@
     CGPoint point = [gestureRecognizer locationInView:self];
     signed long index = [_drawData touchIndexWithPoint:point];
     __block BOOL action = NO;
-    if ( index != kCFNotFound ) {
+    if ( index != kCFNotFound && index < _drawData.attrStr.length ) {
         NSRange range = NSMakeRange(0, 0);
         NSDictionary<NSAttributedStringKey, id> *attributes = [_drawData.attrStr attributesAtIndex:index effectiveRange:&range];
         id value = attributes[SJActionAttributeName];

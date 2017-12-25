@@ -51,7 +51,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
                 
                 worker.insertImage([UIImage imageNamed:@"sample2"], 10, CGPointZero, CGSizeMake(30, 30));
                 worker.insertImage([UIImage imageNamed:@"sample2"], 30, CGPointZero, CGSizeMake(10, 10));
-                worker.insertImage([UIImage imageNamed:@"sample2"], 60, CGPointZero, CGSizeMake(60, 60));
+                worker.insertImage([UIImage imageNamed:@"sample2"], 60, CGPointZero, CGSizeMake(20, 20));
                 
                 // 匹配所有 `我们`
                 worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
@@ -71,10 +71,10 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
                 });
                 
                 // insert
-                worker.insert(@"查看详情", -1);
+                worker.insert(@"[活动链接]", -1);
                 worker.lastInserted(^(SJAttributeWorker * _Nonnull worker) {
-                    worker.nextFont([UIFont boldSystemFontOfSize:12])
-                    .nextFontColor([UIColor colorWithWhite:0.6 alpha:1])
+                    worker
+                    .nextFontColor([UIColor blueColor])
                     .nextUnderline(NSUnderlineStyleSingle, [UIColor colorWithWhite:0.6 alpha:1]);
                     worker.nextAction(^(NSRange range, NSAttributedString * _Nonnull matched) {
                         NSLog(@"`%@` 被点击了", matched.string);
@@ -87,7 +87,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
                     });
                 });
                 
-            }] maxWidth:[SJTableViewCell ContentMaxWidth] numberOfLines:0];
+            }] maxWidth:[SJTableViewCell ContentMaxWidth] numberOfLines:0 lineSpacing:8];
             
             // add to container
             [helpersM addObject:helper];
