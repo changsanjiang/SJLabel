@@ -70,7 +70,7 @@ static __weak UIWindow *_window;
         _window = [appDelegate valueForKey:@"window"];
     }
     UIGraphicsBeginImageContextWithOptions(_window.bounds.size, YES, 0);
-    [_window drawViewHierarchyInRect:_window.bounds afterScreenUpdates:false];
+    [_window drawViewHierarchyInRect:_window.bounds afterScreenUpdates:YES];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -384,27 +384,35 @@ static __weak UIViewController *_tmpShowViewController;
 - (void)SJ_ViewWillBeginDragging {
     [self.view endEditing:YES]; // 让键盘消失
     
+    UIWindow *window = self.view.window;
+    [window.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( ![self.view isDescendantOfView:obj] ) return ;
+        *stop = YES;
+        // Move the `screenshot` to the bottom of the `current view`.
+        [window insertSubview:self.SJ_screenshotView atIndex:idx - 1];
+    }];
+
     self.SJ_screenshotView.hidden = NO;
     
     [self SJ_findingPossibleRootScrollView].scrollEnabled = NO;
     
-    // call block
-    if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
-    
     // begin animation
     self.SJ_screenshotView.transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
+    
+    // call block
+    if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
 }
 
 - (void)SJ_ViewDidDrag:(CGFloat)offset {
     self.view.transform = CGAffineTransformMakeTranslation(offset, 0);
     
-    // call block
-    if ( self.topViewController.sj_viewDidDrag ) self.topViewController.sj_viewDidDrag(self.topViewController);
-    
     // continuous animation
     CGFloat rate = offset / self.view.frame.size.width;
     self.SJ_screenshotView.transform = CGAffineTransformMakeTranslation(SJ_Shift - SJ_Shift * rate, 0);
     [self.SJ_screenshotView setShadeAlpha:1 - rate];
+    
+    // call block
+    if ( self.topViewController.sj_viewDidDrag ) self.topViewController.sj_viewDidDrag(self.topViewController);
 }
 
 - (void)SJ_ViewDidEndDragging:(CGFloat)offset {
@@ -504,3 +512,5 @@ static __weak UIViewController *_tmpShowViewController;
 }
 
 @end
+
+

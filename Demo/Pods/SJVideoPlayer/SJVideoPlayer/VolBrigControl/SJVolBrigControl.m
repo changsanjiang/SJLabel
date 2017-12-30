@@ -28,7 +28,11 @@
     self = [super init];
     if ( !self ) return nil;
     [self brightnessView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeDidChange) name:MPMusicPlayerControllerVolumeDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(volumeDidChange)
+                                                 name:@"AVSystemController_SystemVolumeDidChangeNotification"
+                                               object:nil];
+    _volume = [MPMusicPlayerController applicationMusicPlayer].volume;
     return self;
 }
 
@@ -37,14 +41,19 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMusicPlayerControllerVolumeDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (SJVideoPlayerTipsView *)brightnessView {
     if ( !_brightnessView ) {
         _brightnessView = [SJVideoPlayerTipsView new];
         _brightnessView.titleLabel.text = @"亮度";
-        _brightnessView.normalShowImage = [SJVideoPlayerResources imageNamed:@"sj_video_player_brightness"];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            UIImage *image = [SJVideoPlayerResources imageNamed:@"sj_video_player_brightness"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _brightnessView.normalShowImage = image;
+            });
+        });
     }
     _brightnessView.value = self.brightness;
     return _brightnessView;

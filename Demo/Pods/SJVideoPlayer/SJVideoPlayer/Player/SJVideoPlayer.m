@@ -22,7 +22,7 @@
 #import "SJVolBrigControl.h"
 #import "SJTimerControl.h"
 #import "SJVideoPlayerView.h"
-#import "JDradualLoadingView.h"
+#import <SJLoadingView/SJLoadingView.h>
 #import "SJPlayerGestureControl.h"
 
 #define MoreSettingWidth (MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) * 0.382)
@@ -73,7 +73,8 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 @property (nonatomic, strong, readonly) SJVideoPlayerRegistrar *registrar;
 @property (nonatomic, strong, readonly) SJVolBrigControl *volBrigControl;
 @property (nonatomic, strong, readonly) SJPlayerGestureControl *gestureControl;
-@property (nonatomic, strong, readonly) JDradualLoadingView *loadingView;
+@property (nonatomic, strong, readonly) SJLoadingView *loadingView;
+@property (nonatomic, strong, readonly) dispatch_queue_t workQueue;
 
 
 @property (nonatomic, assign, readwrite) SJVideoPlayerPlayState state;
@@ -164,7 +165,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (void)setHideControl:(BOOL)hideControl {
-//    if ( self.isHiddenControl == hideControl ) return;
+    //    if ( self.isHiddenControl == hideControl ) return;
     objc_setAssociatedObject(self, @selector(isHiddenControl), @(hideControl), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self.timerControl reset];
     if ( hideControl ) [self _hideControlState];
@@ -292,7 +293,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (void)_hideControlState {
-
+    
     // show
     _sjShowViews(@[self.controlView.bottomProgressSlider]);
     
@@ -302,7 +303,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     // transform hidden
     self.controlView.topControlView.transform = CGAffineTransformMakeTranslation(0, -SJControlTopH);
     self.controlView.bottomControlView.transform = CGAffineTransformMakeTranslation(0, SJControlBottomH);
-
+    
     if ( self.orentation.fullScreen ) {
         if ( self.isLockedScrren ) self.hiddenLeftControlView = NO;
         else self.hiddenLeftControlView = YES;
@@ -358,8 +359,9 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     SJMoreSettingsFooterViewModel *_moreSettingFooterViewModel;
     SJVideoPlayerRegistrar *_registrar;
     SJVolBrigControl *_volBrigControl;
-    JDradualLoadingView *_loadingView;
+    SJLoadingView *_loadingView;
     SJPlayerGestureControl *_gestureControl;
+    dispatch_queue_t _workQueue;
 }
 
 + (instancetype)sharedPlayer {
@@ -381,7 +383,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     if ( error ) {
         _sjErrorLog([NSString stringWithFormat:@"%@", error.userInfo]);
     }
-
+    
     [self view];
     [self orentation];
     [self volBrig];
@@ -396,7 +398,24 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     
     [self _unknownState];
     
+    self.rate = 1;
+    
     return self;
+}
+
+- (dispatch_queue_t)workQueue {
+    if ( _workQueue ) return _workQueue;
+    _workQueue = dispatch_queue_create("com.SJVideoPlayer.workQueue", DISPATCH_QUEUE_SERIAL);
+    return _workQueue;
+}
+
+- (void)_addOperation:(void(^)(SJVideoPlayer *player))block {
+    __weak typeof(self) _self = self;
+    dispatch_async(self.workQueue, ^{
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
+        if ( block ) block(self);
+    });
 }
 
 - (SJVideoPlayerPresentView *)presentView {
@@ -411,6 +430,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
         CGFloat width = [UIScreen mainScreen].bounds.size.width * 0.4;
         CGFloat height = width * bounds.size.height / bounds.size.width;
         CGSize size = CGSizeMake(width, height);
+        _self.controlView.draggingProgressView.size = size;
         [_self.asset generatedPreviewImagesWithMaxItemSize:size completion:^(SJVideoPlayerAssetCarrier * _Nonnull asset, NSArray<SJVideoPreviewModel *> * _Nullable images, NSError * _Nullable error) {
             if ( error ) {
                 _sjErrorLog(@"Generate Preview Image Failed!");
@@ -468,15 +488,16 @@ inline static NSString *_formatWithSec(NSInteger sec) {
         make.edges.equalTo(_moreSettingView);
     }];
     
-    _loadingView = [JDradualLoadingView new];
-    _loadingView.lineWidth = 0.6;
-    _loadingView.lineColor = [UIColor whiteColor];
+    _loadingView = [SJLoadingView new];
+    [_controlView addSubview:_loadingView];
+    [_loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.offset(0);
+    }];
     
     __weak typeof(self) _self = self;
     _view.setting = ^(SJVideoPlayerSettings * _Nonnull setting) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
-        self.loadingView.lineWidth = setting.loadingLineWidth;
         self.loadingView.lineColor = setting.loadingLineColor;
     };
     
@@ -531,7 +552,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     _moreSettingFooterViewModel.initialPlayerRateValue = ^float{
         __strong typeof(_self) self = _self;
         if ( !self ) return 0;
-       return self.asset.player.rate;
+        return self.rate;
     };
     
     _moreSettingView.footerViewModel = _moreSettingFooterViewModel;
@@ -633,8 +654,8 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     _registrar.willResignActive = ^(SJVideoPlayerRegistrar * _Nonnull registrar) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
-        [self _pause];
         self.lockScreen = YES;
+        [self _pause];
     };
     
     _registrar.didBecomeActive = ^(SJVideoPlayerRegistrar * _Nonnull registrar) {
@@ -650,11 +671,11 @@ inline static NSString *_formatWithSec(NSInteger sec) {
         if ( !self.userClickedPause ) [self play];
     };
     
-//    _registrar.categoryChange = ^(SJVideoPlayerRegistrar * _Nonnull registrar) {
-//        __strong typeof(_self) self = _self;
-//        if ( !self ) return;
-//
-//    };
+    //    _registrar.categoryChange = ^(SJVideoPlayerRegistrar * _Nonnull registrar) {
+    //        __strong typeof(_self) self = _self;
+    //        if ( !self ) return;
+    //
+    //    };
     
     return _registrar;
 }
@@ -681,7 +702,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 - (void)gesturesHandleWithTargetView:(UIView *)targetView {
     
     _gestureControl = [[SJPlayerGestureControl alloc] initWithTargetView:targetView];
-
+    
     __weak typeof(self) _self = self;
     _gestureControl.triggerCondition = ^BOOL(SJPlayerGestureControl * _Nonnull control, UIGestureRecognizer *gesture) {
         __strong typeof(_self) self = _self;
@@ -689,12 +710,12 @@ inline static NSString *_formatWithSec(NSInteger sec) {
         if ( self.isLockedScrren ) return NO;
         CGPoint point = [gesture locationInView:gesture.view];
         if ( CGRectContainsPoint(self.moreSettingView.frame, point) ||
-             CGRectContainsPoint(self.moreSecondarySettingView.frame, point) ||
-             CGRectContainsPoint(self.controlView.previewView.frame, point) ) {
+            CGRectContainsPoint(self.moreSecondarySettingView.frame, point) ||
+            CGRectContainsPoint(self.controlView.previewView.frame, point) ) {
             return NO;
         }
         if ( [gesture isKindOfClass:[UIPanGestureRecognizer class]] &&
-             self.playOnCell &&
+            self.playOnCell &&
             !self.orentation.fullScreen ) return NO;
         else return YES;
     };
@@ -725,11 +746,13 @@ inline static NSString *_formatWithSec(NSInteger sec) {
             case SJVideoPlayerPlayState_Buffing:
             case SJVideoPlayerPlayState_Playing: {
                 [self pause];
+                self.userClickedPause = YES;
             }
                 break;
             case SJVideoPlayerPlayState_Pause:
             case SJVideoPlayerPlayState_PlayEnd: {
                 [self play];
+                self.userClickedPause = NO;
             }
                 break;
             case SJVideoPlayerPlayState_PlayFailed:
@@ -747,8 +770,10 @@ inline static NSString *_formatWithSec(NSInteger sec) {
                 _sjAnima(^{
                     _sjShowViews(@[self.controlView.draggingProgressView]);
                 });
-                self.controlView.draggingProgressView.progressSlider.value = self.asset.progress;
-                self.controlView.draggingProgressView.progressLabel.text = _formatWithSec(self.asset.currentTime);
+                if ( self.orentation.fullScreen ) self.controlView.draggingProgressView.hiddenProgressSlider = NO;
+                else self.controlView.draggingProgressView.hiddenProgressSlider = YES;
+                
+                self.controlView.draggingProgressView.progress = self.asset.progress;
                 self.hideControl = YES;
             }
                 break;
@@ -781,8 +806,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
         if ( !self ) return;
         switch (direction) {
             case SJPanDirection_H: {
-                self.controlView.draggingProgressView.progressSlider.value += translate.x * 0.003;
-                self.controlView.draggingProgressView.progressLabel.text =  _formatWithSec(self.asset.duration * self.controlView.draggingProgressView.progressSlider.value);
+                self.controlView.draggingProgressView.progress += translate.x * 0.003;
             }
                 break;
             case SJPanDirection_V: {
@@ -813,11 +837,14 @@ inline static NSString *_formatWithSec(NSInteger sec) {
                 _sjAnima(^{
                     _sjHiddenViews(@[_self.controlView.draggingProgressView]);
                 });
-                [_self jumpedToTime:_self.controlView.draggingProgressView.progressSlider.value * _self.asset.duration completionHandler:^(BOOL finished) {
+                [_self jumpedToTime:_self.controlView.draggingProgressView.progress * _self.asset.duration completionHandler:^(BOOL finished) {
                     __strong typeof(_self) self = _self;
                     if ( !self ) return;
                     [self play];
                 }];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    _self.controlView.draggingProgressView.hiddenProgressSlider = NO;
+                });
             }
                 break;
             case SJPanDirection_V:{
@@ -836,6 +863,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     };
 }
 
+
 #pragma mark ======================================================
 
 - (void)sliderWillBeginDragging:(SJSlider *)slider {
@@ -848,8 +876,9 @@ inline static NSString *_formatWithSec(NSInteger sec) {
                 _sjShowViews(@[self.controlView.draggingProgressView]);
             });
             [self _cancelDelayHiddenControl];
-            self.controlView.draggingProgressView.progressSlider.value = slider.value;
-            self.controlView.draggingProgressView.progressLabel.text = _formatWithSec(currentTime);
+            self.controlView.draggingProgressView.progress = slider.value;
+            if ( self.orentation.fullScreen ) self.controlView.draggingProgressView.hiddenProgressSlider = NO;
+            else self.controlView.draggingProgressView.hiddenProgressSlider = YES;
         }
             break;
             
@@ -863,9 +892,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
         case SJVideoPlaySliderTag_Progress: {
             NSInteger currentTime = slider.value * self.asset.duration;
             [self _refreshingTimeLabelWithCurrentTime:currentTime duration:self.asset.duration];
-            
-            self.controlView.draggingProgressView.progressSlider.value = slider.value;
-            self.controlView.draggingProgressView.progressLabel.text =  _formatWithSec(self.asset.duration * slider.value);
+            self.controlView.draggingProgressView.progress = slider.value;
         }
             break;
             
@@ -886,6 +913,9 @@ inline static NSString *_formatWithSec(NSInteger sec) {
                 [self _delayHiddenControl];
                 _sjAnima(^{
                     _sjHiddenViews(@[self.controlView.draggingProgressView]);
+                });
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    self.controlView.draggingProgressView.hiddenProgressSlider = NO;
                 });
             }];
         }
@@ -917,10 +947,12 @@ inline static NSString *_formatWithSec(NSInteger sec) {
             
         case SJVideoPlayControlViewTag_Play: {
             [self play];
+            self.userClickedPause = NO;
         }
             break;
         case SJVideoPlayControlViewTag_Pause: {
             [self pause];
+            self.userClickedPause = YES;
         }
             break;
         case SJVideoPlayControlViewTag_Replay: {
@@ -982,7 +1014,6 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     self.hiddenMoreSecondarySettingView = YES;
     self.controlView.bottomProgressSlider.value = 0;
     self.controlView.bottomProgressSlider.bufferProgress = 0;
-    self.rate = 1;
     if ( self.moreSettingFooterViewModel.volumeChanged ) {
         self.moreSettingFooterViewModel.volumeChanged(self.volBrigControl.volume);
     }
@@ -1040,23 +1071,14 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     [self.asset.player pause];
 }
 
-static BOOL _isLoading;
 - (void)_startLoading {
-    if ( _isLoading ) return;
-    _isLoading = YES;
-    [_controlView addSubview:_loadingView];
-    [_loadingView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.offset(0);
-        make.height.equalTo(_loadingView.superview).multipliedBy(0.2);
-        make.width.equalTo(_loadingView.mas_height);
-    }];
-    [_loadingView startAnimation];
+    if ( _loadingView.isAnimating ) return;
+    [_loadingView start];
 }
 
 - (void)_stopLoading {
-    _isLoading = NO;
-    [_loadingView stopAnimation];
-    [_loadingView removeFromSuperview];
+    if ( !_loadingView.isAnimating ) return;
+    [_loadingView stop];
 }
 
 - (void)_buffering {
@@ -1132,7 +1154,7 @@ static BOOL _isLoading;
                     break;
             }
         });
-
+        
     };
     
     asset.playTimeChanged = ^(SJVideoPlayerAssetCarrier * _Nonnull asset, NSTimeInterval currentTime, NSTimeInterval duration) {
@@ -1245,7 +1267,7 @@ static BOOL _isLoading;
 //static __weak UIView *tmpView = nil;
 //- (UIView *)_getSuperviewWithContentView:(UIView *)contentView tag:(NSInteger)tag {
 //    if ( contentView.tag == tag ) return contentView;
-//    
+//
 //    [self _searchingWithView:contentView tag:tag];
 //    UIView *target = tmpView;
 //    tmpView = nil;
@@ -1330,8 +1352,12 @@ static BOOL _isLoading;
 }
 
 - (void)settingPlayer:(void (^)(SJVideoPlayerSettings * _Nonnull))block {
-    if ( block ) block([self settings]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:SJSettingsPlayerNotification object:[self settings]];
+    [self _addOperation:^(SJVideoPlayer *player) {
+        if ( block ) block([player settings]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:SJSettingsPlayerNotification object:[player settings]];
+        });
+    }];
 }
 
 - (SJVideoPlayerSettings *)settings {
@@ -1360,9 +1386,8 @@ static BOOL _isLoading;
     setting.progress_traceHeight = 3;
     setting.more_traceColor = [UIColor greenColor];
     setting.more_trackColor = [UIColor whiteColor];
-    setting.more_traceHeight = 5;
+    setting.more_trackHeight = 5;
     setting.loadingLineColor = [UIColor whiteColor];
-    setting.loadingLineWidth = 1;
 }
 
 - (void)setPlaceholder:(UIImage *)placeholder {
@@ -1421,6 +1446,7 @@ static BOOL _isLoading;
 - (void)setRate:(float)rate {
     if ( self.rate == rate ) return;
     objc_setAssociatedObject(self, @selector(rate), @(rate), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if ( !self.asset ) return;
     self.asset.player.rate = rate;
     self.userClickedPause = NO;
     _sjAnima(^{
@@ -1461,6 +1487,10 @@ static BOOL _isLoading;
 
 @implementation SJVideoPlayer (Control)
 
+- (BOOL)userPaused {
+    return self.userClickedPause;
+}
+
 - (BOOL)play {
     if ( !self.asset ) return NO;
     self.userClickedPause = NO;
@@ -1473,7 +1503,6 @@ static BOOL _isLoading;
 
 - (BOOL)pause {
     if ( !self.asset ) return NO;
-    self.userClickedPause = YES;
     _sjAnima(^{
         [self _pauseState];
     });
@@ -1513,6 +1542,10 @@ static BOOL _isLoading;
 
 - (NSTimeInterval)currentTime {
     return self.asset.currentTime;
+}
+
+- (NSTimeInterval)totalTime {
+    return self.asset.duration;
 }
 
 - (void)stopRotation {
