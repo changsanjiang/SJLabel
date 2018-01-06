@@ -104,6 +104,7 @@
 #pragma mark - Property
 
 - (void)setText:(NSString *)text {
+    if ( [text isEqualToString:_text] ) return;
     _text = text.copy;
     [self _considerUpdating];
 }
