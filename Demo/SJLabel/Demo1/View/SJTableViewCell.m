@@ -19,6 +19,7 @@
 @property (nonatomic, strong, readonly) SJLabel *nameLabel;
 @property (nonatomic, strong, readonly) SJLabel *timeLabel;
 @property (nonatomic, strong, readonly) SJLabel *contentLabel;
+@property (nonatomic, strong, readonly) UIButton *commentBtn;
 
 @end
 
@@ -28,13 +29,14 @@
 @synthesize nameLabel = _nameLabel;
 @synthesize timeLabel = _timeLabel;
 @synthesize contentLabel = _contentLabel;
+@synthesize commentBtn = _commentBtn;
 
 + (CGFloat)heightWithContentH:(CGFloat)contentH {
-    return 8 + 50 + 8 + contentH + 8;
+    return 8 + 50 + 8 + contentH + 40 + 8;
 }
 
 + (CGFloat)ContentMaxWidth {
-    return [UIScreen mainScreen].bounds.size.width - 14 * 2;
+    return [UIScreen mainScreen].bounds.size.width - 22 * 2;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -63,6 +65,7 @@
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.contentLabel];
+    [self.contentView addSubview:self.commentBtn];
     
     [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(8);
@@ -82,8 +85,14 @@
     
     [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_avatarImageView.mas_bottom).offset(8);
-        make.leading.offset(14);
-        make.trailing.offset(-14);
+        make.leading.offset(22);
+        make.trailing.offset(-22);
+    }];
+    
+    [_commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(60);
+        make.bottom.offset(-8);
+        make.trailing.offset(0);
     }];
 }
 
@@ -113,4 +122,11 @@
     _contentLabel.userInteractionEnabled = YES;
     return _contentLabel;
 }
+
+- (UIButton *)commentBtn {
+    if ( _commentBtn ) return _commentBtn;
+    _commentBtn = [SJUIButtonFactory buttonWithImageName:@"comment"];
+    return _commentBtn;
+}
+
 @end

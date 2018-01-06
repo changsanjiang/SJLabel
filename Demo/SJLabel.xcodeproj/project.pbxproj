@@ -31,7 +31,6 @@
 		77F8FB811FF10002008D1288 /* SJStringParserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F8FB801FF10002008D1288 /* SJStringParserConfig.m */; };
 		A60140F71FEACC92001ED4ED /* ex1.png in Resources */ = {isa = PBXBuildFile; fileRef = A60140F61FEACC92001ED4ED /* ex1.png */; };
 		A60140F91FEAD3CB001ED4ED /* ex2.gif in Resources */ = {isa = PBXBuildFile; fileRef = A60140F81FEAD3CB001ED4ED /* ex2.gif */; };
-		A6A19A0F1FEAC4A000494E66 /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = A6A19A0E1FEAC4A000494E66 /* avatar.png */; };
 		A6A19A121FEAC71D00494E66 /* SJDemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A19A111FEAC71D00494E66 /* SJDemoModel.m */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +76,6 @@
 		77F8FB801FF10002008D1288 /* SJStringParserConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJStringParserConfig.m; sourceTree = "<group>"; };
 		A60140F61FEACC92001ED4ED /* ex1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex1.png; sourceTree = "<group>"; };
 		A60140F81FEAD3CB001ED4ED /* ex2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex2.gif; sourceTree = "<group>"; };
-		A6A19A0E1FEAC4A000494E66 /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
 		A6A19A101FEAC71D00494E66 /* SJDemoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJDemoModel.h; sourceTree = "<group>"; };
 		A6A19A111FEAC71D00494E66 /* SJDemoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJDemoModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -247,7 +245,6 @@
 				A60140F61FEACC92001ED4ED /* ex1.png */,
 				A60140F81FEAD3CB001ED4ED /* ex2.gif */,
 				77CD17B81FEA1B4100B2B54F /* sample2.png */,
-				A6A19A0E1FEAC4A000494E66 /* avatar.png */,
 				77CD17871FEA192F00B2B54F /* Main.storyboard */,
 				77CD178A1FEA192F00B2B54F /* Assets.xcassets */,
 				77CD178C1FEA192F00B2B54F /* LaunchScreen.storyboard */,
@@ -328,7 +325,6 @@
 			files = (
 				A60140F71FEACC92001ED4ED /* ex1.png in Resources */,
 				77CD178E1FEA192F00B2B54F /* LaunchScreen.storyboard in Resources */,
-				A6A19A0F1FEAC4A000494E66 /* avatar.png in Resources */,
 				77A671A41FEE81FC00FC6EBC /* _placeholder.png in Resources */,
 				A60140F91FEAD3CB001ED4ED /* ex2.gif in Resources */,
 				77CD178B1FEA192F00B2B54F /* Assets.xcassets in Resources */,
@@ -556,8 +552,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJLabel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
-				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				PROVISIONING_PROFILE = "a317fe74-1a78-4494-b955-994f23dd28be";
+				PROVISIONING_PROFILE_SPECIFIER = sanjiang17macDev;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;

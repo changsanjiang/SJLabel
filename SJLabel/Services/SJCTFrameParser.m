@@ -97,6 +97,7 @@ typedef NSString * NSAttributedStringKey NS_EXTENSIBLE_STRING_ENUM;
     ctdata.imageDataArray = imageDataArray;
     ctdata.attrStr = attrStr;
     ctdata.config = config;
+    [ctdata needsDrawing];
     CFRelease(frameRef);
     CFRelease(framesetterRef);
     return ctdata;

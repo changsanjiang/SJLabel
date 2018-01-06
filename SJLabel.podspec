@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SJLabel"
-  s.version      = "1.1.1"
+  s.version      = "1.1.2"
   s.summary      = "A Text Label."
 
   # This description is used to generate tags and improve search results.

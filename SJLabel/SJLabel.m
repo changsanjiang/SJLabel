@@ -206,7 +206,7 @@
 - (void)setDrawData:(SJCTData *)drawData {
     if ( drawData != _drawData ) {
         _drawData = drawData;
-        [self invalidateIntrinsicContentSize];
+        if ( _drawData.height_t != drawData.height_t ) [self invalidateIntrinsicContentSize];
         [_drawData needsDrawing];
         [self.layer setNeedsDisplay];
     }
