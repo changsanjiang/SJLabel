@@ -49,6 +49,7 @@
     self.textColor = textColor;
     self.lineSpacing = lineSpacing;
     self.userInteractionEnabled = userInteractionEnabled;
+    self.contentMode = UIViewContentModeScaleAspectFit;
     return self;
 }
 
@@ -187,6 +188,20 @@
     return [SJCTFrameParser parserAttributedStr:content config:config];
 }
 
+#pragma mark - Private
+
+- (void)_considerUpdating {
+    if ( _drawData ) {
+        return;
+    }
+    else if ( _attributedText ) {
+        self.attrTextDrawData = [SJCTFrameParser parserAttributedStr:_attributedText config:_config];
+    }
+    else if ( _text ) {
+        self.textDrawData = [SJCTFrameParser parserContent:_text config:_config];
+    }
+}
+
 - (void)setTextDrawData:(SJCTData *)textDrawData {
     if ( textDrawData == _textDrawData ) return;
     _textDrawData = textDrawData;
@@ -203,20 +218,6 @@
     if ( drawData == _drawData ) return;
     _drawData = drawData;
     [self _setContentsWithDrawData:drawData];
-}
-
-#pragma mark - Private
-
-- (void)_considerUpdating {
-    if ( _drawData ) {
-        return;
-    }
-    else if ( _attributedText ) {
-        self.attrTextDrawData = [SJCTFrameParser parserAttributedStr:_attributedText config:_config];
-    }
-    else if ( _text ) {
-        self.textDrawData = [SJCTFrameParser parserContent:_text config:_config];
-    }
 }
 
 - (void)_setContentsWithDrawData:(SJCTData *)drawData {

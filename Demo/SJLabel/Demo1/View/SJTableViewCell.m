@@ -120,7 +120,7 @@
     if ( _contentLabel ) return _contentLabel;
     _contentLabel = [SJLabel new];
     _contentLabel.userInteractionEnabled = YES;
-    _contentLabel.text = @"测试测试测";
+    _contentLabel.text = @"测试测试测测试测试测测试测试测测试测试测测试测试测测试测试测";
     return _contentLabel;
 }
 
