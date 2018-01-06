@@ -160,6 +160,7 @@
         [_drawingLinesM enumerateObjectsUsingBlock:^(SJLineModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             height += obj.height + _config.lineSpacing;
         }];
+        height -= _config.lineSpacing;
         _height_t = ceil(height);
         
         CGFloat offset = _height - _height_t;
