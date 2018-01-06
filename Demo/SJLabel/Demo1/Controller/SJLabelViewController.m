@@ -14,10 +14,9 @@
 #import "SJCTData.h"
 #import "SJCTFrameParser.h"
 #import "SJLabelHelper.h"
+#import <SJUIFactory/SJUIFactory.h>
 
-
-static NSString *const __TestString =  @"👌👌👌我被班主任杨老师叫到办公室，当时上课铃刚响，杨老师过来找我，我挺奇怪的，什么事啊，可以连课都不上？当时办公室里就我们两个人。杨老师拿出手机，让我看她拍的一张照片，是我们班最近一次班级活动时照的。我们仨坐在一张椅子上，我坐在中间，皱着个眉头，😁小喵托着腮帮子，小桐则靠着椅背坐着。";
-//static NSString *const __TestString =  @"😞😡🤬🤬😨😛😨😰😰😞🤯🤯🤯🤯😥😔😞😞😥🤨😱😋😱😰😭🤫😢😑😐😐😑🤬😣😔😡😡😡🧐😨😞😰😞😥😥😥😣😥😣😭😓😤😓🤫😭☹️🤫🤭🤔😒🤔🤨🤔😨😰☹️😣😥😥😞😡🤬🤬😨😛😨😰😰😞🤯🤯🤯🤯😥😔😞😞😥🤨😱😋😱😰😭🤫😢😑😐😐😑🤬😣😔😡😡😡🧐😨😞😰😞😥😣😥😣😭😓😤😓🤫😭☹️🤫🤭🤔😒🤔🤔🤔🤨🤔😨😰☹️😣😥😥😞😡🤬🤬😨😛😨😰😰😞🤯🤯🤯🤯😥😔😞😞😥🤨😱😋😱😰😭🤫😢😑😐😐😑🤬😣😔😡😡😡🧐😨😞😰😞😥😥😥😣😥😣😭😓😤😓🤫😭☹️🤫🤭🤔😒🤔🤨🤔😨😰☹️😣😥😥😞😡🤬🤬😨😛😨😰😰😞🤯🤯🤯🤯😥😔😞😞😥🤨😱😋😱😰😭🤫😢😑😐😐😑🤬😣😔😡😡😡🧐😨😞😰😞😥😥😥😣😥😣😭😓😤😓🤫😭☹️🤫🤭🤔😒🤔🤨🤔😨😰☹️😣😥😥";
+static NSString *const __TestString =  @"我被班主任杨老师叫到办公室，当时上课铃刚响，杨老师过来找我，我挺奇怪的，什么事啊，可以连课都不上？当时办公室里就我们两个人。杨老师拿出手机，让我看她拍的一张照片，是我们班最近一次班级活动时照的。我们仨坐在一张椅子上，我坐在中间，皱着个眉头，小喵托着腮帮子，小桐则靠着椅背坐着。";
 
 static NSString *SJTableViewCellID = @"SJTableViewCell";
 
@@ -38,41 +37,27 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     
-    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
         NSMutableArray<SJLabelHelper *> *helpersM = [NSMutableArray array];
-        for ( int i = 0 ; i < 300 ; i ++ ) {
+        for ( int i = 0 ; i < 99 ; i ++ ) {
             __weak typeof(self) _self = self;
             // create helper
             SJLabelHelper *helper = [SJLabelHelper helperWithAttributedStr:[SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull worker) {
                 
-                // insert Text String
-//                worker.insertText([__TestString substringToIndex:arc4random() % (__TestString.length - 6/*单个emoji占两个字节(普通字符占1个字节), 由于测试字符串开头三个`👌`, `-6`防止分开`emoji`乱码.*/) + 7], 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(8);
-                worker.insertText(__TestString, 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(8);
+//                 insert Text String
+                worker.insertText([__TestString substringToIndex:arc4random() % __TestString.length], 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(8);
 
 //                worker.insertImage([UIImage imageNamed:@"sample2"], 10, CGPointZero, CGSizeMake(30, 30));
 //                worker.insertImage([UIImage imageNamed:@"sample2"], 30, CGPointZero, CGSizeMake(10, 10));
 //                worker.insertImage([UIImage imageNamed:@"sample2"], 60, CGPointZero, CGSizeMake(20, 20));
-                
-                worker.regexp(@"🤔", ^(SJAttributeWorker * _Nonnull regexp) {
-                    regexp.nextBackgroundColor([UIColor lightGrayColor]);
-                    regexp.nextAction(^(NSRange range, NSAttributedString * _Nonnull matched) {
-                        NSLog(@"`%@` 被点击了", matched.string);
-                        __strong typeof(_self) self = _self;
-                        if ( !self ) return ;
-                        UIViewController *vc = [UIViewController new];
-                        vc.title = matched.string;
-                        vc.view.backgroundColor = [UIColor whiteColor];
-                        [self.navigationController pushViewController:vc animated:YES];
-                    });
-                });
+//                worker.insertImage([UIImage imageNamed:@"sample2"], 70, CGPointZero, CGSizeMake(35, 35));
                 
                 // 匹配所有 `我们`
                 worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
                     regexp.nextFontColor([UIColor orangeColor]);
                     regexp.nextUnderline(NSUnderlineStyleSingle, [UIColor orangeColor]);
-                    
+
                     // add action
                     regexp.nextAction(^(NSRange range, NSAttributedString * _Nonnull matched) {
                         NSLog(@"`%@` 被点击了", matched.string);
@@ -117,6 +102,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
         });
 
     });
+    
     
     // Do any additional setup after loading the view.
 }
