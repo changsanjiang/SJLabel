@@ -7,19 +7,18 @@
 //
 
 #import "SJVideoPlayer.h"
-#import "SJVideoPlayerAssetCarrier.h"
+#import <SJVideoPlayerAssetCarrier/SJVideoPlayerAssetCarrier.h>
 #import <Masonry/Masonry.h>
 #import "SJVideoPlayerPresentView.h"
 #import "SJVideoPlayerControlView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <objc/message.h>
 #import "SJVideoPlayerResources.h"
-#import <MediaPlayer/MPVolumeView.h>
 #import "SJVideoPlayerMoreSettingsView.h"
 #import "SJVideoPlayerMoreSettingSecondaryView.h"
 #import <SJOrentationObserver/SJOrentationObserver.h>
 #import "SJVideoPlayerRegistrar.h"
-#import "SJVolBrigControl.h"
+#import <SJVolBrigControl/SJVolBrigControl.h>
 #import "SJTimerControl.h"
 #import "SJVideoPlayerView.h"
 #import <SJLoadingView/SJLoadingView.h>
@@ -82,6 +81,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 @property (nonatomic, assign, readwrite) BOOL hiddenMoreSecondarySettingView;
 @property (nonatomic, assign, readwrite) BOOL hiddenLeftControlView;
 @property (nonatomic, assign, readwrite) BOOL userClickedPause;
+@property (nonatomic, assign, readwrite) BOOL suspend; // Set it when the [`pause` + `play` + `stop`] is called.
 @property (nonatomic, assign, readwrite) BOOL playOnCell;
 @property (nonatomic, assign, readwrite) BOOL scrollIn;
 @property (nonatomic, strong, readwrite) NSError *error;
@@ -180,9 +180,6 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (void)_unknownState {
-    // show
-    _sjShowViews(@[self.presentView.placeholderImageView,]);
-    
     // hidden
     _sjHiddenViews(@[self.controlView]);
     
@@ -191,8 +188,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 
 - (void)_prepareState {
     // show
-    _sjShowViews(@[self.controlView,
-                   self.presentView.placeholderImageView]);
+    _sjShowViews(@[self.controlView]);
     
     // hidden
     self.controlView.previewView.hidden = YES;
@@ -229,7 +225,6 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     
     // hidden
     _sjHiddenViews(@[
-                     self.presentView.placeholderImageView,
                      self.controlView.bottomControlView.playBtn,
                      self.controlView.centerControlView.replayBtn,
                      ]);
@@ -373,6 +368,10 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     return _instance;
 }
 
++ (instancetype)player {
+    return [[self alloc] init];
+}
+
 #pragma mark
 
 - (instancetype)init {
@@ -423,10 +422,10 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     _presentView = [SJVideoPlayerPresentView new];
     _presentView.clipsToBounds = YES;
     __weak typeof(self) _self = self;
-    _presentView.readyForDisplay = ^(SJVideoPlayerPresentView * _Nonnull view) {
+    _presentView.readyForDisplay = ^(SJVideoPlayerPresentView * _Nonnull view, CGRect videoRect) {
         if ( _self.asset.hasBeenGeneratedPreviewImages ) { return ; }
         if ( !_self.generatePreviewImages ) return;
-        CGRect bounds = view.avLayer.videoRect;
+        CGRect bounds = videoRect;
         CGFloat width = [UIScreen mainScreen].bounds.size.width * 0.4;
         CGFloat height = width * bounds.size.height / bounds.size.width;
         CGSize size = CGSizeMake(width, height);
@@ -1034,17 +1033,8 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     _sjAnima(^{
         self.hideControl = NO;
     });
-    if ( 0 != self.asset.beginTime && !self.asset.jumped ) {
-        __weak typeof(self) _self = self;
-        [self jumpedToTime:self.asset.beginTime completionHandler:^(BOOL finished) {
-            __strong typeof(_self) self = _self;
-            if ( !self ) return;
-            self.asset.jumped = YES;
-            if ( self.autoplay ) [self play];
-        }];
-    }
-    else {
-        if ( self.autoplay && !self.userClickedPause ) [self play];
+    if ( self.autoplay && !self.userClickedPause && !self.suspend ) {
+        [self play];
     }
 }
 
@@ -1099,6 +1089,12 @@ inline static NSString *_formatWithSec(NSInteger sec) {
     });
 }
 
+- (void)setState:(SJVideoPlayerPlayState)state {
+    if ( state == _state ) return;
+    _state = state;
+    self.presentView.state = state;
+}
+
 @end
 
 
@@ -1127,7 +1123,6 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (void)setAsset:(SJVideoPlayerAssetCarrier *)asset {
-    [self stop];
     objc_setAssociatedObject(self, @selector(asset), asset, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if ( !asset ) return;
     _presentView.asset = asset;
@@ -1391,7 +1386,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (void)setPlaceholder:(UIImage *)placeholder {
-    self.presentView.placeholderImageView.image = placeholder;
+    self.presentView.placeholder = placeholder;
 }
 
 - (void)setAutoplay:(BOOL)autoplay {
@@ -1431,15 +1426,6 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (void (^)(SJVideoPlayer * _Nonnull, BOOL))rotatedScreen {
-    return objc_getAssociatedObject(self, _cmd);
-}
-
-- (void)setVideoGravity:(AVLayerVideoGravity)videoGravity {
-    objc_setAssociatedObject(self, @selector(videoGravity), videoGravity, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    _presentView.videoGravity = videoGravity;
-}
-
-- (AVLayerVideoGravity)videoGravity {
     return objc_getAssociatedObject(self, _cmd);
 }
 
@@ -1492,6 +1478,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (BOOL)play {
+    self.suspend = NO;
     if ( !self.asset ) return NO;
     self.userClickedPause = NO;
     _sjAnima(^{
@@ -1502,6 +1489,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (BOOL)pause {
+    self.suspend = YES; 
     if ( !self.asset ) return NO;
     _sjAnima(^{
         [self _pauseState];
@@ -1512,15 +1500,16 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 }
 
 - (void)stop {
+    self.suspend = NO;
+    if ( !self.asset ) return;
     _sjAnima(^{
         [self _unknownState];
     });
-    if ( !self.asset ) return;
-    [self _pause];
     [self _clearAsset];
 }
 
 - (void)jumpedToTime:(NSTimeInterval)time completionHandler:(void (^ __nullable)(BOOL finished))completionHandler {
+    if ( isnan(time) ) { return;}
     CMTime seekTime = CMTimeMakeWithSeconds(time, NSEC_PER_SEC);
     [self seekToTime:seekTime completionHandler:completionHandler];
 }
@@ -1528,7 +1517,7 @@ inline static NSString *_formatWithSec(NSInteger sec) {
 - (void)seekToTime:(CMTime)time completionHandler:(void (^ __nullable)(BOOL finished))completionHandler {
     [self _startLoading];
     __weak typeof(self) _self = self;
-    [self.asset.playerItem seekToTime:time completionHandler:^(BOOL finished) {
+    [self.asset seekToTime:time completionHandler:^(BOOL finished) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
         [self _stopLoading];

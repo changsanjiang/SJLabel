@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "39375B67CCACCF95812D7EF579B9194A"
+               BlueprintIdentifier = "5C0AFF1AF861F44F22BEBB6F73C2A41B"
                BuildableName = "libSJSlider.a"
                BlueprintName = "SJSlider"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "39375B67CCACCF95812D7EF579B9194A"
+            BlueprintIdentifier = "5C0AFF1AF861F44F22BEBB6F73C2A41B"
             BuildableName = "libSJSlider.a"
             BlueprintName = "SJSlider"
             ReferencedContainer = "container:Pods.xcodeproj">

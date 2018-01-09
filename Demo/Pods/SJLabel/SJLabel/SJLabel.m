@@ -16,11 +16,12 @@
 
 @interface SJLabel ()<UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) SJCTData *drawData;
-
 @property (nonatomic, strong, readonly) SJStringParserConfig *config;
 
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
+
+@property (nonatomic, strong) SJCTData *textDrawData;
+@property (nonatomic, strong) SJCTData *attrTextDrawData;
 
 @end
 
@@ -47,33 +48,51 @@
     self.font = font;
     self.textColor = textColor;
     self.lineSpacing = lineSpacing;
-    [self _setupGestures];
     self.userInteractionEnabled = userInteractionEnabled;
     return self;
 }
 
-- (void)layoutSublayersOfLayer:(CALayer *)layer {
+- (void)layoutSubviews {
+    [super layoutSubviews];
     if ( 0 == _preferredMaxLayoutWidth &&
-        0 != layer.bounds.size.width ) {
-        _config.maxWidth = floor(layer.bounds.size.width);
+         0 != self.bounds.size.width ) {
+        _config.maxWidth = floor(self.bounds.size.width);
     }
     [self _considerUpdating];
-    [self invalidateIntrinsicContentSize];
-    [super layoutSublayersOfLayer:layer];
 }
 
 - (CGSize)intrinsicContentSize {
-    return CGSizeMake(_drawData.width, _drawData.height_t);
+    if ( _drawData ) {
+        return CGSizeMake(_drawData.width, _drawData.height_t);
+    }
+    else if ( _attributedText ) {
+        return CGSizeMake(_attrTextDrawData.width, _attrTextDrawData.height_t);
+    }
+    else if ( _text ) {
+        return CGSizeMake(_textDrawData.width, _textDrawData.height_t);
+    }
+    return CGSizeZero;
 }
 
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    __block BOOL action = NO;
     if ( _drawData ) {
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSetTextMatrix(context, CGAffineTransformIdentity);
-        CGContextTranslateCTM(context, 0, _drawData.height_t);
-        CGContextScaleCTM(context, 1.0, -1.0);
-        [_drawData drawingWithContext:context];
+        CGPoint point = [touches.anyObject locationInView:self];
+        signed long index = [_drawData touchIndexWithPoint:point];
+        if ( index != kCFNotFound && index < _drawData.attrStr.length ) {
+            NSRange range = NSMakeRange(0, 0);
+            NSDictionary<NSAttributedStringKey, id> *attributes = [_drawData.attrStr attributesAtIndex:index effectiveRange:&range];
+            id value = attributes[SJActionAttributeName];
+            if ( value ) {
+                void(^block)(NSRange range, NSAttributedString *str) = value;
+                action = YES;
+                block(range, [_drawData.attrStr attributedSubstringFromRange:range]);
+            }
+        }
+    }
+    
+    if ( !action ) {
+        [super touchesBegan:touches withEvent:event];
     }
 }
 
@@ -81,58 +100,15 @@
     self.bounds = (CGRect){CGPointZero, CGSizeMake(_drawData.width, _drawData.height)};
 }
 
-- (void)_setupGestures {
-    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    self.userInteractionEnabled = YES;
-    _tap.delegate = self;
-    [self addGestureRecognizer:_tap];
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if ( gestureRecognizer != _tap ) return YES;
-    if ( !_drawData ) return NO;
-    
-    CGPoint point = [gestureRecognizer locationInView:self];
-    signed long index = [_drawData touchIndexWithPoint:point];
-    __block BOOL action = NO;
-    if ( index != kCFNotFound && index < _drawData.attrStr.length ) {
-        NSRange range = NSMakeRange(0, 0);
-        NSDictionary<NSAttributedStringKey, id> *attributes = [_drawData.attrStr attributesAtIndex:index effectiveRange:&range];
-        id value = attributes[SJActionAttributeName];
-        if ( value ) {
-            void(^block)(NSRange range, NSAttributedString *str) = value;
-            action = YES;
-            block(range, [_drawData.attrStr attributedSubstringFromRange:range]);
-        }
-    }
-    return action;
-}
-
-- (void)handleTapGesture:(UITapGestureRecognizer *)tap {}
-
-
-#pragma mark - Private
-
-- (void)_considerUpdating {
-    if ( _text ) {
-        self.drawData = [SJCTFrameParser parserContent:_text config:_config];
-    }
-    else if ( _attributedText ) {
-        self.drawData = [SJCTFrameParser parserAttributedStr:_attributedText config:_config];
-    }
-}
-
 #pragma mark - Property
 
 - (void)setText:(NSString *)text {
     _text = text.copy;
-    _attributedText = nil;
     [self _considerUpdating];
 }
 
 - (void)setAttributedText:(NSAttributedString *)attributedText {
     _attributedText = attributedText.copy;
-    _text = nil;
     [self _considerUpdating];
 }
 
@@ -211,14 +187,41 @@
     return [SJCTFrameParser parserAttributedStr:content config:config];
 }
 
+- (void)setTextDrawData:(SJCTData *)textDrawData {
+    if ( textDrawData == _textDrawData ) return;
+    _textDrawData = textDrawData;
+    [self _setContentsWithDrawData:textDrawData];
+}
+
+- (void)setAttrTextDrawData:(SJCTData *)attrTextDrawData {
+    if ( attrTextDrawData == _attrTextDrawData ) return;
+    _attrTextDrawData = attrTextDrawData;
+    [self _setContentsWithDrawData:attrTextDrawData];
+}
+
 - (void)setDrawData:(SJCTData *)drawData {
-    if ( drawData != _drawData ) {
-        _drawData = drawData;
-        [self invalidateIntrinsicContentSize];
-        [_drawData needsDrawing];
-        [self.layer setNeedsDisplay];
+    if ( drawData == _drawData ) return;
+    _drawData = drawData;
+    [self _setContentsWithDrawData:drawData];
+}
+
+#pragma mark - Private
+
+- (void)_considerUpdating {
+    if ( _drawData ) {
+        return;
+    }
+    else if ( _attributedText ) {
+        self.attrTextDrawData = [SJCTFrameParser parserAttributedStr:_attributedText config:_config];
+    }
+    else if ( _text ) {
+        self.textDrawData = [SJCTFrameParser parserContent:_text config:_config];
     }
 }
 
-@end
+- (void)_setContentsWithDrawData:(SJCTData *)drawData {
+    [self invalidateIntrinsicContentSize];
+    self.layer.contents = drawData.contents;
+}
 
+@end

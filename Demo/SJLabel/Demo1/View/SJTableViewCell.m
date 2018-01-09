@@ -46,9 +46,12 @@
     return self;
 }
 
+static NSString *__TextName = @"大方无隅；大器免成；大音希声；大象无形。";
+
 - (void)setHelper:(SJLabelHelper *)helper {
     _helper = helper;
     [_contentLabel setDrawData:helper.drawData];
+    _nameLabel.text = [__TextName substringToIndex:arc4random() % __TextName.length + 1];
 }
 
 - (void)setModel:(SJDemoModel *)model {
@@ -107,12 +110,13 @@
 - (SJLabel *)nameLabel {
     if ( _nameLabel ) return _nameLabel;
     _nameLabel = [[SJLabel alloc] initWithText:@"今朝醉" font:[UIFont boldSystemFontOfSize:14] textColor:[UIColor colorWithWhite:0.2 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
+    _nameLabel.preferredMaxLayoutWidth = SJScreen_W() - 22 - 50 - 14 - 22;
     return _nameLabel;
 }
 
 - (SJLabel *)timeLabel {
     if ( _timeLabel ) return _timeLabel;
-    _timeLabel = [[SJLabel alloc] initWithText:@"2017/12/21" font:[UIFont systemFontOfSize:12] textColor:[UIColor colorWithWhite:0.6 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
+    _timeLabel = [[SJLabel alloc] initWithText:@"2017/12/21" font:[UIFont systemFontOfSize:14] textColor:[UIColor colorWithWhite:0.6 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
     return _timeLabel;
 }
 

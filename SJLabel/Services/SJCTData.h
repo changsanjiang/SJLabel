@@ -22,7 +22,6 @@
 @property (nonatomic, strong) SJCTFrameParserConfig *config;
 @property (nonatomic, strong) id contents;
 
-
 - (void)needsDrawing;
 
 - (void)drawingWithContext:(CGContextRef)context;

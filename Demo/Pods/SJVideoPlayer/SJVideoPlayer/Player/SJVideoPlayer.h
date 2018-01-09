@@ -5,11 +5,12 @@
 //  Created by BlueDancer on 2017/11/29.
 //  Copyright © 2017年 SanJiang. All rights reserved.
 //
+//  Address: https://github.com/changsanjiang/SJVideoPlayer
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "SJVideoPlayerState.h"
-#import "SJVideoPlayerAssetCarrier.h"
+#import <SJVideoPlayerAssetCarrier/SJVideoPlayerAssetCarrier.h>
 #import "SJVideoPlayerMoreSettingSecondary.h"
 #import "SJVideoPlayerSettings.h"
 #import <SJPrompt/SJPrompt.h>
@@ -19,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SJVideoPlayer : NSObject
 
 + (instancetype)sharedPlayer;
+
++ (instancetype)player;
+
+- (instancetype)init;
 
 /*!
  *  present View. support autoLayout.
@@ -142,8 +147,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  屏幕旋转的时候调用.
  **/
 @property (nonatomic, copy, readwrite, nullable) void(^rotatedScreen)(SJVideoPlayer *player, BOOL isFullScreen);
-
-@property (nonatomic, strong, readwrite) AVLayerVideoGravity videoGravity;
 
 @end
 
