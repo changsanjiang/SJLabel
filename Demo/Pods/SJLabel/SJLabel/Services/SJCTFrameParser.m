@@ -48,13 +48,14 @@ typedef NSString * NSAttributedStringKey NS_EXTENSIBLE_STRING_ENUM;
 }
 
 + (SJCTData *)parserContent:(NSString *)content config:(SJStringParserConfig *)config {
+    if ( 0 == content.length ) return nil;
     NSDictionary *attributes = [self _attributesWithConfig:config];
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:content attributes:attributes];
     return [self parserAttributedStr:attrStr config:config];
 }
 
 + (SJCTData *)parserAttributedStr:(NSAttributedString *)attrStr config:(SJCTFrameParserConfig *)config {
-    
+    if ( 0 == attrStr.length ) return nil;
     NSMutableAttributedString *attrStrM = attrStr.mutableCopy;
     NSArray<SJCTImageData *> *imageDataArray =
     [self _findingImageDataWithAttrStr:attrStr findingBlock:^(NSRange range, NSTextAttachment *attachment) {

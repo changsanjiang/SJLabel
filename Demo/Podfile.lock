@@ -2,12 +2,12 @@ PODS:
   - Masonry (1.1.0)
   - SJAttributesFactory (1.1.14)
   - SJBorderLineView (0.0.6)
-  - SJFullscreenPopGesture (1.1.6):
+  - SJFullscreenPopGesture (1.2.1):
     - SJObserverHelper
-  - SJLabel (1.1.4):
+  - SJLabel (1.1.6):
     - SJAttributesFactory
-    - SJLabel/Services (= 1.1.4)
-  - SJLabel/Services (1.1.4):
+    - SJLabel/Services (= 1.1.6)
+  - SJLabel/Services (1.1.6):
     - SJAttributesFactory
   - SJLoadingView (1.0.1)
   - SJObserverHelper (1.0.3)
@@ -18,12 +18,12 @@ PODS:
     - Masonry
   - SJSlider (1.1.4):
     - Masonry
-  - SJUIFactory (0.0.9):
+  - SJUIFactory (0.0.10):
     - SJLabel
-    - SJUIFactory/Category (= 0.0.9)
-  - SJUIFactory/Category (0.0.9):
+    - SJUIFactory/Category (= 0.0.10)
+  - SJUIFactory/Category (0.0.10):
     - SJLabel
-  - SJVideoPlayer (1.3.9):
+  - SJVideoPlayer (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -33,21 +33,21 @@ PODS:
     - SJPrompt
     - SJSlider
     - SJUIFactory
-    - SJVideoPlayer/Base (= 1.3.9)
-    - SJVideoPlayer/Control (= 1.3.9)
-    - SJVideoPlayer/GestureControl (= 1.3.9)
-    - SJVideoPlayer/Header (= 1.3.9)
-    - SJVideoPlayer/Model (= 1.3.9)
-    - SJVideoPlayer/MoreSetting (= 1.3.9)
-    - SJVideoPlayer/Other (= 1.3.9)
-    - SJVideoPlayer/Player (= 1.3.9)
-    - SJVideoPlayer/Present (= 1.3.9)
-    - SJVideoPlayer/Registrar (= 1.3.9)
-    - SJVideoPlayer/Resource (= 1.3.9)
-    - SJVideoPlayer/TimerControl (= 1.3.9)
+    - SJVideoPlayer/Base (= 1.3.12)
+    - SJVideoPlayer/Control (= 1.3.12)
+    - SJVideoPlayer/GestureControl (= 1.3.12)
+    - SJVideoPlayer/Header (= 1.3.12)
+    - SJVideoPlayer/Model (= 1.3.12)
+    - SJVideoPlayer/MoreSetting (= 1.3.12)
+    - SJVideoPlayer/Other (= 1.3.12)
+    - SJVideoPlayer/Player (= 1.3.12)
+    - SJVideoPlayer/Present (= 1.3.12)
+    - SJVideoPlayer/Registrar (= 1.3.12)
+    - SJVideoPlayer/Resource (= 1.3.12)
+    - SJVideoPlayer/TimerControl (= 1.3.12)
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Base (1.3.9):
+  - SJVideoPlayer/Base (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -62,7 +62,7 @@ PODS:
     - SJVideoPlayer/Resource
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Control (1.3.9):
+  - SJVideoPlayer/Control (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -75,7 +75,7 @@ PODS:
     - SJVideoPlayer/Other
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/GestureControl (1.3.9):
+  - SJVideoPlayer/GestureControl (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -87,7 +87,7 @@ PODS:
     - SJUIFactory
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Header (1.3.9):
+  - SJVideoPlayer/Header (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -99,7 +99,7 @@ PODS:
     - SJUIFactory
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Model (1.3.9):
+  - SJVideoPlayer/Model (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -111,7 +111,7 @@ PODS:
     - SJUIFactory
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/MoreSetting (1.3.9):
+  - SJVideoPlayer/MoreSetting (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -124,7 +124,7 @@ PODS:
     - SJVideoPlayer/Other
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Other (1.3.9):
+  - SJVideoPlayer/Other (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -137,7 +137,7 @@ PODS:
     - SJVideoPlayer/Base
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Player (1.3.9):
+  - SJVideoPlayer/Player (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -155,7 +155,7 @@ PODS:
     - SJVideoPlayer/TimerControl
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Present (1.3.9):
+  - SJVideoPlayer/Present (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -168,7 +168,7 @@ PODS:
     - SJVideoPlayer/Other
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Registrar (1.3.9):
+  - SJVideoPlayer/Registrar (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -180,7 +180,7 @@ PODS:
     - SJUIFactory
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/Resource (1.3.9):
+  - SJVideoPlayer/Resource (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -192,7 +192,7 @@ PODS:
     - SJUIFactory
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayer/TimerControl (1.3.9):
+  - SJVideoPlayer/TimerControl (1.3.12):
     - Masonry
     - SJAttributesFactory
     - SJBorderLineView
@@ -204,7 +204,7 @@ PODS:
     - SJUIFactory
     - SJVideoPlayerAssetCarrier
     - SJVolBrigControl
-  - SJVideoPlayerAssetCarrier (0.0.4)
+  - SJVideoPlayerAssetCarrier (0.0.6)
   - SJVolBrigControl (0.0.2):
     - Masonry
     - SJBorderLineView
@@ -222,16 +222,16 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SJAttributesFactory: 10af803585a072a7d6273b87cb12f729f15b89a6
   SJBorderLineView: 5878e67fb57e812a2d5d029ca666068784b5448a
-  SJFullscreenPopGesture: ad819409acf46f6db2fd31e7106528ed1f563397
-  SJLabel: 1560ed87e246a0b2521ac8d9e67a877c818f4cc3
+  SJFullscreenPopGesture: 9e2f82a0ac4857ad554ef684c104aaa780d292a4
+  SJLabel: d56eac67f5654168320b99817bf08a962a28397c
   SJLoadingView: c3ff03e4b363a5b6a3ba0634d6bb9ce2647faf07
   SJObserverHelper: b270d707cd18ab76538596aa4e98cf798c9e9868
   SJOrentationObserver: f5d5df501bb4f9c2de24fa54ba56b4663b94531f
   SJPrompt: eaecd94f2055a12d25090967dbad3f21da011626
   SJSlider: 9695edb174815e221e30cc0ee99a135695b8c877
-  SJUIFactory: bf2413b9fc9bf76d39381b9ff48df454819244f5
-  SJVideoPlayer: 4d6c98f4e5b9fed0e6fc4d230aa8eba7fba05b49
-  SJVideoPlayerAssetCarrier: 29bfbe9e23038ea80803f038a849b6d4ce136f28
+  SJUIFactory: 47f8e1b9ec68333ea1a24799801d1d0b32e57b96
+  SJVideoPlayer: 83f96826c99cd3fcff5ff0b5b2b4e80c303cd60c
+  SJVideoPlayerAssetCarrier: ed9f923bab1eac4fe821729576ef5cb29d532ed7
   SJVolBrigControl: eecc0b8ce4090159b928730b8b32d001b9090982
 
 PODFILE CHECKSUM: ec73d401da84041862ce46084000b1f7f9597f7c

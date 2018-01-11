@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "80E525A8D0D63AD1459EFEE0D875FB96"
-               BuildableName = "libSJVideoPlayer.a"
-               BlueprintName = "SJVideoPlayer"
+               BlueprintIdentifier = "409C9E253C4D5A4DB4ADE3FDC9DF8625"
+               BuildableName = "libSJFullscreenPopGesture.a"
+               BlueprintName = "SJFullscreenPopGesture"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "80E525A8D0D63AD1459EFEE0D875FB96"
-            BuildableName = "libSJVideoPlayer.a"
-            BlueprintName = "SJVideoPlayer"
+            BlueprintIdentifier = "409C9E253C4D5A4DB4ADE3FDC9DF8625"
+            BuildableName = "libSJFullscreenPopGesture.a"
+            BlueprintName = "SJFullscreenPopGesture"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
