@@ -19,7 +19,7 @@
 
 @interface SJDisplayLayer : CALayer
 
-- (void)setDrawData:(SJCTData *)drawData;
+@property (nonatomic, strong) SJCTData *drawData;
 
 @end
 
@@ -33,6 +33,7 @@
 }
 
 - (void)setDrawData:(SJCTData *)drawData  {
+    _drawData = drawData;
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     self.bounds = CGRectMake(0, 0, drawData.config.maxWidth, drawData.height_t);
@@ -111,7 +112,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     __block BOOL action = NO;
-    if ( _drawData ) {
+    if ( self.displayLayer.drawData ) {
         CGPoint point = [touches.anyObject locationInView:self];
         signed long index = [_drawData touchIndexWithPoint:point];
         if ( index != kCFNotFound && index < _drawData.attrStr.length ) {
