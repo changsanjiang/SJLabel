@@ -91,7 +91,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     if ( 0 == _preferredMaxLayoutWidth &&
-         0 != self.bounds.size.width ) {
+        0 != self.bounds.size.width ) {
         _config.maxWidth = floor(self.bounds.size.width);
     }
     [self _considerUpdating];
@@ -112,17 +112,17 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     __block BOOL action = NO;
-    if ( self.displayLayer.drawData ) {
+    if ( _displayLayer.drawData ) {
         CGPoint point = [touches.anyObject locationInView:self];
-        signed long index = [_drawData touchIndexWithPoint:point];
-        if ( index != kCFNotFound && index < _drawData.attrStr.length ) {
+        signed long index = [_displayLayer.drawData touchIndexWithPoint:point];
+        if ( index != kCFNotFound && index < _displayLayer.drawData.attrStr.length ) {
             NSRange range = NSMakeRange(0, 0);
-            NSDictionary<NSAttributedStringKey, id> *attributes = [_drawData.attrStr attributesAtIndex:index effectiveRange:&range];
+            NSDictionary<NSAttributedStringKey, id> *attributes = [_displayLayer.drawData.attrStr attributesAtIndex:index effectiveRange:&range];
             id value = attributes[SJActionAttributeName];
             if ( value ) {
                 void(^block)(NSRange range, NSAttributedString *str) = value;
                 action = YES;
-                block(range, [_drawData.attrStr attributedSubstringFromRange:range]);
+                block(range, [_displayLayer.drawData.attrStr attributedSubstringFromRange:range]);
             }
         }
     }
@@ -261,3 +261,5 @@
     [_displayLayer setDrawData:drawData];
 }
 @end
+
+
