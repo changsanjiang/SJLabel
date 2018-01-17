@@ -24,11 +24,12 @@ typedef NSString * NSAttributedStringKey NS_EXTENSIBLE_STRING_ENUM;
 
 @implementation SJLineModel
 
-- (instancetype)init {
-    self = [super init];
-    if ( !self ) return nil;
+@synthesize images = _images;
+
+- (NSMutableArray<SJCTImageData *> *)images {
+    if ( _images ) return _images;
     _images = [NSMutableArray array];
-    return self;
+    return _images;
 }
 
 - (void)setLine:(CTLineRef)line {
@@ -380,6 +381,7 @@ static CGFloat widthCallback(void* ref){
 }
 
 - (void)drawingWithContext:(CGContextRef)context {
+    if ( !self.inited ) [self needsDrawing];
     @autoreleasepool {
         [self _drawingLineWithContent:context];
         [self _drawingImageWithContent:context];
