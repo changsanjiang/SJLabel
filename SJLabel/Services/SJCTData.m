@@ -130,7 +130,7 @@ typedef NSString * NSAttributedStringKey NS_EXTENSIBLE_STRING_ENUM;
 - (void)parserAttrStr {
     
     [self _updateConfigLineSpacing];
-
+    
     [self _parserImageData];
     
     [self _createFrameRef];
@@ -265,7 +265,7 @@ static CGFloat widthCallback(void* ref){
     CGPoint baseLineOrigins[numberOfLines];
     CTFrameGetLineOrigins(frameRef, CFRangeMake(0, numberOfLines), baseLineOrigins);
     
-//    CGFloat lineH = ABS(_config.font.descender) + _config.font.ascender + _config.font.leading + _config.lineSpacing;
+    //    CGFloat lineH = ABS(_config.font.descender) + _config.font.ascender + _config.font.leading + _config.lineSpacing;
     
     for ( CFIndex lineIndex = 0 ; lineIndex < numberOfLines ; lineIndex ++ ) {
         
@@ -303,13 +303,12 @@ static CGFloat widthCallback(void* ref){
         _height += rowHeight + _config.lineSpacing;
     }
     
-    _height = ceil(_height);
+    _height = ceil(_height -= _config.lineSpacing);
     
     // reset origins
     __block CGFloat r_height = 0;
     [_drawingLinesM enumerateObjectsUsingBlock:^(SJLineModel * _Nonnull lineModel, NSUInteger modelIdx, BOOL * _Nonnull stop) {
-        lineModel.origin = CGPointMake( lineModel.origin.x, _height - (r_height + lineModel.ascent + _config.lineSpacing) );
-
+        lineModel.origin = CGPointMake( lineModel.origin.x, _height - (r_height + lineModel.ascent) );
         if ( lineModel.hasImages ) {
             [lineModel.images enumerateObjectsUsingBlock:^(SJCTImageData * _Nonnull imageData, NSUInteger imageIdx, BOOL * _Nonnull stop) {
                 CGRect rect = imageData.bounds;
@@ -358,7 +357,7 @@ static CGFloat widthCallback(void* ref){
         CFRelease(truncationLine);
         CFRelease(ellipsisLineRef);
         CFRelease(truncatedLine);
-
+        
         _truncated = YES;
         _truncatedLineLocation = lastLineRange.location;
         _truncatedLineRange = NSMakeRange(lastLineRange.location, lastLineRange.length);
