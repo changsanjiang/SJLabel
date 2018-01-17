@@ -308,13 +308,8 @@ static CGFloat widthCallback(void* ref){
     // reset origins
     __block CGFloat r_height = 0;
     [_drawingLinesM enumerateObjectsUsingBlock:^(SJLineModel * _Nonnull lineModel, NSUInteger modelIdx, BOOL * _Nonnull stop) {
-        if ( 0 == modelIdx ) {
-            lineModel.origin = CGPointMake( lineModel.origin.x, _height - lineModel.ascent );
-        }
-        else {
-            lineModel.origin = CGPointMake( lineModel.origin.x, _height - (r_height + lineModel.ascent + _config.lineSpacing) );
-        }
-        
+        lineModel.origin = CGPointMake( lineModel.origin.x, _height - (r_height + lineModel.ascent + _config.lineSpacing) );
+
         if ( lineModel.hasImages ) {
             [lineModel.images enumerateObjectsUsingBlock:^(SJCTImageData * _Nonnull imageData, NSUInteger imageIdx, BOOL * _Nonnull stop) {
                 CGRect rect = imageData.bounds;
