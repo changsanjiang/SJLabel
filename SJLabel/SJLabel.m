@@ -255,7 +255,7 @@
 
 - (void)_setContentsWithDrawData:(SJCTData *)drawData {
     [self invalidateIntrinsicContentSize];
-    [_drawData needsDrawing];
+    [drawData needsDrawing];
     [_displayLayer setDrawData:drawData];
 }
 @end
