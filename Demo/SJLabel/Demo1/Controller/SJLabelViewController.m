@@ -12,7 +12,6 @@
 #import "SJAttributesFactoryHeader.h"
 #import "SJCTFrameParserConfig.h"
 #import "SJCTData.h"
-#import "SJCTFrameParser.h"
 #import "SJLabelHelper.h"
 #import <SJUIFactory/SJUIFactory.h>
 
