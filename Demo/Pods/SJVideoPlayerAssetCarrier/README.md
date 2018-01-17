@@ -9,24 +9,30 @@
                        beginTime:(NSTimeInterval)beginTime;
 
 - (instancetype)initWithAssetURL:(NSURL *)assetURL
-                      scrollView:(__unsafe_unretained UIScrollView * __nullable)scrollView
-                       indexPath:(__weak NSIndexPath * __nullable)indexPath
-                    superviewTag:(NSInteger)superviewTag;
-
-- (instancetype)initWithAssetURL:(NSURL *)assetURL
                        beginTime:(NSTimeInterval)beginTime
                       scrollView:(__unsafe_unretained UIScrollView *__nullable)scrollView
-                       indexPath:(__weak NSIndexPath *__nullable)indexPath
+                       indexPath:(NSIndexPath *__nullable)indexPath
                     superviewTag:(NSInteger)superviewTag; // video player parent `view tag`
 
 - (instancetype)initWithAssetURL:(NSURL *)assetURL
                        beginTime:(NSTimeInterval)beginTime
-                      scrollView:(__unsafe_unretained UIScrollView *__nullable)scrollView
-                       indexPath:(__weak NSIndexPath *__nullable)indexPath
+                       indexPath:(NSIndexPath *__nullable)indexPath
                     superviewTag:(NSInteger)superviewTag
-                parentScrollView:(__unsafe_unretained UIScrollView *__nullable)parentScrollView // _scrollView parent `scrollview`.
-                  superIndexPath:(NSIndexPath *__nullable)superIndexPath;
+             scrollViewIndexPath:(NSIndexPath *__nullable)scrollViewIndexPath
+                   scrollViewTag:(NSInteger)scrollViewTag
+                  rootScrollView:(__unsafe_unretained UIScrollView *__nullable)rootScrollView;
 
+- (instancetype)initWithAssetURL:(NSURL *)assetURL
+                      scrollView:(__unsafe_unretained UIScrollView * __nullable)scrollView
+                       indexPath:(NSIndexPath * __nullable)indexPath
+                    superviewTag:(NSInteger)superviewTag;
+
+- (instancetype)initWithAssetURL:(NSURL *)assetURL
+                       indexPath:(NSIndexPath *__nullable)indexPath
+                    superviewTag:(NSInteger)superviewTag
+             scrollViewIndexPath:(NSIndexPath *__nullable)scrollViewIndexPath
+                   scrollViewTag:(NSInteger)scrollViewTag
+                  rootScrollView:(__unsafe_unretained UIScrollView *__nullable)rootScrollView;
 
 #pragma mark - screenshot
 - (UIImage * __nullable)screenshot;
@@ -39,7 +45,7 @@
                 completion:(void(^)(SJVideoPlayerAssetCarrier *asset, SJVideoPreviewModel * __nullable images, NSError *__nullable error))block;
 
 
-#pragma mark - blocks
+#pragma mark - player status
 @property (nonatomic, copy, readwrite, nullable) void(^playerItemStateChanged)(SJVideoPlayerAssetCarrier *asset, AVPlayerItemStatus status);
 
 @property (nonatomic, copy, readwrite, nullable) void(^playTimeChanged)(SJVideoPlayerAssetCarrier *asset, NSTimeInterval currentTime, NSTimeInterval duration);
@@ -50,7 +56,9 @@
 /// 缓冲已为空, 开始缓冲
 @property (nonatomic, copy, readwrite, nullable) void(^beingBuffered)(BOOL state);
 
-@property (nonatomic, copy, readwrite, nullable) void(^deallocCallBlock)(SJVideoPlayerAssetCarrier *asset);
+
+#pragma mark - scroll view
+@property (nonatomic, copy, readwrite, nullable) void(^touchedScrollView)(SJVideoPlayerAssetCarrier *asset, BOOL tracking);
 
 @property (nonatomic, copy, readwrite, nullable) void(^scrollViewDidScroll)(SJVideoPlayerAssetCarrier *asset);
 
@@ -59,10 +67,6 @@
 @property (nonatomic, copy, readwrite, nullable) void(^scrollIn)(SJVideoPlayerAssetCarrier *asset, UIView *superView);
 
 @property (nonatomic, copy, readwrite, nullable) void(^scrollOut)(SJVideoPlayerAssetCarrier *asset);
-/// `_scrollView parent scrollview`
-@property (nonatomic, copy, readwrite, nullable) void(^parentScrollIn)(SJVideoPlayerAssetCarrier *asset);
-/// `_scrollView parent scrollview`
-@property (nonatomic, copy, readwrite, nullable) void(^parentScrollOut)(SJVideoPlayerAssetCarrier *asset);
 
 
 #pragma mark - preview images
@@ -88,12 +92,12 @@
 @property (nonatomic, assign, readonly) NSTimeInterval duration; // unit is sec.
 @property (nonatomic, assign, readonly) NSTimeInterval currentTime; // unit is sec.
 @property (nonatomic, assign, readonly) float progress; // 0..1
-@property (nonatomic, weak, readonly, nullable) NSIndexPath *indexPath;
+@property (nonatomic, strong, readonly, nullable) NSIndexPath *indexPath;
 @property (nonatomic, assign, readonly) NSInteger superviewTag;
 @property (nonatomic, unsafe_unretained, readonly, nullable) UIScrollView *scrollView;
-@property (nonatomic, unsafe_unretained, readonly, nullable) UIScrollView *parentScrollView; // _scrollView parent `scrollview`.
-@property (nonatomic, weak, readonly, nullable) NSIndexPath *superIndexPath;
-
+@property (nonatomic, assign, readonly) NSInteger scrollViewTag; // _scrollView `tag`
+@property (nonatomic, strong, readonly, nullable) NSIndexPath *scrollViewIndexPath;
+@property (nonatomic, unsafe_unretained, readonly, nullable) UIScrollView *rootScrollView;
 ```
 
 

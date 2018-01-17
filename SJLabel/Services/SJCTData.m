@@ -253,6 +253,7 @@ static CGFloat widthCallback(void* ref){
 #pragma mark - drawing
 
 - (void)needsDrawing {
+    if ( 0 == _attrStr.length ) return;
     if ( _inited ) return;
     
     _inited = YES;
