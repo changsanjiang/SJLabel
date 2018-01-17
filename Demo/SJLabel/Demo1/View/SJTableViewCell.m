@@ -116,7 +116,7 @@ static NSString *__TextName = @"大方无隅；大器免成；大音希声；大
 
 - (SJLabel *)timeLabel {
     if ( _timeLabel ) return _timeLabel;
-    _timeLabel = [[SJLabel alloc] initWithText:@"2017/12/21" font:[UIFont systemFontOfSize:14] textColor:[UIColor colorWithWhite:0.6 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
+    _timeLabel = [[SJLabel alloc] initWithText:@"2017/12/21" font:[UIFont systemFontOfSize:12] textColor:[UIColor colorWithWhite:0.6 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
     return _timeLabel;
 }
 

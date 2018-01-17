@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0FF32A442635B47A4A0F07BB /* libPods-SJLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2977A97CD715957BD340BE1D /* libPods-SJLabel.a */; };
 		778D47561FEAB03B0066873F /* SJLabelHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 778D47551FEAB03B0066873F /* SJLabelHelper.m */; };
+		779EB4AE200E0F5F001EB668 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779EB4AD200E0F5F001EB668 /* TestView.m */; };
 		77A6719F1FEE7BC500FC6EBC /* Demo2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A6719E1FEE7BC500FC6EBC /* Demo2ViewController.m */; };
 		77A671A21FEE7BD600FC6EBC /* Demo2TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A671A11FEE7BD600FC6EBC /* Demo2TableViewCell.m */; };
 		77A671A41FEE81FC00FC6EBC /* _placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 77A671A31FEE81FC00FC6EBC /* _placeholder.png */; };
@@ -21,7 +22,6 @@
 		77CD17A51FEA1AD000B2B54F /* SJTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17A11FEA1ACF00B2B54F /* SJTableViewCell.m */; };
 		77CD17A61FEA1AD000B2B54F /* SJLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17A41FEA1ACF00B2B54F /* SJLabelViewController.m */; };
 		77CD17B21FEA1AFB00B2B54F /* SJCTData.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17A91FEA1AFB00B2B54F /* SJCTData.m */; };
-		77CD17B31FEA1AFB00B2B54F /* SJCTFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */; };
 		77CD17B41FEA1AFB00B2B54F /* SJCTFrameParserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */; };
 		77CD17B51FEA1AFB00B2B54F /* SJCTImageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17AF1FEA1AFB00B2B54F /* SJCTImageData.m */; };
 		77CD17B61FEA1AFB00B2B54F /* SJLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17B11FEA1AFB00B2B54F /* SJLabel.m */; };
@@ -40,6 +40,8 @@
 		542072D89E3C0DEF3AC3F871 /* Pods-SJLabel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJLabel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SJLabel/Pods-SJLabel.debug.xcconfig"; sourceTree = "<group>"; };
 		778D47541FEAB03B0066873F /* SJLabelHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJLabelHelper.h; sourceTree = "<group>"; };
 		778D47551FEAB03B0066873F /* SJLabelHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJLabelHelper.m; sourceTree = "<group>"; };
+		779EB4AC200E0F5F001EB668 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
+		779EB4AD200E0F5F001EB668 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		77A6719D1FEE7BC500FC6EBC /* Demo2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demo2ViewController.h; sourceTree = "<group>"; };
 		77A6719E1FEE7BC500FC6EBC /* Demo2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demo2ViewController.m; sourceTree = "<group>"; };
 		77A671A01FEE7BD600FC6EBC /* Demo2TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demo2TableViewCell.h; sourceTree = "<group>"; };
@@ -61,8 +63,6 @@
 		77CD17A41FEA1ACF00B2B54F /* SJLabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJLabelViewController.m; sourceTree = "<group>"; };
 		77CD17A81FEA1AFB00B2B54F /* SJCTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCTData.h; sourceTree = "<group>"; };
 		77CD17A91FEA1AFB00B2B54F /* SJCTData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCTData.m; sourceTree = "<group>"; };
-		77CD17AA1FEA1AFB00B2B54F /* SJCTFrameParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCTFrameParser.h; sourceTree = "<group>"; };
-		77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCTFrameParser.m; sourceTree = "<group>"; };
 		77CD17AC1FEA1AFB00B2B54F /* SJCTFrameParserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCTFrameParserConfig.h; sourceTree = "<group>"; };
 		77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJCTFrameParserConfig.m; sourceTree = "<group>"; };
 		77CD17AE1FEA1AFB00B2B54F /* SJCTImageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJCTImageData.h; sourceTree = "<group>"; };
@@ -106,8 +106,6 @@
 			children = (
 				77CD17A81FEA1AFB00B2B54F /* SJCTData.h */,
 				77CD17A91FEA1AFB00B2B54F /* SJCTData.m */,
-				77CD17AA1FEA1AFB00B2B54F /* SJCTFrameParser.h */,
-				77CD17AB1FEA1AFB00B2B54F /* SJCTFrameParser.m */,
 				77CD17AC1FEA1AFB00B2B54F /* SJCTFrameParserConfig.h */,
 				77CD17AD1FEA1AFB00B2B54F /* SJCTFrameParserConfig.m */,
 				77F8FB7F1FF10002008D1288 /* SJStringParserConfig.h */,
@@ -241,6 +239,8 @@
 			children = (
 				77CD17841FEA192F00B2B54F /* ViewController.h */,
 				77CD17851FEA192F00B2B54F /* ViewController.m */,
+				779EB4AC200E0F5F001EB668 /* TestView.h */,
+				779EB4AD200E0F5F001EB668 /* TestView.m */,
 				77A671A31FEE81FC00FC6EBC /* _placeholder.png */,
 				A60140F61FEACC92001ED4ED /* ex1.png */,
 				A60140F81FEAD3CB001ED4ED /* ex2.gif */,
@@ -398,9 +398,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				779EB4AE200E0F5F001EB668 /* TestView.m in Sources */,
 				77CD17A51FEA1AD000B2B54F /* SJTableViewCell.m in Sources */,
 				77CD17B21FEA1AFB00B2B54F /* SJCTData.m in Sources */,
-				77CD17B31FEA1AFB00B2B54F /* SJCTFrameParser.m in Sources */,
 				77CD17B51FEA1AFB00B2B54F /* SJCTImageData.m in Sources */,
 				77CD17861FEA192F00B2B54F /* ViewController.m in Sources */,
 				77A6719F1FEE7BC500FC6EBC /* Demo2ViewController.m in Sources */,
@@ -554,8 +554,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJLabel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a317fe74-1a78-4494-b955-994f23dd28be";
-				PROVISIONING_PROFILE_SPECIFIER = sanjiang17macDev;
+				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
+				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;

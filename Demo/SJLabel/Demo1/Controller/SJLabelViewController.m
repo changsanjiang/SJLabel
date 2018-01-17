@@ -16,7 +16,7 @@
 #import "SJLabelHelper.h"
 #import <SJUIFactory/SJUIFactory.h>
 
-static NSString *const __TestString =  @"我被班主任杨老师叫到办公室，当时上课铃刚响，杨老师过来找我，我挺奇怪的，什么事啊，可以连课都不上？当时办公室里就我们两个人。杨老师拿出手机，让我看她拍的一张照片，是我们班最近一次班级活动时照的。我们仨坐在一张椅子上，我坐在中间，皱着个眉头，小喵托着腮帮子，小桐则靠着椅背坐着。";
+static NSString *const __TestString =  @"我被班主任😆杨老师叫#dsf$AXXBC$S#SFS到办公室，当时上课铃刚响，杨老师S#SFS过来找我，我挺奇怪的，什么事(ˇˍˇ) 想～啊，可以连课都不上？当时办公室里就我S#SFS们两个人S#SFS。杨老师拿出😓手机，让我看她拍的一张照片，是S#SFS我们班最近一次ASdsdsa班级活动时照的。我们仨S#SFS坐在一张椅子上，我坐在中间，皱着个眉头，小喵托着腮帮子，小桐则靠着椅背坐着。";
 
 static NSString *SJTableViewCellID = @"SJTableViewCell";
 
@@ -46,12 +46,12 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
             SJLabelHelper *helper = [SJLabelHelper helperWithAttributedStr:[SJAttributesFactory producingWithTask:^(SJAttributeWorker * _Nonnull worker) {
                 
 //                 insert Text String
-                worker.insertText([__TestString substringToIndex:arc4random() % __TestString.length], 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(8);
+                worker.insertText([__TestString substringToIndex:arc4random() % __TestString.length], 0).font([UIFont boldSystemFontOfSize:22]).lineSpacing(0);
 
-//                worker.insertImage([UIImage imageNamed:@"sample2"], 10, CGPointZero, CGSizeMake(30, 30));
-//                worker.insertImage([UIImage imageNamed:@"sample2"], 30, CGPointZero, CGSizeMake(10, 10));
-//                worker.insertImage([UIImage imageNamed:@"sample2"], 60, CGPointZero, CGSizeMake(20, 20));
-//                worker.insertImage([UIImage imageNamed:@"sample2"], 70, CGPointZero, CGSizeMake(35, 35));
+                worker.insertImage([UIImage imageNamed:@"sample2"], 10, CGPointZero, CGSizeMake(30, 30));
+                worker.insertImage([UIImage imageNamed:@"sample2"], 30, CGPointZero, CGSizeMake(10, 10));
+                worker.insertImage([UIImage imageNamed:@"sample2"], 60, CGPointZero, CGSizeMake(20, 20));
+                worker.insertImage([UIImage imageNamed:@"sample2"], 70, CGPointMake(0, 0), CGSizeMake(50, 50));
                 
                 // 匹配所有 `我们`
                 worker.regexp(@"我们", ^(SJAttributeWorker * _Nonnull regexp) {
@@ -118,7 +118,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = _helpers[indexPath.row].drawData.height_t;
+    CGFloat height = _helpers[indexPath.row].drawData.height;
     
     return [SJTableViewCell heightWithContentH:height];
 }

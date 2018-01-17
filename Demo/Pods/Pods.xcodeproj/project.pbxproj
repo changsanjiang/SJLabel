@@ -91,6 +91,7 @@
 		73931268FFDF3664C4629A54AAD38768 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88DB1BB41A8FDB246D9D6EFEDEB35D6B /* Foundation.framework */; };
 		74D8DB2F3E3081D04792AB9F312D2B39 /* SJSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D246EE50E49F317079D913435944B5E /* SJSlider.m */; };
 		75C62C581D7D0A2ABC3FC7D59374AAF8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88DB1BB41A8FDB246D9D6EFEDEB35D6B /* Foundation.framework */; };
+		779EB4AF200F3474001EB668 /* SJCTFrameParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF54BC83845F38663D9854963771D16 /* SJCTFrameParser.m */; };
 		7AC0D0965486ED43C064F1BC177ACBC9 /* MASUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 51BE66210EA36F8390A1ABB37B7C8F96 /* MASUtilities.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7B9A9D1A535A72887F2085A3FC713488 /* UIView+SJUIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = CF65C3452DDD3454CBE5CBBAFDCDCF29 /* UIView+SJUIFactory.m */; };
 		7BDDE51AF16FA53A09506EDB91E1C3C2 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BBEA3476DBA500F169670A19C49B01 /* NSArray+MASAdditions.m */; };
@@ -2085,6 +2086,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				779EB4AF200F3474001EB668 /* SJCTFrameParser.m in Sources */,
 				8ACD3605D73C411727062052666649DB /* SJLabel-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

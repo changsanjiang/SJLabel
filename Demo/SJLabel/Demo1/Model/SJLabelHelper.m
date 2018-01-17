@@ -7,7 +7,7 @@
 //
 
 #import "SJLabelHelper.h"
-#import "SJCTFrameParser.h"
+#import "SJCTData.h"
 
 @implementation SJLabelHelper
 
@@ -28,7 +28,8 @@
     config.numberOfLines = 0;
     config.maxWidth = maxWidth;
     config.lineSpacing = lineSpacing;
-    _drawData = [SJCTFrameParser parserAttributedStr:attributedStr config:config];
+    _drawData = [[SJCTData alloc] initWithAttributedString:attributedStr config:config];
+    [_drawData needsDrawing];
     return self;
 }
 
