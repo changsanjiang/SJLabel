@@ -46,6 +46,7 @@ static float const __GeneratePreImgScale = 0.05;
 @property (nonatomic, assign, readwrite) BOOL scrollIn_bool;
 @property (nonatomic, assign, readwrite) BOOL removedScrollObserver;
 @property (nonatomic, assign, readwrite) BOOL removedParentScrollObserver;
+@property (nonatomic, assign, readwrite) BOOL parent_scrollIn_bool;
 
 @end
 
@@ -62,28 +63,56 @@ static float const __GeneratePreImgScale = 0.05;
 }
 
 - (instancetype)initWithAssetURL:(NSURL *)assetURL
+                       beginTime:(NSTimeInterval)beginTime
+                      scrollView:(__unsafe_unretained UIScrollView *__nullable)scrollView
+                       indexPath:(NSIndexPath *__nullable)indexPath
+                    superviewTag:(NSInteger)superviewTag {
+    return [self initWithAssetURL:assetURL beginTime:beginTime indexPath:indexPath superviewTag:superviewTag scrollViewIndexPath:nil scrollViewTag:0 scrollView:scrollView rootScrollView:nil];
+}
+
+- (instancetype)initWithAssetURL:(NSURL *)assetURL
+                       beginTime:(NSTimeInterval)beginTime
+                       indexPath:(NSIndexPath *__nullable)indexPath
+                    superviewTag:(NSInteger)superviewTag
+             scrollViewIndexPath:(NSIndexPath *__nullable)scrollViewIndexPath
+                   scrollViewTag:(NSInteger)scrollViewTag
+                  rootScrollView:(__unsafe_unretained UIScrollView *__nullable)rootScrollView {
+    UIScrollView *scrollView = nil;
+    if ( rootScrollView && 0 != scrollViewTag ) {
+        if ( [rootScrollView isKindOfClass:[UITableView class]] ) {
+            scrollView = [[(UITableView *)rootScrollView cellForRowAtIndexPath:scrollViewIndexPath] viewWithTag:scrollViewTag];
+        }
+        else if ( [rootScrollView isKindOfClass:[UICollectionView class]] ) {
+            scrollView = [[(UICollectionView *)rootScrollView cellForItemAtIndexPath:scrollViewIndexPath] viewWithTag:scrollViewTag];
+        }
+    }
+    return [self initWithAssetURL:assetURL beginTime:beginTime indexPath:indexPath superviewTag:superviewTag scrollViewIndexPath:scrollViewIndexPath scrollViewTag:scrollViewTag scrollView:scrollView rootScrollView:rootScrollView];
+}
+
+- (instancetype)initWithAssetURL:(NSURL *)assetURL
                       scrollView:(__unsafe_unretained UIScrollView * __nullable)scrollView
-                       indexPath:(__weak NSIndexPath * __nullable)indexPath
+                       indexPath:(NSIndexPath * __nullable)indexPath
                     superviewTag:(NSInteger)superviewTag {
     return [self initWithAssetURL:assetURL beginTime:0 scrollView:scrollView indexPath:indexPath superviewTag:superviewTag];
 }
 
 - (instancetype)initWithAssetURL:(NSURL *)assetURL
-                       beginTime:(NSTimeInterval)beginTime
-                      scrollView:(__unsafe_unretained UIScrollView *__nullable)scrollView
-                       indexPath:(__weak NSIndexPath *__nullable)indexPath
-                    superviewTag:(NSInteger)superviewTag {
-    return [self initWithAssetURL:assetURL beginTime:beginTime scrollView:scrollView indexPath:indexPath superviewTag:superviewTag scrollViewTag:0 parentScrollView:nil parentIndexPath:nil];
+                       indexPath:(NSIndexPath *__nullable)indexPath
+                    superviewTag:(NSInteger)superviewTag
+             scrollViewIndexPath:(NSIndexPath *__nullable)scrollViewIndexPath
+                   scrollViewTag:(NSInteger)scrollViewTag
+                  rootScrollView:(__unsafe_unretained UIScrollView *__nullable)rootScrollView {
+    return [self initWithAssetURL:assetURL beginTime:0 indexPath:indexPath superviewTag:superviewTag scrollViewIndexPath:scrollViewIndexPath scrollViewTag:scrollViewTag rootScrollView:rootScrollView];
 }
 
 - (instancetype)initWithAssetURL:(NSURL *)assetURL
                        beginTime:(NSTimeInterval)beginTime
-                      scrollView:(__unsafe_unretained UIScrollView *__nullable)scrollView
-                       indexPath:(__weak NSIndexPath *__nullable)indexPath
+                       indexPath:(NSIndexPath *__nullable)indexPath
                     superviewTag:(NSInteger)superviewTag
+             scrollViewIndexPath:(NSIndexPath *__nullable)scrollViewIndexPath
                    scrollViewTag:(NSInteger)scrollViewTag
-                parentScrollView:(__unsafe_unretained UIScrollView *__nullable)parentScrollView
-                 parentIndexPath:(NSIndexPath *__nullable)parentIndexPath {
+                      scrollView:(__unsafe_unretained UIScrollView *__nullable)scrollView
+                  rootScrollView:(__unsafe_unretained UIScrollView *__nullable)rootScrollView {
     self = [super init];
     if ( !self ) return nil;
     _asset = [AVURLAsset assetWithURL:assetURL];
@@ -96,14 +125,16 @@ static float const __GeneratePreImgScale = 0.05;
     _indexPath = indexPath;
     _superviewTag = superviewTag;
     _scrollViewTag = scrollViewTag;
-    _parentScrollView = parentScrollView;
-    _parentIndexPath = parentIndexPath;
+    _rootScrollView = rootScrollView;
+    _scrollViewIndexPath = scrollViewIndexPath;
+    _player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
     [self _addTimeObserver];
     [self _addItemPlayEndObserver];
     [self _observing];
     
-    // default value 
+    // default value
     _scrollIn_bool = YES;
+    _parent_scrollIn_bool = YES;
     return self;
 }
 
@@ -137,27 +168,23 @@ static float const __GeneratePreImgScale = 0.05;
     [_playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
     
     if ( _scrollView ) {
-        [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
         __weak typeof(self) _self = self;
-        [self _injectTmpObjToScrollView:_scrollView deallocCallBlock:^(SJTmpObj *obj) {
-            obj.deallocCallBlock = ^(SJTmpObj *obj) {
-                __strong typeof(_self) self = _self;
-                if ( !self ) return;
-                if ( !self.removedScrollObserver ) {
-                    [self _removingScrollViewObserver];
-                }
-            };
+        [self _observeScrollView:_scrollView deallocCallBlock:^(SJTmpObj *obj) {
+            __strong typeof(_self) self = _self;
+            if ( !self ) return;
+            if ( !self.removedScrollObserver ) {
+                [self _removingScrollViewObserver];
+            }
         }];
     }
     
-    if ( _parentScrollView ) {
-        [_parentScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    if ( _rootScrollView ) {
         __weak typeof(self) _self = self;
-        [self _injectTmpObjToScrollView:_parentScrollView deallocCallBlock:^(SJTmpObj *obj) {
+        [self _observeScrollView:_rootScrollView deallocCallBlock:^(SJTmpObj *obj) {
             __strong typeof(_self) self = _self;
             if ( !self ) return;
             if ( !self.removedParentScrollObserver ) {
-                [self _removingParentScrollViewObserver];
+                [self _removingrootScrollViewObserver];
             }
         }];
     }
@@ -165,8 +192,32 @@ static float const __GeneratePreImgScale = 0.05;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        if ( [keyPath isEqualToString:@"status"] ) {
+        if ( [keyPath isEqualToString:@"contentOffset"] ) {
+            [self _scrollViewDidScroll:object];
+        }
+        else if ( [keyPath isEqualToString:@"state"] ) {
+            UIGestureRecognizerState state = [change[NSKeyValueChangeNewKey] integerValue];
+            switch ( state ) {
+                case UIGestureRecognizerStateChanged: break;
+                case UIGestureRecognizerStatePossible: break;
+                case UIGestureRecognizerStateBegan: {
+                    if ( _touchedScrollView ) _touchedScrollView(self, YES);
+                }
+                    break;
+                case UIGestureRecognizerStateEnded:
+                case UIGestureRecognizerStateFailed:
+                case UIGestureRecognizerStateCancelled: {
+                    if ( _touchedScrollView ) _touchedScrollView(self, NO);
+                }
+                    break;
+            }
+        }
+        else if ( [keyPath isEqualToString:@"loadedTimeRanges"] ) {
+            if ( 0 == CMTimeGetSeconds(_playerItem.duration) ) return;
+            CGFloat progress = [self _loadedTimeSecs] / CMTimeGetSeconds(_playerItem.duration);
+            if ( self.loadedTimeProgress ) self.loadedTimeProgress(progress);
+        }
+        else if ( [keyPath isEqualToString:@"status"] ) {
             if ( !_jumped &&
                 AVPlayerItemStatusReadyToPlay == self.playerItem.status &&
                 0 != self.beginTime ) {
@@ -186,19 +237,11 @@ static float const __GeneratePreImgScale = 0.05;
                 if ( self.playerItemStateChanged ) self.playerItemStateChanged(self, self.playerItem.status);
             }
         }
-        else if ( [keyPath isEqualToString:@"loadedTimeRanges"] ) {
-            if ( 0 == CMTimeGetSeconds(_playerItem.duration) ) return;
-            CGFloat progress = [self _loadedTimeSecs] / CMTimeGetSeconds(_playerItem.duration);
-            if ( self.loadedTimeProgress ) self.loadedTimeProgress(progress);
-        }
         else if ( [keyPath isEqualToString:@"playbackBufferEmpty"] ) {
             if ( self.beingBuffered ) self.beingBuffered([self _loadedTimeSecs] <= self.currentTime + 5);
         }
         else if ( [keyPath isEqualToString:@"presentationSize"] ) {
             if ( self.presentationSize ) self.presentationSize(self, self.playerItem.presentationSize);
-        }
-        if ( [keyPath isEqualToString:@"contentOffset"] ) {
-            [self _scrollViewDidScroll:object];
         }
     });
 }
@@ -240,13 +283,13 @@ static float const __GeneratePreImgScale = 0.05;
     _tmp_imageGenerator.maximumSize = size;
     __weak typeof(self) _self = self;
     [_tmp_imageGenerator generateCGImagesAsynchronouslyForTimes:@[[NSValue valueWithCMTime:time]] completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable imageRef, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
         if ( result == AVAssetImageGeneratorSucceeded ) {
             UIImage *image = [UIImage imageWithCGImage:imageRef];
             if ( block ) block(self, [SJVideoPreviewModel previewModelWithImage:image localTime:actualTime], nil);
         }
         else if ( result == AVAssetImageGeneratorFailed ) {
-            __strong typeof(_self) self = _self;
-            if ( !self ) return;
             if ( block ) block(self, nil, error);
         }
     }];
@@ -263,7 +306,7 @@ static float const __GeneratePreImgScale = 0.05;
     if ( __GeneratePreImgScale > 1.0 || __GeneratePreImgScale <= 0 ) return;
     __block short maxCount = (short)floorf(1.0 / __GeneratePreImgScale);
     short interval = (short)floor(seconds * __GeneratePreImgScale);
-    for ( int i = 0 ; i < maxCount ; i ++ ) {
+    for ( short i = 0 ; i < maxCount ; i ++ ) {
         CMTime time = CMTimeMake(i * interval, 1);
         NSValue *tV = [NSValue valueWithCMTime:time];
         if ( tV ) [timesM addObject:tV];
@@ -344,8 +387,8 @@ static float const __GeneratePreImgScale = 0.05;
     [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
     [_playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
     [_playerItem removeObserver:self forKeyPath:@"presentationSize"];
-    if ( !_removedScrollObserver ) [self _removingScrollViewObserver];
-    if ( !_removedParentScrollObserver ) [self _removingParentScrollViewObserver];
+    if ( _scrollView && !_removedScrollObserver ) [self _removingScrollViewObserver];
+    if ( _rootScrollView && !_removedParentScrollObserver ) [self _removingrootScrollViewObserver];
 }
 
 #pragma mark
@@ -357,13 +400,13 @@ static float const __GeneratePreImgScale = 0.05;
     }
     
     
-    // new method
+    // new method(v0.0.5)
     NSIndexPath *indexPath = nil;
     if ( scrollView == _scrollView ) {
         indexPath = _indexPath;
     }
     else {
-        indexPath = _parentIndexPath;
+        indexPath = _scrollViewIndexPath;
     }
     
     if ( [scrollView isKindOfClass:[UITableView class]] ) {
@@ -375,20 +418,27 @@ static float const __GeneratePreImgScale = 0.05;
                 *stop = YES;
             }
         }];
-        if ( scrollView == _parentScrollView ) [self _setNewScrollView];
-        self.scrollIn_bool = visable;
+        if ( scrollView == _rootScrollView ) {
+            if ( visable == self.parent_scrollIn_bool ) return;
+            self.parent_scrollIn_bool = visable;
+            if ( visable ) [self _updateScrollView];
+        }
+        self.scrollIn_bool = self.parent_scrollIn_bool && visable;
     }
     else if ( [scrollView isKindOfClass:[UICollectionView class]] ) {
         UICollectionView *collectionView = (UICollectionView *)scrollView;
         UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-        bool visable = [collectionView.visibleCells containsObject:cell];;
-        if ( scrollView == _parentScrollView ) [self _setNewScrollView];
-        self.scrollIn_bool = visable;
+        bool visable = [collectionView.visibleCells containsObject:cell];
+        if ( scrollView == _rootScrollView ) {
+            if ( visable == self.parent_scrollIn_bool ) return;
+            self.parent_scrollIn_bool = visable;
+            if ( visable ) [self _updateScrollView];
+        }
+        self.scrollIn_bool = self.parent_scrollIn_bool && visable;
     }
 }
 
 - (void)setScrollIn_bool:(BOOL)scrollIn_bool {
-    if ( scrollIn_bool == _scrollIn_bool ) return;
     _scrollIn_bool = scrollIn_bool;
     if ( scrollIn_bool ) {
         if ( _scrollIn ) _scrollIn(self, [self _getVideoPlayerSuperView]);
@@ -398,16 +448,16 @@ static float const __GeneratePreImgScale = 0.05;
     }
 }
 
-- (void)_setNewScrollView {
+- (void)_updateScrollView {
     UIScrollView *newScrollView = nil;
-    if ( [_parentScrollView isKindOfClass:[UITableView class]] ) {
-        UITableView *parent = (UITableView *)_parentScrollView;
-        UITableViewCell *parentCell = [parent cellForRowAtIndexPath:_parentIndexPath];
+    if      ( [_rootScrollView isKindOfClass:[UITableView class]] ) {
+        UITableView *parent = (UITableView *)_rootScrollView;
+        UITableViewCell *parentCell = [parent cellForRowAtIndexPath:_scrollViewIndexPath];
         newScrollView = [parentCell viewWithTag:_scrollViewTag];
     }
-    else if ( [_parentScrollView isKindOfClass:[UICollectionView class]] ) {
-        UICollectionView *parent = (UICollectionView *)_parentScrollView;
-        UICollectionViewCell *parentCell = [parent cellForItemAtIndexPath:_parentIndexPath];
+    else if ( [_rootScrollView isKindOfClass:[UICollectionView class]] ) {
+        UICollectionView *parent = (UICollectionView *)_rootScrollView;
+        UICollectionViewCell *parentCell = [parent cellForItemAtIndexPath:_scrollViewIndexPath];
         newScrollView = [parentCell viewWithTag:_scrollViewTag];
     }
     
@@ -420,16 +470,13 @@ static float const __GeneratePreImgScale = 0.05;
     _scrollView = newScrollView;
     
     // add observer
-    [_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     __weak typeof(self) _self = self;
-    [self _injectTmpObjToScrollView:_scrollView deallocCallBlock:^(SJTmpObj *obj) {
-        obj.deallocCallBlock = ^(SJTmpObj *obj) {
-            __strong typeof(_self) self = _self;
-            if ( !self ) return;
-            if ( !self.removedScrollObserver ) {
-                [self _removingScrollViewObserver];
-            }
-        };
+    [self _observeScrollView:newScrollView deallocCallBlock:^(SJTmpObj *obj) {
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
+        if ( !self.removedScrollObserver ) {
+            [self _removingScrollViewObserver];
+        }
     }];
 }
 
@@ -448,6 +495,16 @@ static float const __GeneratePreImgScale = 0.05;
     return superView;
 }
 
+- (void)_observeScrollView:(UIScrollView *)scrollView deallocCallBlock:(void(^)(SJTmpObj *obj))block {
+    if      ( scrollView == _rootScrollView ) _removedParentScrollObserver = NO;
+    else if ( scrollView == _scrollView ) _removedScrollObserver = NO;
+    [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    [scrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+    [self _injectTmpObjToScrollView:scrollView deallocCallBlock:^(SJTmpObj *obj) {
+        obj.deallocCallBlock = block;
+    }];
+}
+
 - (void)_injectTmpObjToScrollView:(UIScrollView *)scrollView deallocCallBlock:(void(^)(SJTmpObj *obj))block {
     SJTmpObj *obj = [SJTmpObj new];
     obj.deallocCallBlock = block;
@@ -456,13 +513,15 @@ static float const __GeneratePreImgScale = 0.05;
 
 - (void)_removingScrollViewObserver {
     [_scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    [_scrollView.panGestureRecognizer removeObserver:self forKeyPath:@"state"];
     _scrollView = nil;
     _removedScrollObserver = YES;
 }
 
-- (void)_removingParentScrollViewObserver {
-    [_parentScrollView removeObserver:self forKeyPath:@"contentOffset"];
-    _parentScrollView = nil;
+- (void)_removingrootScrollViewObserver {
+    [_rootScrollView removeObserver:self forKeyPath:@"contentOffset"];
+    [_rootScrollView.panGestureRecognizer removeObserver:self forKeyPath:@"state"];
+    _rootScrollView = nil;
     _removedParentScrollObserver = YES;
 }
 @end
