@@ -159,10 +159,11 @@ typedef NSString * NSAttributedStringKey NS_EXTENSIBLE_STRING_ENUM;
     CGRect rect = (CGRect){CGPointZero, size};
     CGPathRef path = CGPathCreateWithRect(rect, NULL);
     CTFrameRef frameRef = CTFramesetterCreateFrame(framesetterRef, CFRangeMake(0, 0), path, NULL);
-    if ( path ) CFRelease(path);
-    if ( framesetterRef ) CFRelease(framesetterRef);
     self.frameRef = frameRef;
     _width = size.width;
+    if ( path ) CFRelease(path);
+    if ( framesetterRef ) CFRelease(framesetterRef);
+    if ( frameRef ) CFRelease(frameRef);
 }
 
 #pragma mark - parser image
@@ -422,4 +423,3 @@ static CGFloat widthCallback(void* ref){
     return index;
 }
 @end
-
