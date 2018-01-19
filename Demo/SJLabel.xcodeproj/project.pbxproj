@@ -226,9 +226,9 @@
 		77CD17A71FEA1AFB00B2B54F /* SJLabel */ = {
 			isa = PBXGroup;
 			children = (
-				778D47491FEAA1910066873F /* Services */,
 				77CD17B01FEA1AFB00B2B54F /* SJLabel.h */,
 				77CD17B11FEA1AFB00B2B54F /* SJLabel.m */,
+				778D47491FEAA1910066873F /* Services */,
 			);
 			name = SJLabel;
 			path = ../../SJLabel;

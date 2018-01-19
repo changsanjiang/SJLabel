@@ -109,7 +109,7 @@ static NSString *__TextName = @"大方无隅；大器免成；大音希声；大
 
 - (SJLabel *)nameLabel {
     if ( _nameLabel ) return _nameLabel;
-    _nameLabel = [[SJLabel alloc] initWithText:@"今朝醉" font:[UIFont boldSystemFontOfSize:14] textColor:[UIColor colorWithWhite:0.2 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
+    _nameLabel = [[SJLabel alloc] initWithText:@"" font:[UIFont boldSystemFontOfSize:14] textColor:[UIColor colorWithWhite:0.2 alpha:1] lineSpacing:0 userInteractionEnabled:NO];
     _nameLabel.preferredMaxLayoutWidth = SJScreen_W() - 22 - 50 - 14 - 22;
     return _nameLabel;
 }
@@ -124,7 +124,6 @@ static NSString *__TextName = @"大方无隅；大器免成；大音希声；大
     if ( _contentLabel ) return _contentLabel;
     _contentLabel = [SJLabel new];
     _contentLabel.userInteractionEnabled = YES;
-    _contentLabel.text = @"测试测试测测试测试测测试测试测测试测试测测试测试测测试测试测";
     return _contentLabel;
 }
 

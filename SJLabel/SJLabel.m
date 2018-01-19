@@ -17,6 +17,7 @@
 @interface SJDisplayLayer : CALayer
 
 @property (nonatomic, strong) SJCTData *drawData;
+@property (nonatomic, assign) BOOL directing;
 
 @end
 
@@ -166,6 +167,11 @@
     return self.config.numberOfLines;
 }
 
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    _displayLayer.backgroundColor = backgroundColor.CGColor;
+    [super setBackgroundColor:backgroundColor];
+}
+
 - (void)setFont:(UIFont *)font {
     if ( !font || font == _config.font || [font isEqual:_config.font] ) return;
     self.config.font = font;
@@ -254,8 +260,8 @@
 }
 
 - (void)_setContentsWithDrawData:(SJCTData *)drawData {
-    [self invalidateIntrinsicContentSize];
     [drawData needsDrawing];
+    [self invalidateIntrinsicContentSize];
     [_displayLayer setDrawData:drawData];
 }
 @end

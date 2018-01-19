@@ -162,6 +162,7 @@ typedef NSString * NSAttributedStringKey NS_EXTENSIBLE_STRING_ENUM;
     if ( path ) CFRelease(path);
     if ( framesetterRef ) CFRelease(framesetterRef);
     self.frameRef = frameRef;
+    _width = size.width;
 }
 
 #pragma mark - parser image
@@ -376,7 +377,7 @@ static CGFloat widthCallback(void* ref){
 }
 
 - (void)drawingWithContext:(CGContextRef)context {
-    if ( !self.inited ) [self needsDrawing];
+    if ( 0 == _attrStr.length ) return;
     @autoreleasepool {
         [self _drawingLineWithContent:context];
         [self _drawingImageWithContent:context];
@@ -421,3 +422,4 @@ static CGFloat widthCallback(void* ref){
     return index;
 }
 @end
+
