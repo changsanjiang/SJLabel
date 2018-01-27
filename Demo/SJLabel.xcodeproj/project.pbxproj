@@ -28,6 +28,7 @@
 		77CD17B91FEA1B4100B2B54F /* sample2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17B81FEA1B4100B2B54F /* sample2.png */; };
 		77CD17BC1FEA1FA600B2B54F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BA1FEA1FA500B2B54F /* README.md */; };
 		77CD17BD1FEA1FA600B2B54F /* SJLabel.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */; };
+		77D19BCC201C280F00BE5412 /* NSAttributedString+ActionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D19BCB201C280F00BE5412 /* NSAttributedString+ActionDelegate.m */; };
 		77F8FB811FF10002008D1288 /* SJStringParserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F8FB801FF10002008D1288 /* SJStringParserConfig.m */; };
 		A60140F71FEACC92001ED4ED /* ex1.png in Resources */ = {isa = PBXBuildFile; fileRef = A60140F61FEACC92001ED4ED /* ex1.png */; };
 		A60140F91FEAD3CB001ED4ED /* ex2.gif in Resources */ = {isa = PBXBuildFile; fileRef = A60140F81FEAD3CB001ED4ED /* ex2.gif */; };
@@ -72,6 +73,8 @@
 		77CD17B81FEA1B4100B2B54F /* sample2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample2.png; sourceTree = "<group>"; };
 		77CD17BA1FEA1FA500B2B54F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJLabel.podspec; path = ../SJLabel.podspec; sourceTree = "<group>"; };
+		77D19BCA201C280F00BE5412 /* NSAttributedString+ActionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+ActionDelegate.h"; sourceTree = "<group>"; };
+		77D19BCB201C280F00BE5412 /* NSAttributedString+ActionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+ActionDelegate.m"; sourceTree = "<group>"; };
 		77F8FB7F1FF10002008D1288 /* SJStringParserConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJStringParserConfig.h; sourceTree = "<group>"; };
 		77F8FB801FF10002008D1288 /* SJStringParserConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJStringParserConfig.m; sourceTree = "<group>"; };
 		A60140F61FEACC92001ED4ED /* ex1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex1.png; sourceTree = "<group>"; };
@@ -228,6 +231,7 @@
 			children = (
 				77CD17B01FEA1AFB00B2B54F /* SJLabel.h */,
 				77CD17B11FEA1AFB00B2B54F /* SJLabel.m */,
+				77D19BC9201C27FC00BE5412 /* Category */,
 				778D47491FEAA1910066873F /* Services */,
 			);
 			name = SJLabel;
@@ -252,6 +256,15 @@
 				77CD17901FEA192F00B2B54F /* main.m */,
 			);
 			name = Asset;
+			sourceTree = "<group>";
+		};
+		77D19BC9201C27FC00BE5412 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				77D19BCA201C280F00BE5412 /* NSAttributedString+ActionDelegate.h */,
+				77D19BCB201C280F00BE5412 /* NSAttributedString+ActionDelegate.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		8434A572F158C100E5B5A24B /* Frameworks */ = {
@@ -400,6 +413,7 @@
 			files = (
 				779EB4AE200E0F5F001EB668 /* TestView.m in Sources */,
 				77CD17A51FEA1AD000B2B54F /* SJTableViewCell.m in Sources */,
+				77D19BCC201C280F00BE5412 /* NSAttributedString+ActionDelegate.m in Sources */,
 				77CD17B21FEA1AFB00B2B54F /* SJCTData.m in Sources */,
 				77CD17B51FEA1AFB00B2B54F /* SJCTImageData.m in Sources */,
 				77CD17861FEA192F00B2B54F /* ViewController.m in Sources */,

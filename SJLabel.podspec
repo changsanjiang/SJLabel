@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SJLabel"
-  s.version      = "1.2.2"
+  s.version      = "1.2.3"
   s.summary      = "A Text Label."
 
   # This description is used to generate tags and improve search results.
@@ -93,6 +93,10 @@ Pod::Spec.new do |s|
   s.source_files  = "SJLabel/*.{h,m}"
   s.subspec 'Services' do |ss|
     ss.source_files = 'SJLabel/Services/*.{h,m}'
+  end
+
+  s.subspec 'Category' do |ss|
+    ss.source_files = 'SJLabel/Category/*.{h,m}'
   end
 
   #s.exclude_files = "Classes/Exclude"
