@@ -1,18 +1,4 @@
 # SJLabel
-
-### 可匹配点击的Label:
-<img src="https://github.com/changsanjiang/SJLabel/blob/master/Demo/SJLabel/ex2.gif" />
-
-<img src="https://github.com/changsanjiang/SJAttributesFactory/blob/master/Demo/SJAttributesFactory/action.gif" />
-
-<img src="https://github.com/changsanjiang/SJLabel/blob/master/Demo/SJLabel/ex1.png" />
-
-### Use
-
-```ruby
-pod 'SJLabel'
-```
-
 ### Sample
 ```Objective-C
 
@@ -29,4 +15,13 @@ pod 'SJLabel'
 }
 ```
 
+### 可匹配点击的Label:
+<img src="https://github.com/changsanjiang/SJLabel/blob/master/Demo/SJLabel/ex2.gif" />
 
+<img src="https://github.com/changsanjiang/SJAttributesFactory/blob/master/Demo/SJAttributesFactory/action.gif" />
+
+### Use
+
+```ruby
+pod 'SJLabel'
+```
