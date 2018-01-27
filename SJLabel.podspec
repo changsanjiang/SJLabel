@@ -93,6 +93,7 @@ Pod::Spec.new do |s|
   s.source_files  = "SJLabel/*.{h,m}"
   s.subspec 'Services' do |ss|
     ss.source_files = 'SJLabel/Services/*.{h,m}'
+    ss.dependency 'SJLabel/Category'
   end
 
   s.subspec 'Category' do |ss|
