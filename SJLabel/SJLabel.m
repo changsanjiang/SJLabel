@@ -150,6 +150,7 @@
 
 - (void)setAttributedText:(NSAttributedString *)attributedText {
     _attributedText = attributedText.copy;
+    _attributedText.actionDelegate = attributedText.actionDelegate;
     [self _considerUpdating];
 }
 
