@@ -10,8 +10,6 @@
 		0FF32A442635B47A4A0F07BB /* libPods-SJLabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2977A97CD715957BD340BE1D /* libPods-SJLabel.a */; };
 		778D47561FEAB03B0066873F /* SJLabelHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 778D47551FEAB03B0066873F /* SJLabelHelper.m */; };
 		779EB4AE200E0F5F001EB668 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 779EB4AD200E0F5F001EB668 /* TestView.m */; };
-		77A6719F1FEE7BC500FC6EBC /* Demo2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A6719E1FEE7BC500FC6EBC /* Demo2ViewController.m */; };
-		77A671A21FEE7BD600FC6EBC /* Demo2TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A671A11FEE7BD600FC6EBC /* Demo2TableViewCell.m */; };
 		77A671A41FEE81FC00FC6EBC /* _placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 77A671A31FEE81FC00FC6EBC /* _placeholder.png */; };
 		77CD17831FEA192F00B2B54F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17821FEA192F00B2B54F /* AppDelegate.m */; };
 		77CD17861FEA192F00B2B54F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CD17851FEA192F00B2B54F /* ViewController.m */; };
@@ -28,7 +26,7 @@
 		77CD17B91FEA1B4100B2B54F /* sample2.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17B81FEA1B4100B2B54F /* sample2.png */; };
 		77CD17BC1FEA1FA600B2B54F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BA1FEA1FA500B2B54F /* README.md */; };
 		77CD17BD1FEA1FA600B2B54F /* SJLabel.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */; };
-		77D19BCC201C280F00BE5412 /* NSAttributedString+ActionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D19BCB201C280F00BE5412 /* NSAttributedString+ActionDelegate.m */; };
+		77D19C37201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D19C36201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.m */; };
 		77F8FB811FF10002008D1288 /* SJStringParserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F8FB801FF10002008D1288 /* SJStringParserConfig.m */; };
 		A60140F71FEACC92001ED4ED /* ex1.png in Resources */ = {isa = PBXBuildFile; fileRef = A60140F61FEACC92001ED4ED /* ex1.png */; };
 		A60140F91FEAD3CB001ED4ED /* ex2.gif in Resources */ = {isa = PBXBuildFile; fileRef = A60140F81FEAD3CB001ED4ED /* ex2.gif */; };
@@ -43,10 +41,6 @@
 		778D47551FEAB03B0066873F /* SJLabelHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJLabelHelper.m; sourceTree = "<group>"; };
 		779EB4AC200E0F5F001EB668 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		779EB4AD200E0F5F001EB668 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
-		77A6719D1FEE7BC500FC6EBC /* Demo2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demo2ViewController.h; sourceTree = "<group>"; };
-		77A6719E1FEE7BC500FC6EBC /* Demo2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demo2ViewController.m; sourceTree = "<group>"; };
-		77A671A01FEE7BD600FC6EBC /* Demo2TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demo2TableViewCell.h; sourceTree = "<group>"; };
-		77A671A11FEE7BD600FC6EBC /* Demo2TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demo2TableViewCell.m; sourceTree = "<group>"; };
 		77A671A31FEE81FC00FC6EBC /* _placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = _placeholder.png; sourceTree = "<group>"; };
 		77CD177E1FEA192F00B2B54F /* SJLabel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJLabel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CD17811FEA192F00B2B54F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -73,8 +67,8 @@
 		77CD17B81FEA1B4100B2B54F /* sample2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample2.png; sourceTree = "<group>"; };
 		77CD17BA1FEA1FA500B2B54F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJLabel.podspec; path = ../SJLabel.podspec; sourceTree = "<group>"; };
-		77D19BCA201C280F00BE5412 /* NSAttributedString+ActionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+ActionDelegate.h"; sourceTree = "<group>"; };
-		77D19BCB201C280F00BE5412 /* NSAttributedString+ActionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+ActionDelegate.m"; sourceTree = "<group>"; };
+		77D19C35201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+ActionDelegate.h"; sourceTree = "<group>"; };
+		77D19C36201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+ActionDelegate.m"; sourceTree = "<group>"; };
 		77F8FB7F1FF10002008D1288 /* SJStringParserConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJStringParserConfig.h; sourceTree = "<group>"; };
 		77F8FB801FF10002008D1288 /* SJStringParserConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJStringParserConfig.m; sourceTree = "<group>"; };
 		A60140F61FEACC92001ED4ED /* ex1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex1.png; sourceTree = "<group>"; };
@@ -158,41 +152,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		77A671991FEE7BB400FC6EBC /* Demo2 */ = {
-			isa = PBXGroup;
-			children = (
-				77A6719A1FEE7BB400FC6EBC /* Controller */,
-				77A6719B1FEE7BB400FC6EBC /* Model */,
-				77A6719C1FEE7BB400FC6EBC /* View */,
-			);
-			path = Demo2;
-			sourceTree = "<group>";
-		};
-		77A6719A1FEE7BB400FC6EBC /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				77A6719D1FEE7BC500FC6EBC /* Demo2ViewController.h */,
-				77A6719E1FEE7BC500FC6EBC /* Demo2ViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		77A6719B1FEE7BB400FC6EBC /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		77A6719C1FEE7BB400FC6EBC /* View */ = {
-			isa = PBXGroup;
-			children = (
-				77A671A01FEE7BD600FC6EBC /* Demo2TableViewCell.h */,
-				77A671A11FEE7BD600FC6EBC /* Demo2TableViewCell.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		77CD17751FEA192F00B2B54F = {
 			isa = PBXGroup;
 			children = (
@@ -219,7 +178,6 @@
 				77CD17811FEA192F00B2B54F /* AppDelegate.h */,
 				77CD17821FEA192F00B2B54F /* AppDelegate.m */,
 				778D47F31FEBD58E0066873F /* Demo1 */,
-				77A671991FEE7BB400FC6EBC /* Demo2 */,
 				77CD17A71FEA1AFB00B2B54F /* SJLabel */,
 				77CD17B71FEA1B0700B2B54F /* Asset */,
 			);
@@ -261,8 +219,8 @@
 		77D19BC9201C27FC00BE5412 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				77D19BCA201C280F00BE5412 /* NSAttributedString+ActionDelegate.h */,
-				77D19BCB201C280F00BE5412 /* NSAttributedString+ActionDelegate.m */,
+				77D19C35201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.h */,
+				77D19C36201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -413,18 +371,16 @@
 			files = (
 				779EB4AE200E0F5F001EB668 /* TestView.m in Sources */,
 				77CD17A51FEA1AD000B2B54F /* SJTableViewCell.m in Sources */,
-				77D19BCC201C280F00BE5412 /* NSAttributedString+ActionDelegate.m in Sources */,
 				77CD17B21FEA1AFB00B2B54F /* SJCTData.m in Sources */,
 				77CD17B51FEA1AFB00B2B54F /* SJCTImageData.m in Sources */,
 				77CD17861FEA192F00B2B54F /* ViewController.m in Sources */,
-				77A6719F1FEE7BC500FC6EBC /* Demo2ViewController.m in Sources */,
 				77CD17B41FEA1AFB00B2B54F /* SJCTFrameParserConfig.m in Sources */,
 				77CD17911FEA192F00B2B54F /* main.m in Sources */,
 				A6A19A121FEAC71D00494E66 /* SJDemoModel.m in Sources */,
 				778D47561FEAB03B0066873F /* SJLabelHelper.m in Sources */,
 				77CD17B61FEA1AFB00B2B54F /* SJLabel.m in Sources */,
 				77F8FB811FF10002008D1288 /* SJStringParserConfig.m in Sources */,
-				77A671A21FEE7BD600FC6EBC /* Demo2TableViewCell.m in Sources */,
+				77D19C37201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.m in Sources */,
 				77CD17831FEA192F00B2B54F /* AppDelegate.m in Sources */,
 				77CD17A61FEA1AD000B2B54F /* SJLabelViewController.m in Sources */,
 			);

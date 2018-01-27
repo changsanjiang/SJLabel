@@ -8,5 +8,5 @@ target 'SJLabel' do
   # Pods for SJLabel
   pod 'Masonry'
   pod 'SJAttributesFactory'
-  pod 'SJVideoPlayer'
+  pod 'SJUIFactory'
 end

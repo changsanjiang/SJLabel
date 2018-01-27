@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "SJLabel.h"
 #import <Masonry.h>
-#import <SJAttributesFactoryHeader.h>
 #import "TestView.h"
 
 @interface ViewController ()
