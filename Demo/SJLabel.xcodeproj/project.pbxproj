@@ -28,8 +28,6 @@
 		77CD17BD1FEA1FA600B2B54F /* SJLabel.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77CD17BB1FEA1FA600B2B54F /* SJLabel.podspec */; };
 		77D19C37201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D19C36201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.m */; };
 		77F8FB811FF10002008D1288 /* SJStringParserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F8FB801FF10002008D1288 /* SJStringParserConfig.m */; };
-		A60140F71FEACC92001ED4ED /* ex1.png in Resources */ = {isa = PBXBuildFile; fileRef = A60140F61FEACC92001ED4ED /* ex1.png */; };
-		A60140F91FEAD3CB001ED4ED /* ex2.gif in Resources */ = {isa = PBXBuildFile; fileRef = A60140F81FEAD3CB001ED4ED /* ex2.gif */; };
 		A6A19A121FEAC71D00494E66 /* SJDemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A19A111FEAC71D00494E66 /* SJDemoModel.m */; };
 /* End PBXBuildFile section */
 
@@ -71,8 +69,6 @@
 		77D19C36201C990900BE5412 /* NSMutableAttributedString+ActionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+ActionDelegate.m"; sourceTree = "<group>"; };
 		77F8FB7F1FF10002008D1288 /* SJStringParserConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJStringParserConfig.h; sourceTree = "<group>"; };
 		77F8FB801FF10002008D1288 /* SJStringParserConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJStringParserConfig.m; sourceTree = "<group>"; };
-		A60140F61FEACC92001ED4ED /* ex1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex1.png; sourceTree = "<group>"; };
-		A60140F81FEAD3CB001ED4ED /* ex2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex2.gif; sourceTree = "<group>"; };
 		A6A19A101FEAC71D00494E66 /* SJDemoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJDemoModel.h; sourceTree = "<group>"; };
 		A6A19A111FEAC71D00494E66 /* SJDemoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJDemoModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,8 +200,6 @@
 				779EB4AC200E0F5F001EB668 /* TestView.h */,
 				779EB4AD200E0F5F001EB668 /* TestView.m */,
 				77A671A31FEE81FC00FC6EBC /* _placeholder.png */,
-				A60140F61FEACC92001ED4ED /* ex1.png */,
-				A60140F81FEAD3CB001ED4ED /* ex2.gif */,
 				77CD17B81FEA1B4100B2B54F /* sample2.png */,
 				77CD17871FEA192F00B2B54F /* Main.storyboard */,
 				77CD178A1FEA192F00B2B54F /* Assets.xcassets */,
@@ -294,10 +288,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A60140F71FEACC92001ED4ED /* ex1.png in Resources */,
 				77CD178E1FEA192F00B2B54F /* LaunchScreen.storyboard in Resources */,
 				77A671A41FEE81FC00FC6EBC /* _placeholder.png in Resources */,
-				A60140F91FEAD3CB001ED4ED /* ex2.gif in Resources */,
 				77CD178B1FEA192F00B2B54F /* Assets.xcassets in Resources */,
 				77CD17BC1FEA1FA600B2B54F /* README.md in Resources */,
 				77CD17B91FEA1B4100B2B54F /* sample2.png in Resources */,

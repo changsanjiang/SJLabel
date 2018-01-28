@@ -501,8 +501,6 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 @end
 
 
-
-
 @implementation SJUIButtonFactory
 + (UIButton *)buttonWithTarget:(id)target sel:(SEL)sel {
     return [self buttonWithBackgroundColor:nil target:target sel:sel];

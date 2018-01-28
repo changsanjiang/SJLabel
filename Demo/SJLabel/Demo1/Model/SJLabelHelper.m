@@ -13,21 +13,18 @@
 
 + (instancetype)helperWithAttributedStr:(NSAttributedString *)attributedStr
                                maxWidth:(float)maxWidth
-                          numberOfLines:(NSUInteger)numberOfLines
-                            lineSpacing:(CGFloat)lineSpacing {
-    return [[self alloc] initWithAttributedStr:attributedStr maxWidth:maxWidth numberOfLines:numberOfLines lineSpacing:lineSpacing];
+                          numberOfLines:(NSUInteger)numberOfLines {
+    return [[self alloc] initWithAttributedStr:attributedStr maxWidth:maxWidth numberOfLines:numberOfLines];
 }
 
 - (instancetype)initWithAttributedStr:(NSAttributedString *)attributedStr
                              maxWidth:(float)maxWidth
-                        numberOfLines:(NSUInteger)numberOfLines
-                          lineSpacing:(CGFloat)lineSpacing {
+                        numberOfLines:(NSUInteger)numberOfLines {
     self = [super init];
     if ( !self ) return nil;
     SJCTFrameParserConfig *config = [SJCTFrameParserConfig defaultConfig];
     config.numberOfLines = 0;
     config.maxWidth = maxWidth;
-    config.lineSpacing = lineSpacing;
     _drawData = [[SJCTData alloc] initWithAttributedString:attributedStr config:config];
     [_drawData needsDrawing];
     return self;

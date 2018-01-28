@@ -17,8 +17,6 @@
 #import "SJLabel.h"
 #import "NSMutableAttributedString+ActionDelegate.h"
 
-static NSString *const __TestString =  @"我被班主任😆杨老师叫#dsf$AXXBC$S#SFS到办公室，当时上课铃刚响，杨老师S#SFS过来找我，我挺奇怪的，什么事(ˇˍˇ) 想～啊，可以连课都不上？当时办公室里就我S#SFS们两个人S#SFS。杨老师拿出😓手机，让我看她拍的一张照片，是S#SFS我们班最近一次ASdsdsa班级活动时照的。我们仨S#SFS坐在一张椅子上，我坐在中间，皱着个眉头，小喵托着腮帮子，小桐则靠着椅背坐着。";
-
 static NSString *SJTableViewCellID = @"SJTableViewCell";
 
 @interface SJLabelViewController ()<NSAttributedStringActionDelegate>
@@ -45,27 +43,30 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
             
             // create attributes
             NSMutableAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-                make.font([UIFont boldSystemFontOfSize:22]).lineSpacing(0);
-                make.insertText([__TestString substringToIndex:arc4random() % __TestString.length], 0);
-                make.regexp(@"我们", ^(SJAttributesRangeOperator * _Nonnull matched) {
-                    // 将匹配到的`我们`高亮显示
+                
+                make.insert(@"@迷你世界联机 :@江叔 用小淘气耍赖野人#迷你世界#. #精选#看到最后!! [点赞][评论][转发]", 0);
+                
+                make.font([UIFont boldSystemFontOfSize:17]);
+                make.regexp(@"[@][^\\s]+\\s", ^(SJAttributesRangeOperator * _Nonnull matched) {
+                    matched.textColor([UIColor purpleColor]);
+                });
+                make.regexp(@"[#][^#]+#", ^(SJAttributesRangeOperator * _Nonnull matched) {
                     matched.textColor([UIColor orangeColor]);
-                    matched.underLine(NSUnderlineStyleSingle, [UIColor orangeColor]);
                 });
-                make.insert(@"[活动链接]", -1);
-                make.lastInserted(^(SJAttributesRangeOperator * _Nonnull lastOperator) {
-                    lastOperator.textColor([UIColor blueColor]).underLine(NSUnderlineStyleSingle, [UIColor colorWithWhite:0.6 alpha:1]);
+                make.regexp(@"[\\[][^\\]]+\\]", ^(SJAttributesRangeOperator * _Nonnull matched) {
+                    matched.textColor([UIColor greenColor]);
                 });
+
             });
             
             
             // add action
             attrStr.actionDelegate = self;
-            attrStr.addAction(@"我们");    // 所有的`我们`添加点击事件, 回调将在代理方法中回调.
-            attrStr.addAction(@"[活动链接]"); // 所有的`[活动链接]`添加点击事件, 回调将在代理方法中回调.
-            
-            
-            SJLabelHelper *helper = [SJLabelHelper helperWithAttributedStr:attrStr maxWidth:[SJTableViewCell ContentMaxWidth] numberOfLines:0 lineSpacing:8];
+
+            // action
+            attrStr.addAction(@"([@][^\\s]+\\s)|([#][^#]+#)|([\\[][^\\]]+\\])");
+
+            SJLabelHelper *helper = [SJLabelHelper helperWithAttributedStr:attrStr maxWidth:[SJTableViewCell ContentMaxWidth] numberOfLines:0];
             // add to container
             [helpersM addObject:helper];
         }

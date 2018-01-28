@@ -1,19 +1,9 @@
 PODS:
   - Masonry (1.1.0)
-  - SJAttributesFactory (2.0.0)
-  - SJLabel (1.2.3):
-    - SJAttributesFactory
-    - SJLabel/Category (= 1.2.3)
-    - SJLabel/Services (= 1.2.3)
-  - SJLabel/Category (1.2.3):
-    - SJAttributesFactory
-  - SJLabel/Services (1.2.3):
-    - SJAttributesFactory
-  - SJUIFactory (0.0.13):
-    - SJLabel
-    - SJUIFactory/Category (= 0.0.13)
-  - SJUIFactory/Category (0.0.13):
-    - SJLabel
+  - SJAttributesFactory (2.0.1)
+  - SJUIFactory (0.0.14):
+    - SJUIFactory/Category (= 0.0.14)
+  - SJUIFactory/Category (0.0.14)
 
 DEPENDENCIES:
   - Masonry
@@ -22,9 +12,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  SJAttributesFactory: 68fa80884b93048500d69ec1d897d03d12f01675
-  SJLabel: 792d4661ee52407e13781a39151bb0d51b4ad6e8
-  SJUIFactory: 1f0ee2406f61913c1f0188763df1c866c2693ca3
+  SJAttributesFactory: 997767948766d2401f150b7c7a6e3163a1b37ef6
+  SJUIFactory: 3b73bc10a2de3cedd7856480bdde177ed9fc6843
 
 PODFILE CHECKSUM: 17ce33ff16e6ad5782afe9cae00565b62a5170c0
 

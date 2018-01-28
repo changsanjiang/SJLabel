@@ -10,7 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 extern CGSize SJScreen_Size(void);
 extern float SJScreen_W(void);
 extern float SJScreen_H(void);
@@ -195,6 +194,8 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
                       attrStr:(NSAttributedString * __nullable )attrStr;
 
 @end
+
+
 
 
 #pragma mark -
