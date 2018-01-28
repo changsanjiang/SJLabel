@@ -14,13 +14,17 @@ ___
 
 ### Sample
 ```Objective-C
-- (void)addAction {
-    // add `attributedString` some action
+- (void)test {
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:@"@迷你世界联机 :@江叔 用小淘气耍赖野人#迷你世界#. #精选#看到最后!! [点赞]!![评论]!!"];
+    
+    // 1. add `attributedString` some action
     attrStr.actionDelegate = self;
     
-    // regular matching action
-    attrStr.addAction(@"[@][^\\s]+\\s");
-    attrStr.addAction(@"[\[][^\]]+\]");
+    // 2. regular matching action
+    attrStr.addAction(@"([@][^\\s]+\\s)|([#][^#]+#)|([\\[][^\\]]+\\])");
+    
+    // 3. set str
+    sjLabel.attributedText = attrStr;
 }
 
 /// Delegate Method

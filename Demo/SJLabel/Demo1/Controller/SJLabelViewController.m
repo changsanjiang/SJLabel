@@ -41,10 +41,11 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
         NSMutableArray<SJLabelHelper *> *helpersM = [NSMutableArray array];
         for ( int i = 0 ; i < 99 ; i ++ ) {
             
+            
             // create attributes
             NSMutableAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
-                
-                make.insert(@"@迷你世界联机 :@江叔 用小淘气耍赖野人#迷你世界#. #精选#看到最后!! [点赞][评论][转发]", 0);
+            
+                make.insert(@"@迷你世界联机 :@江叔 用小淘气耍赖野人#迷你世界#. #精选#看到最后!! [点赞]!![评论]!!", 0);
                 
                 make.font([UIFont boldSystemFontOfSize:17]);
                 make.regexp(@"[@][^\\s]+\\s", ^(SJAttributesRangeOperator * _Nonnull matched) {
@@ -70,6 +71,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
             // add to container
             [helpersM addObject:helper];
         }
+        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // set helpers
