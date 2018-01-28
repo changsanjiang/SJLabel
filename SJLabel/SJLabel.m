@@ -112,10 +112,9 @@
         CGPoint point = [touches.anyObject locationInView:self];
         signed long index = [_displayLayer.drawData touchIndexWithPoint:point];
         if ( index != kCFNotFound && index < _displayLayer.drawData.attrStr.length ) {
-            NSRange range = NSMakeRange(0, 0);
-            NSDictionary<NSAttributedStringKey, id> *attributes = [_displayLayer.drawData.attrStr attributesAtIndex:index effectiveRange:&range];
-            NSAttributedString *actionStr = [_displayLayer.drawData.attrStr attributedSubstringFromRange:range];
+            NSDictionary<NSAttributedStringKey, id> *attributes = [_displayLayer.drawData.attrStr attributesAtIndex:index effectiveRange:NULL];
             if ( attributes[SJActionAttributedStringKey] ) {
+                NSAttributedString *actionStr = [_displayLayer.drawData.attrStr attributedSubstringFromRange:[attributes[SJActionAttributedStringKey] rangeValue]];
                 if ( [_displayLayer.drawData.attrStr.actionDelegate respondsToSelector:@selector(attributedString:action:)] ) {
                     [_displayLayer.drawData.attrStr.actionDelegate attributedString:_displayLayer.drawData.attrStr action:actionStr];
                 }

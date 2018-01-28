@@ -37,7 +37,7 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
             // create attributes
             NSMutableAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
             
-                make.insert(@"@迷你世界联机 :@江叔 用小淘气耍赖野人#迷你世界#. #精选#看到最后!! [点赞]!![评论]!!", 0);
+                make.insert(@"@迷你世界联机 :@江叔 用小淘气耍赖野人#迷你世界#. #精选#看到最后!! [点赞][评论]!!", 0);
                 
                 make.font([UIFont boldSystemFontOfSize:17]);
                 make.regexp(@"[@][^\\s]+\\s", ^(SJAttributesRangeOperator * _Nonnull matched) {
