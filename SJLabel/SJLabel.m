@@ -106,7 +106,7 @@
     return CGSizeZero;
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     __block BOOL action = NO;
     if ( _displayLayer.drawData ) {
         CGPoint point = [touches.anyObject locationInView:self];

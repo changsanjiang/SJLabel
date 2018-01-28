@@ -30,18 +30,10 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    [self.tableView registerClass:NSClassFromString(SJTableViewCellID) forCellReuseIdentifier:SJTableViewCellID];
-    self.tableView.estimatedRowHeight = 0;
-    self.tableView.estimatedSectionFooterHeight = 0;
-    self.tableView.estimatedSectionHeaderHeight = 0;
-    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
         NSMutableArray<SJLabelHelper *> *helpersM = [NSMutableArray array];
         for ( int i = 0 ; i < 99 ; i ++ ) {
-            
-            
             // create attributes
             NSMutableAttributedString *attrStr = sj_makeAttributesString(^(SJAttributeWorker * _Nonnull make) {
             
@@ -83,6 +75,11 @@ static NSString *SJTableViewCellID = @"SJTableViewCell";
 
     });
     
+    
+    [self.tableView registerClass:NSClassFromString(SJTableViewCellID) forCellReuseIdentifier:SJTableViewCellID];
+    self.tableView.estimatedRowHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
+    self.tableView.estimatedSectionHeaderHeight = 0;
     
     // Do any additional setup after loading the view.
 }
